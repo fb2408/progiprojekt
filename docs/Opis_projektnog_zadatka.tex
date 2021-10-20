@@ -56,52 +56,42 @@
 		\~{} 
 		$\backslash$ 
 		
-		\begin{longtabu} to \textwidth {|X[8, l]|X[8, l]|X[16, l]|} %definicija širine tablice, širine stupaca i poravnanje
-			
-			%definicija naslova tablice
-			\hline \multicolumn{3}{|c|}{\textbf{naslov unutar tablice}}	 \\[3pt] \hline
-			\endfirsthead
-			
-			%definicija naslova tablice prilikom prijeloma
-			\hline \multicolumn{3}{|c|}{\textbf{naslov unutar tablice}}	 \\[3pt] \hline
-			\endhead
-			
-			\hline 
-			\endlastfoot
-			
-			\rowcolor{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
+		
+		\begin{longtblr}[
+			label=none,
+			entry=none
+			]{
+				width = \textwidth,
+				colspec={|X[8,l]|X[8, l]|X[16, l]|}, 
+				rowhead = 1,
+			} %definicija širine tablice, širine stupaca, poravnanje i broja redaka naslova tablice
+			\hline \multicolumn{3}{|c|}{\textbf{naslov unutar tablice}}	 \\ \hline[3pt]
+			\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
 			korisnickoIme	& VARCHAR &   	\\ \hline 
 			email & VARCHAR &   \\ \hline 
 			ime & VARCHAR	&  		\\ \hline 
-			\cellcolor{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-			
-		\end{longtabu}
+			\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
+		\end{longtblr}
 		
 
-		\begin{table}[H]
-			
-			\begin{longtabu} to \textwidth {|X[8, l]|X[8, l]|X[16, l]|} 
-				
-				\hline 
-				\endfirsthead
-				
-				\hline 
-				\endhead
-				
-				\hline 
-				\endlastfoot
-				
-				\rowcolor{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
-				korisnickoIme	& VARCHAR &   	\\ \hline 
-				email & VARCHAR &   \\ \hline 
-				ime & VARCHAR	&  		\\ \hline 
-				\cellcolor{LightBlue} primjer	& VARCHAR &   	\\ \hline 
-				
-				
-			\end{longtabu}
+		\begin{longtblr}[
+				caption = {Naslov s referencom izvan tablice},
+				entry = {Short Caption},
+			]{
+				width = \textwidth, 
+				colspec = {|X[8,l]|X[8,l]|X[16,l]|}, 
+				rowhead = 1,
+			}
+			\hline
+			\SetCell{LightGreen}IDKorisnik & INT	&  	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  	\\ \hline
+			korisnickoIme	& VARCHAR &   	\\ \hline 
+			email & VARCHAR &   \\ \hline 
+			ime & VARCHAR	&  		\\ \hline 
+			\SetCell{LightBlue} primjer	& VARCHAR &   	\\ \hline 
+		\end{longtblr}
 	
-			\caption{\label{tab:referencatablica} Naslov ispod tablice.}
-		\end{table}
+
+
 		
 		
 		%unos slike
@@ -113,7 +103,7 @@
 		\end{figure}
 		
 		\begin{figure}[H]
-			\includegraphics[width=.9\linewidth]{slike/aktivnost.PNG} %veličina u odnosu na širinu linije
+			\includegraphics[width=\textwidth]{slike/aktivnost.PNG} %veličina u odnosu na širinu linije
 			\caption{Primjer slike s potpisom 2}
 			\label{fig:promjene2} %label mora biti drugaciji za svaku sliku
 		\end{figure}
