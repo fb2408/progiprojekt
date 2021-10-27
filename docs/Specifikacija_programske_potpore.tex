@@ -13,9 +13,11 @@
 			
 			\begin{packed_enum}
 				
-				\item Dionik 1
-				\item Dionik 2				
-				\item ...
+				\item Asistent (Naručitelj)
+				\item Korisnici				
+				\item Vlasnici parkinga
+				\item Administrator(i)
+				\item Razvojni tim
 				
 			\end{packed_enum}
 			
@@ -23,28 +25,69 @@
 			
 			
 			\begin{packed_enum}
-				\item  \underbar{Aktor 1 (inicijator) može:}
+				\item  \underbar{Vlasnik parkinga (inicijator) može:}
 				
 				\begin{packed_enum}
 					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
-					\begin{packed_enum}
-						
-						\item  podfunkcionalnost 1 
-						\item  podfunkcionalnost 2
-				
-					\end{packed_enum}
-					\item  funkcionalnost 3
+					\item Napraviti (max 1) parkiralište, te ga izbrisati, ili promijeniti ime i cjenik
+					\item Ucrtati nova i izbrisati postojeća parking mjesta za svoj parking
+					\item Definirati i promijeniti mogućnost rezervacije pojedinog parkirališnog mjesta
+					\item Pregledati svoje osobne podatke i promijeniti ih
+					\item Izbrisati svoj korisnički račun
+					\item Pregledati statistiku zauzetosti svog parkirališta i parkirališnih mjesta kroz vrijeme u obliku grafa
 					
 				\end{packed_enum}
 			
-				\item  \underbar{Aktor 2 (sudionik) može:}
+				\item  \underbar{ Neregistrirani/neprijavljeni korisnik (inicijator) može:}
 				
 				\begin{packed_enum}
 					
-					\item funkcionalnost 1
-					\item funkcionalnost 2
+					\item Registrirati se kao klijent ili kao vlasnik parkinga
+					\item Prijaviti se
+					\item Pregledati sva parkirališta i parkirališna mjesta dostupna u aplikaciji
+					
+				\end{packed_enum}
+			
+				\item  \underbar{Prijavljeni klijent (inicijator) može:}
+				
+				\begin{packed_enum}
+					
+					\item Odjaviti se
+					\item Pregledati svoje osobne podatke i promijeniti ih
+					\item izbrisati korisnički račun
+					\item Pregledati sva parkirališta i parkirališna mjesta dostupna u aplikaciji te njihovu zauzetost u realnom vremenu i rezervati ih
+					\item Upisati destinaciju, tip prijevoza i procjenu trajanja parkinga te dobiti mogućnost rezervacije najbližeg parkirališnog mjesta
+					\item Uplatiti novac u račun
+					\item Pregledati povijest transakcija i rezervacija
+					
+				\end{packed_enum}
+			
+				\item  \underbar{Administrator (inicijator) može:}
+				
+				\begin{packed_enum}
+					
+					\item Odjaviti se
+					\item Izbrisati ili promijeniti korisnički račun bilo kojeg ne-administratorskog korisnika
+					\item Pregledati sva parkirališta i parkirališna mjesta dostupna u aplikaciji, te promijeniti njihove podatke
+					\item Potvrditi novi račun vlasnika parkirališta
+					
+				\end{packed_enum}
+			
+				\item  \underbar{Baza podataka (sudionik):}
+				
+				\begin{packed_enum}
+					
+					\item Pohranjuje sve podatke o korisnicima i njihovim ovlastima
+					\item Pohranjuje sve podatke o parkiralištima (ime, cjenik)
+					\item Pohranjuje sve podatke o parkirališnim mjestima (zauzetost, tip)
+					
+				\end{packed_enum}
+			
+				\item  \underbar{Senzor zauzetosti (inicijator):}
+				
+				\begin{packed_enum}
+					
+					\item Šalje signal kad se parkirališno mjesto zauzme ili oslobodi
 					
 				\end{packed_enum}
 			\end{packed_enum}
