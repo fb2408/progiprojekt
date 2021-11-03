@@ -570,132 +570,121 @@
     				\noindent \underbar{\textbf{UC15 - Pregled statistike zauzetosti}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik:} Administrator
+    					\item  \textbf{Cilj:} administrator može voditi evidenciju o zauzetosti parkirališnih mjesta
+    					\item  \textbf{Sudionici:} baza podataka
+    					\item  \textbf{Preduvjet:} korisnik je prijavljen kao administrator
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item administrator odluči vidjeti zauzetost svih parkirališta
+    						\item dohvaćanje podataka o zauzetosti iz baze podataka
+    						\item administrator pregledava podatke te donosi daljnje odluke
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] odabir krivog parkirnog mjesta te onemogućavanje dohvaćanja podtaka iz baze podataka
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item ispis pogreške o krivom odabiru parkirnog mjesta
+    							\item administrator mijenja odabir parkirnog mjesta
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC16 - Pregled dostupnih parkirališnih mjesta}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: } Registrirani i neregistrirani korisnici
+    					\item  \textbf{Cilj:} uvid u dostupna parkirališna mjesta
+    					\item  \textbf{Sudionici:} baza podataka
+    					\item  \textbf{Preduvjet:} nema
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item odabir parkinga te parkirališnog mjesta
+    						\item dohvaćanje podataka iz baze podataka
+    						\item daljnje registriranje u slučaju da korisnik želi izvršiti rezervaciju
+
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] nema slobodnih parkirališnih mjesta
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item poruka o popunjenosti parkinga
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC17 - Pregled zauzetosti parkirališnih mjesta}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: } Voditelj parkinga
+    					\item  \textbf{Cilj:} svaki voditelj može evidentirati zauzetost o svojim parkirnim mjestima
+    					\item  \textbf{Sudionici:} baza podataka
+    					\item  \textbf{Preduvjet:} korisnik prijavljen kao voditelj parkinga te korisnik ima parkirnih mjesta
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item voditelj odluči vidjeti podatke o zauzetosti
+    						\item dohvat svih parkirnih mjesta za tog voditelja
+    						\item odabir parkirnog mjesta
+    						\item dohvat podataka iz baze podataka
+    						\item uvid u dostavljene podatke 
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] nema nijedno parkirno mjesto
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item poruka te mogućnost dodavanja parkirnih mjesta
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC18 - Rezervacija parkirališnog mjesta}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: } Klijent
+    					\item  \textbf{Cilj:} klijent rezervira parkirališno mjesto
+    					\item  \textbf{Sudionici:} baza podataka
+    					\item  \textbf{Preduvjet:} korisnik rezerviran kao klijent
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item korisnik odluči rezervirati parkirno mjesto
+    						\item otvaranje karte te odabir tipa prijevoza te trajanje parkinga	
+    						\item iscrtavanje rute do najbliže slobodnog parkirališnog mjesta
+    						\item klijent odabire jedan od 2 načina rezerviranja
+    						\item nastavak na plaćanje
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[3.a] nema slobodnih parkirališnih mjesta
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item ispis pogreške
+    							\item preusmjeravanje nazad na ispunjavanje obrasca o traženju slobodnih parkirnih mjesta
     							
     						\end{packed_enum}
     						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
@@ -706,68 +695,70 @@
     				\noindent \underbar{\textbf{UC19 - Upis destinacije, tipa prijevoza i procjene trajanja parkinga}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: } klijent
+    					\item  \textbf{Cilj:} unos podataka za rezervaciju parkinga
+    					\item  \textbf{Sudionici:} baza podataka
+    					\item  \textbf{Preduvjet:} korisnik registriran kao klijent
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item upis destinacije, tipa prijevoza i procjene trajanja parkinga
+    						\item filtriranje slobodnih parkirnih mjesta
+    						\item rezervacija parkirnog mjesta
+
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] unos krivih podataka
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
-    							
+    							\item poruka te ponovna mogućnost unosa podataka
+    					
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC20 - Uplata novca na račun}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    				\item  \textbf{Cilj:} $<$cilj$>$
-    				\item  \textbf{Sudionici:} $<$sudionici$>$
-    				\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    				\item \textbf{Glavni sudionik: } klijent
+    				\item  \textbf{Cilj:} uplata klijenta na račun vlasnika parkinga
+    				\item  \textbf{Sudionici:} baza podataka, Vlasnik parkinga
+    				\item  \textbf{Preduvjet:} korisnik registriran kao klijent te klijent izvršio rezervaciju
     				\item  \textbf{Opis osnovnog tijeka:}
     				
     				\item[] \begin{packed_enum}
     					
-    					\item $<$opis korak jedan$>$
-    					\item $<$opis korak dva$>$
-    					\item $<$opis korak tri$>$
-    					\item $<$opis korak četiri$>$
-    					\item $<$opis korak pet$>$
+    					\item uvid u cijenu željenog parkirališnog mjesta
+    					\item klijent dodaje novac u novčanik
+    					\item klijent plaća novac na voditeljeov račun
+    					\item ažuriranje novčanika u bazi podataka
+    					\item potvrda o uspješnoj transakciji
+
     				\end{packed_enum}
     				
     				\item  \textbf{Opis mogućih odstupanja:}
     				
     				\item[] \begin{packed_item}
     					
-    					\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    					\item[2.a] klijent nema dovoljno novca u novčaniku
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    						\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    						\item ispis poruke
+    						\item preusmjeravanje na dodavanje novca u novčanik
     						
     					\end{packed_enum}
-    					\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    					\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+    					\item[3.a] neuspjelo ažuriranje podataka
+						\item[] \begin{packed_enum}
+							
+							\item ispis poruke
+							\item preusmjeravanje na ponovno izvršavanje transakcije
+							
+						\end{packed_enum}
     					
     				\end{packed_item}
     			\end{packed_item}
@@ -804,36 +795,22 @@
     				\noindent \underbar{\textbf{UC22 - Potvrda računa vlasnika}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: } Administrator
+    					\item  \textbf{Cilj:} potvrditi račun voditelja parkinga
+    					\item  \textbf{Sudionici:}  baza podataka
+    					\item  \textbf{Preduvjet:} vlasnik je napravio račun potvrdom email adrese te korisnik je prijavljen kao administrator
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Administrator pregledava voditeljev račun
+    						\item odabire funkcionalnost potvrđivanja u slučaju valjanosti računa suprotno odbacuje račun
+
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
-    					\item[] \begin{packed_item}
-    						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[] \begin{packed_enum}
-    							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
-    							
-    						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-    						
-    					\end{packed_item}
+    					
     				\end{packed_item}
     				
 				
