@@ -103,238 +103,229 @@
 					\noindent \underbar{\textbf{UC1 - Dodavanje parkirališta}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: }\text{Voditelj parkirališta}
+						\item  \textbf{Cilj:} \text{Dodavanje parkirališta u bazu podataka}
+						\item  \textbf{Sudionici:} \text{Voditelj parkirališta, baza podataka}
+						\item  \textbf{Preduvjet:} \text{Korisnik mora imati ulogu voditelja parkinga}
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							\item \text{Voditelj parkirališta odabire opciju za dodavanje parkinga}							
+							\item \text{Voditelj parkirališta unosi informacije o svom parkiralištu}							
+							\item \text{Voditelj parkirališta na karti unosi dostupna parkirališna mjesta}							
+													
+							\item \text{Voditelj parkirališta postavlja senzor koji osvježava informaciju zauzetosti parkirališnog mjesta}						
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Unešeno već postojeće ime parkinga
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Aplikacija ispisuje grešku
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+							\item[3.a] Označavanje mjesta na karti na kojem već postoji parking
+							\item[] \begin{packed_enum}
+								
+								\item Aplikacija ispisuje grešku
+								
+							\end{packed_enum}
+							\item[4.a] Aplikacija se ne može povezati sa senzorom
+							\item[] \begin{packed_enum}
+								
+								\item Aplikacija ispisuje grešku
+								
+							\end{packed_enum}
 							
 						\end{packed_item}
 					\end{packed_item}
 					\noindent \underbar{\textbf{UC2 - Brisanje parkirališta}}
 					\begin{packed_item}
 						
-						\item \textbf{Glavni sudionik: }$<$sudionik$>$
-						\item  \textbf{Cilj:} $<$cilj$>$
-						\item  \textbf{Sudionici:} $<$sudionici$>$
-						\item  \textbf{Preduvjet:} $<$preduvjet$>$
+						\item \textbf{Glavni sudionik: }Voditelj parkirališta
+						\item  \textbf{Cilj:} Brisanje parkirališta
+						\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
+						\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište već postoji u bazi podataka
 						\item  \textbf{Opis osnovnog tijeka:}
 						
 						\item[] \begin{packed_enum}
 							
-							\item $<$opis korak jedan$>$
-							\item $<$opis korak dva$>$
-							\item $<$opis korak tri$>$
-							\item $<$opis korak četiri$>$
-							\item $<$opis korak pet$>$
+							
+							\item Voditelj zatraži brisanje parkirališta
+							\item Parkiralište se briše iz baze podataka
+							\item Voditelju se javlja da je parkiralište uspješno izbrisano
+							
 						\end{packed_enum}
 						
 						\item  \textbf{Opis mogućih odstupanja:}
 						
 						\item[] \begin{packed_item}
 							
-							\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+							\item[2.a] Neuspješno brisanje podataka iz baze podataka	
 							\item[] \begin{packed_enum}
 								
-								\item $<$opis rješenja mogućeg scenarija korak 1$>$
-								\item $<$opis rješenja mogućeg scenarija korak 2$>$
+								\item Aplikacija ispisuje grešku
 								
 							\end{packed_enum}
-							\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-							\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-							
 						\end{packed_item}
 					\end{packed_item}
 				    \noindent \underbar{\textbf{UC3 - Izmjena podataka o parkiralištu}}
 				   \begin{packed_item}
 				   	
-				   	\item \textbf{Glavni sudionik: }$<$sudionik$>$
-				   	\item  \textbf{Cilj:} $<$cilj$>$
-				   	\item  \textbf{Sudionici:} $<$sudionici$>$
-				   	\item  \textbf{Preduvjet:} $<$preduvjet$>$
+				   	\item \textbf{Glavni sudionik: }Voditelj parkirališta
+				   	\item  \textbf{Cilj:} Izmjena podataka o parkiralištu
+				   	\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
+				   	\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište već postoji u bazi podataka
 				   	\item  \textbf{Opis osnovnog tijeka:}
 				   	
 				   	\item[] \begin{packed_enum}
 				   		
-				   		\item $<$opis korak jedan$>$
-				   		\item $<$opis korak dva$>$
-				   		\item $<$opis korak tri$>$
-				   		\item $<$opis korak četiri$>$
-				   		\item $<$opis korak pet$>$
+				   		\item Voditelj zatraži izmjenu podataka
+				   		\item Voditelj unosi nove izmjenjene podatke o parkiralištu
+				   		\item Novi podatci se spremaju u bazu podataka
+				   		\item Voditelju se javlja da su podatci uspješno izmjenjeni
 				   	\end{packed_enum}
 				   	
 				   	\item  \textbf{Opis mogućih odstupanja:}
 				   	
 				   	\item[] \begin{packed_item}
 				   		
-				   		\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+				   		
+				   		
+				   		\item[3.a] Neuspješno spremanje podataka u bazu podataka	
 				   		\item[] \begin{packed_enum}
 				   			
-				   			\item $<$opis rješenja mogućeg scenarija korak 1$>$
-				   			\item $<$opis rješenja mogućeg scenarija korak 2$>$
+				   			\item Aplikacija ispisuje grešku
 				   			
 				   		\end{packed_enum}
-				   		\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-				   		\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
 				   		
 				   	\end{packed_item}
 				   \end{packed_item}
 			    	\noindent \underbar{\textbf{UC4 - Izmjena podataka o parkirališnom mjestu}}
 			    	\begin{packed_item}
 			    		
-			    		\item \textbf{Glavni sudionik: }$<$sudionik$>$
-			    		\item  \textbf{Cilj:} $<$cilj$>$
-			    		\item  \textbf{Sudionici:} $<$sudionici$>$
-			    		\item  \textbf{Preduvjet:} $<$preduvjet$>$
+			    		\item \textbf{Glavni sudionik: }Voditelj parkirališta
+			    		\item  \textbf{Cilj:} Izmjena podataka o parkirališnom mjestu
+			    		\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
+			    		\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište i parkirno mjesto već postoji u bazi podataka
 			    		\item  \textbf{Opis osnovnog tijeka:}
 			    		
 			    		\item[] \begin{packed_enum}
 			    			
-			    			\item $<$opis korak jedan$>$
-			    			\item $<$opis korak dva$>$
-			    			\item $<$opis korak tri$>$
-			    			\item $<$opis korak četiri$>$
-			    			\item $<$opis korak pet$>$
+			    			\item Voditelj zatraži izmjenu podataka
+			    			\item Voditelj unosi nove izmjenjene podatke o parkirališnom mjestu
+			    			\item Novi podatci se spremaju u bazu podataka
+			    			\item Voditelju se javlja da su podatci uspješno izmjenjeni
 			    		\end{packed_enum}
 			    		
 			    		\item  \textbf{Opis mogućih odstupanja:}
 			    		
 			    		\item[] \begin{packed_item}
-			    			
-			    			\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+			    			\item[3.a] Neuspješno spremanje podataka u bazu podataka	
 			    			\item[] \begin{packed_enum}
 			    				
-			    				\item $<$opis rješenja mogućeg scenarija korak 1$>$
-			    				\item $<$opis rješenja mogućeg scenarija korak 2$>$
+			    				\item Aplikacija ispisuje grešku
 			    				
 			    			\end{packed_enum}
-			    			\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-			    			\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
 			    			
-			    		\end{packed_item}
 			    	\end{packed_item}
-		    		\noindent \underbar{\textbf{UC5 - Dodavanje parking mjesta}}
+		    		\noindent \underbar{\textbf{UC5 - Dodavanje parkirališnog mjesta}}
 		    		\begin{packed_item}
-		    			
-		    			\item \textbf{Glavni sudionik: }$<$sudionik$>$
-		    			\item  \textbf{Cilj:} $<$cilj$>$
-		    			\item  \textbf{Sudionici:} $<$sudionici$>$
-		    			\item  \textbf{Preduvjet:} $<$preduvjet$>$
+		    			\item \textbf{Glavni sudionik: }Voditelj parkirališta
+		    			\item  \textbf{Cilj:} Dodavanje parkirališnog mjesta
+		    			\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
+		    			\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište i parkirno mjesto već postoji u bazi podataka
 		    			\item  \textbf{Opis osnovnog tijeka:}
 		    			
 		    			\item[] \begin{packed_enum}
 		    				
-		    				\item $<$opis korak jedan$>$
-		    				\item $<$opis korak dva$>$
-		    				\item $<$opis korak tri$>$
-		    				\item $<$opis korak četiri$>$
-		    				\item $<$opis korak pet$>$
+		    				\item Voditelj zatraži dodavanje novog parkirališnog mjesta na parkiralištu
+		    				\item Voditelj na karti ucrtaje parkirališno mjesto
+		    				\item Voditelj parkirališta definira je li moguće rezervirati parkirališno mjesto
+		    				\item Podatci se spremaju u bazu podataka
+		    				\item Voditelju se javlja da su podatci uspješno spremljeni u bazi podataka
 		    			\end{packed_enum}
 		    			
 		    			\item  \textbf{Opis mogućih odstupanja:}
 		    			
 		    			\item[] \begin{packed_item}
 		    				
-		    				\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+		    				\item[2.a] Voditelj dodaje parkirališno mjesto na lokaciji na kojoj vec postoji parkirališno mjesto
 		    				\item[] \begin{packed_enum}
 		    					
-		    					\item $<$opis rješenja mogućeg scenarija korak 1$>$
-		    					\item $<$opis rješenja mogućeg scenarija korak 2$>$
+		    					\item Voditelja se upozorava o grešci
 		    					
 		    				\end{packed_enum}
-		    				\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-		    				\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+	    				
+	    				\item[4.a] Neuspješno spremanje podataka u bazu podataka	
+	    				\item[] \begin{packed_enum}
+	    					
+	    					\item Aplikacija ispisuje grešku
+	    					
+	    				\end{packed_enum}
 		    				
 		    			\end{packed_item}
 		    		\end{packed_item}
 	    			\noindent \underbar{\textbf{UC6 - Brisanje parking mjesta}}
 	    			\begin{packed_item}
 	    				
-	    				\item \textbf{Glavni sudionik: }$<$sudionik$>$
-	    				\item  \textbf{Cilj:} $<$cilj$>$
-	    				\item  \textbf{Sudionici:} $<$sudionici$>$
-	    				\item  \textbf{Preduvjet:} $<$preduvjet$>$
+	    				\item \textbf{Glavni sudionik: }Voditelj parkirališta
+	    				\item  \textbf{Cilj:} Brisanje parking mjesta
+	    				\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
+	    				\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište već postoji u bazi podataka
 	    				\item  \textbf{Opis osnovnog tijeka:}
 	    				
 	    				\item[] \begin{packed_enum}
 	    					
-	    					\item $<$opis korak jedan$>$
-	    					\item $<$opis korak dva$>$
-	    					\item $<$opis korak tri$>$
-	    					\item $<$opis korak četiri$>$
-	    					\item $<$opis korak pet$>$
+	    					\item Voditelj zatraži brisanje parkiraling mjesta
+	    					\item Parkirališno mjesto se briše iz baze podataka
+	    					\item Voditelju se javlja da je parkiralište uspješno izbrisano
 	    				\end{packed_enum}
 	    				
 	    				\item  \textbf{Opis mogućih odstupanja:}
 	    				
 	    				\item[] \begin{packed_item}
 	    					
-	    					\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+	    					\item[2.a] Neuspješno brisanje podataka iz baze podataka	
 	    					\item[] \begin{packed_enum}
 	    						
-	    						\item $<$opis rješenja mogućeg scenarija korak 1$>$
-	    						\item $<$opis rješenja mogućeg scenarija korak 2$>$
+	    						\item Aplikacija ispisuje grešku
 	    						
 	    					\end{packed_enum}
-	    					\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-	    					\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-	    					
 	    				\end{packed_item}
 	    			\end{packed_item}
     				\noindent \underbar{\textbf{UC7 - Definiranje mogućnosti rezervacije pojedinog parkirališnog mjesta}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: }Voditelj parkirališta
+    					\item  \textbf{Cilj:} Definiranje mogućnosti rezervacije pojedinog parkirališnog mjesta
+    					\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
+    					\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište već postoji u bazi podataka
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Voditelj odabire parkirališno mjesto 
+    						\item Voditelj definira mogućnost rezervacije parkirališnog mjesta
+    						\item Informacije se spremaju u bazi podataka
+    						\item Voditelju se javlja da su podatci uspješno spremljeni
+    					
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[3.a] Neuspješno spremanje podataka u bazu podataka	
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item Aplikacija ispisuje grešku
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
@@ -783,34 +774,30 @@
     				\noindent \underbar{\textbf{UC21 -Pregled povijesti transakcija i rezervacija}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik: }Voditelj parkirališta
+    					\item  \textbf{Cilj:}Pregled povijesti transakcija i rezervacija 
+    					\item  \textbf{Sudionici:} Voditelj parkirališta i baza podataka
+    					\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište već postoji u bazi podataka
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Voditelj zatraži pregled povijesti transakcija i rezervacija
+    						\item Podatci se dohvaćaju iz baze podataka
+    						\item Podatci se ispisuju voditelju
+    						
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[] \begin{packed_enum}
-    							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
-    							
-    						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+    					\item[2.a] Neuspješno spremanje podataka u bazu podataka	
+    					\item[] \begin{packed_enum}
+    						
+    						\item Aplikacija ispisuje grešku
+    						
+    					\end{packed_enum}
     						
     					\end{packed_item}
     				\end{packed_item}
