@@ -341,240 +341,205 @@
     				\noindent \underbar{\textbf{UC8 - Promjena mogućnosti rezervacije pojedinog parkirališnog mjesta}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik:} Senzor zauzetosti
+    					\item  \textbf{Cilj:} Omogućuje ponovnu rezervaciju novog tek oslobođenog mjesta
+    					\item  \textbf{Sudionici:} Baza podataka
+    					\item  \textbf{Preduvjet:} 
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Vozilo dođe ili ode sa parkirališnog mjesta
+    						\item Senzor registrira promjenu
+    						\item Promjena se pohranjuje u bazu podataka
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] Kvar na senzoru zauzetosti
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item Hitan popravak ili zamjena senzora od strane vlasnika parkinga
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
+    			
     				\noindent \underbar{\textbf{UC9 - Pregled osobnih podataka}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik:} Administrator
+    					\item  \textbf{Cilj:} Dati administratoru posebnu mogućnost pregleda osobnih podataka svih registriranih korisnika
+    					\item  \textbf{Sudionici:} Baza podataka
+    					\item  \textbf{Preduvjet:} Glavni sudionik nužno mora biti prijavljen kao administrator
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Administrator zatraži pregled osobnih podataka određenog registriranog korisnika
+    						\item Određeni podaci se dohvaćaju iz baze podataka
+    						\item Podaci se formatirano prikazuju administratoru
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] Neuspjelo dohvaćanje podataka iz baze podataka
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item Aplikacija ispisuje grešku
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
     						
     					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC10 - Promjena osobnih podataka}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik:} Administrator
+    					\item  \textbf{Cilj:} Dati administratoru posebnu mogućnost izmjene osobnih podataka svih registriranih korisnika
+    					\item  \textbf{Sudionici:} Baza podataka
+    					\item  \textbf{Preduvjet:} Glavni sudionik nužno mora biti prijavljen kao administrator
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Administrator zatraži pregled osobnih podataka određenog registriranog korisnika
+    						\item Određeni podaci se dohvaćaju iz baze podataka
+    						\item Administrator odluči mijenjati osobne podatke odabranog korisnika
+    						\item Administrator potvrdi promjene
+    						\item Promjene se pohranjuju u bazu podataka
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    						\item[2.a] Neuspjelo dohvaćanje podataka iz baze podataka
     						\item[] \begin{packed_enum}
     							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    							\item Aplikacija ispisuje grešku
     							
     						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+    						\item[3.a] Administrator je unio krivi format podataka
+    						\item[] \begin{packed_enum}
+    							
+    							\item Aplikacija upozorava na krivi format i ne dopušta potvrdu
+    							
+    						\end{packed_enum}
+    						\item[5.a] Neuspjela pohrana u bazu podataka
+    						\item[] \begin{packed_enum}
+    							
+    							\item Aplikacija ispisuje grešku
+    							
+    						\end{packed_enum}
     						
     					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC11 - Registracija u sustav}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    				\item  \textbf{Cilj:} $<$cilj$>$
-    				\item  \textbf{Sudionici:} $<$sudionici$>$
-    				\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    				\item \textbf{Glavni sudionik:} Neregistrirani korisnik 
+    				\item  \textbf{Cilj:} Omogućuje neregistriranom korisniku registraciju u sustav
+    				\item  \textbf{Sudionici:} Baza podataka
+    				\item  \textbf{Preduvjet:} Glavni sudionik nije registriran od prije
     				\item  \textbf{Opis osnovnog tijeka:}
     				
     				\item[] \begin{packed_enum}
     					
-    					\item $<$opis korak jedan$>$
-    					\item $<$opis korak dva$>$
-    					\item $<$opis korak tri$>$
-    					\item $<$opis korak četiri$>$
-    					\item $<$opis korak pet$>$
+    					\item Neregistrirani korisnik šalje zahtjev za registraciju sa određenom ulogom za koju se hoće prijaviti (voditelj parkinga ili klijent)
+    					\item Neregistrirani korisnik upisuje potrebne podatke (ime, prezime email,...)
+    					\item Neregistrirani korisnik potvrđuje svoje podatke
+    					\item Ako se korisnik prijavio kao voditelj parkinga administrator ga mora potvrditi
+    					\item Podaci o novoregistriranom korisniku se pohranjuju u bazu podataka
+    					\item Registracija se završava potvrdom preko email adrese
     				\end{packed_enum}
     				
     				\item  \textbf{Opis mogućih odstupanja:}
     				
     				\item[] \begin{packed_item}
     					
-    					\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    					\item[2.a] Upisani podaci nisu u pravilnom formatu
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    						\item $<$opis rješenja mogućeg scenarija korak 2$>$
+    						\item Aplikacija upozorava na krivi format i ne dopušta nastavak
     						
     					\end{packed_enum}
-    					\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    					\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+    					\item[5.a] Neuspjela pohrana u bazu podataka
+    					\item[] \begin{packed_enum}
+    						
+    						\item Aplikacija dojavljuje grešku i ne dopušta nastavak
+    						
+    					\end{packed_enum}
     					
     				\end{packed_item}
     			\end{packed_item}
     				\noindent \underbar{\textbf{UC12 - Prijava u sustav}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    				\item  \textbf{Cilj:} $<$cilj$>$
-    				\item  \textbf{Sudionici:} $<$sudionici$>$
-    				\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin)
+    				\item  \textbf{Cilj:} Dobiti pristup korisničkom sučelju  
+    				\item  \textbf{Sudionici:} Baza podataka
+    				\item  \textbf{Preduvjet:} Korisnik je već registriran u sustav
     				\item  \textbf{Opis osnovnog tijeka:}
     				
     				\item[] \begin{packed_enum}
     					
-    					\item $<$opis korak jedan$>$
-    					\item $<$opis korak dva$>$
-    					\item $<$opis korak tri$>$
-    					\item $<$opis korak četiri$>$
-    					\item $<$opis korak pet$>$
+    					\item Korisnik unosi korisničko ime i lozinku
+    					\item Provjerava se postoje li upisani podaci u bazi podataka
+    					\item Korisnik dobiva pristup korisničkim funkcijama
     				\end{packed_enum}
     				
     				\item  \textbf{Opis mogućih odstupanja:}
     				
     				\item[] \begin{packed_item}
     					
-    					\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
+    					\item[2.a] Upisano korisničko i lozinka su netočni
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    						\item $<$opis rješenja mogućeg scenarija korak 2$>$
-    						
-    					\end{packed_enum}
-    					\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    					\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
+    						\item Sustav obavještava korisnika o neispravnom upisu
+						\end{packed_enum}
     					
     				\end{packed_item}
     			\end{packed_item}
     				\noindent \underbar{\textbf{UC13 - Odjava iz sustava}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    					\item  \textbf{Cilj:} $<$cilj$>$
-    					\item  \textbf{Sudionici:} $<$sudionici$>$
-    					\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    					\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin) 
+    					\item  \textbf{Cilj:} Odjavljivanje iz korisničkog sučelja
+    					\item  \textbf{Sudionici:} 
+    					\item  \textbf{Preduvjet:} Korisnik prijavljen u sustav
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item $<$opis korak jedan$>$
-    						\item $<$opis korak dva$>$
-    						\item $<$opis korak tri$>$
-    						\item $<$opis korak četiri$>$
-    						\item $<$opis korak pet$>$
+    						\item Korisnik zatraži odjavu iz sustava
+    						\item Korisnik izlazi iz korisničkog sučelja
+   
     					\end{packed_enum}
     					
-    					\item  \textbf{Opis mogućih odstupanja:}
-    					
-    					\item[] \begin{packed_item}
-    						
-    						\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[] \begin{packed_enum}
-    							
-    							\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    							\item $<$opis rješenja mogućeg scenarija korak 2$>$
-    							
-    						\end{packed_enum}
-    						\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    						\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-    						
-    					\end{packed_item}
     				\end{packed_item}
     				\noindent \underbar{\textbf{UC14 - Brisanje korisničkog računa}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik: }$<$sudionik$>$
-    				\item  \textbf{Cilj:} $<$cilj$>$
-    				\item  \textbf{Sudionici:} $<$sudionici$>$
-    				\item  \textbf{Preduvjet:} $<$preduvjet$>$
+    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin) 
+    				\item  \textbf{Cilj:} Omogućuje brisanje korisničkog računa
+    				\item  \textbf{Sudionici:} Baza podataka
+    				\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
     				\item  \textbf{Opis osnovnog tijeka:}
     				
     				\item[] \begin{packed_enum}
     					
-    					\item $<$opis korak jedan$>$
-    					\item $<$opis korak dva$>$
-    					\item $<$opis korak tri$>$
-    					\item $<$opis korak četiri$>$
-    					\item $<$opis korak pet$>$
+    					\item Korisnik zatraži brisanje korisničkog računa
+    					\item Korisničko ime i lozinka korisnika se brišu iz baze podataka
+    					\item Izlazak iz korisničkog sučelja
     				\end{packed_enum}
     				
-    				\item  \textbf{Opis mogućih odstupanja:}
-    				
-    				\item[] \begin{packed_item}
-    					
-    					\item[2.a] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    					\item[] \begin{packed_enum}
-    						
-    						\item $<$opis rješenja mogućeg scenarija korak 1$>$
-    						\item $<$opis rješenja mogućeg scenarija korak 2$>$
-    						
-    					\end{packed_enum}
-    					\item[2.b] $<$opis mogućeg scenarija odstupanja u koraku 2$>$
-    					\item[3.a] $<$opis mogućeg scenarija odstupanja  u koraku 3$>$
-    					
-    				\end{packed_item}
+
     			\end{packed_item}
     				\noindent \underbar{\textbf{UC15 - Pregled statistike zauzetosti}}
     				\begin{packed_item}
