@@ -535,28 +535,28 @@
     				\noindent \underbar{\textbf{UC15 - Pregled statistike zauzetosti}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik:} Administrator
-    					\item  \textbf{Cilj:} Administrator može voditi evidenciju o zauzetosti parkirališnih mjesta
+    					\item \textbf{Glavni sudionik:} Voditelj
+    					\item  \textbf{Cilj:} Voditelj može voditi evidenciju o zauzetosti svojih parkirališnih mjesta
     					\item  \textbf{Sudionici:} Baza podataka
-    					\item  \textbf{Preduvjet:} Korisnik je prijavljen kao administrator
+    					\item  \textbf{Preduvjet:} Korisnik je prijavljen kao voditelj
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item Administrator odluči vidjeti zauzetost svih parkirališta
+    						\item Voditelj odluči vidjeti zauzetost svih svojih parkirališnim mjesta
     						\item Dohvaćanje podataka o zauzetosti iz baze podataka
-    						\item Administrator pregledava podatke te donosi daljnje odluke
+    						\item Voditelj pregledava podatke te donosi daljnje odluke
     					\end{packed_enum}
     					
     					\item  \textbf{Opis mogućih odstupanja:}
     					
     					\item[] \begin{packed_item}
     						
-    						\item[2.a] Odabir krivog parkirnog mjesta te onemogućavanje dohvaćanja podtaka iz baze podataka
+    						\item[2.a] Nema nijedno parkirno mjesto
     						\item[] \begin{packed_enum}
     							
-    							\item Ispis pogreške o krivom odabiru parkirnog mjesta
-    							\item Administrator mijenja odabir parkirnog mjesta
+    							\item Ispis pogreške
+    							\item Voditelju omoguceno dodavanje parkirnih mjesta
     							
     						\end{packed_enum}
     						
@@ -595,17 +595,17 @@
     				\noindent \underbar{\textbf{UC17 - Pregled zauzetosti parkirališnih mjesta}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik: } Voditelj parkinga
-    					\item  \textbf{Cilj:} Svaki voditelj može evidentirati zauzetost o svojim parkirnim mjestima
+    					\item \textbf{Glavni sudionik: } Klijent
+    					\item  \textbf{Cilj:} Svaki klijent može evidentirati zauzetost o svim parkirnim mjestima
     					\item  \textbf{Sudionici:} Baza podataka
-    					\item  \textbf{Preduvjet:} Korisnik prijavljen kao voditelj parkinga te korisnik ima parkirnih mjesta
+    					\item  \textbf{Preduvjet:} Korisnik prijavljen kao klijent te postoje parkirna mjesta
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
     						
-    						\item Voditelj odluči vidjeti podatke o zauzetosti
-    						\item Dohvat svih parkirnih mjesta za tog voditelja
-    						\item Odabir parkirnog mjesta
+    						\item Klijent odluči vidjeti podatke o zauzetosti
+    						\item Dohvat svih parkirnih mjesta
+    						\item Odabir pojedinog parkirnog mjesta
     						\item Dohvat podataka iz baze podataka
     						\item Uvid u dostavljene podatke 
     					\end{packed_enum}
@@ -617,7 +617,7 @@
     						\item[2.a] Nema nijedno parkirno mjesto
     						\item[] \begin{packed_enum}
     							
-    							\item Poruka te mogućnost dodavanja parkirnih mjesta
+    							\item Poruka 
     							
     						\end{packed_enum}
     						
