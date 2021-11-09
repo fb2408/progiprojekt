@@ -18,6 +18,9 @@ public class ClientReservationId implements Serializable {
     @Column(name = "timeofstart", nullable = false)
     private Instant timeofstart;
 
+    public ClientReservationId() {
+    }
+
     public Instant getTimeofstart() {
         return timeofstart;
     }

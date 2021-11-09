@@ -20,6 +20,9 @@ public class ParkingSpotOccupancyId implements Serializable {
     @Column(name = "datefrom", nullable = false)
     private Instant datefrom;
 
+    public ParkingSpotOccupancyId() {
+    }
+
     public Instant getDatefrom() {
         return datefrom;
     }
