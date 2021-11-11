@@ -62,14 +62,14 @@ public class Parking {
         this.id = id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parking", optional = false)
-    private ParkingOwner parkingOwner;
-
-    public ParkingOwner getParkingOwner() {
-        return parkingOwner;
-    }
-
-    public void setParkingOwner(ParkingOwner parkingOwner) {
-        this.parkingOwner = parkingOwner;
-    }
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parking", optional = false)
+//    private ParkingOwner parkingOwner;
+//
+//    public ParkingOwner getParkingOwner() {
+//        return parkingOwner;
+//    }
+//
+//    public void setParkingOwner(ParkingOwner parkingOwner) {
+//        this.parkingOwner = parkingOwner;
+//    }
 }

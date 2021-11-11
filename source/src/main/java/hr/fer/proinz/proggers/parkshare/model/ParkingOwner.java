@@ -34,16 +34,16 @@ public class ParkingOwner {
 //        this.user = user;
 //    }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Parking parking;
-
-    public Parking getParking() {
-        return parking;
-    }
-
-    public void setParking(Parking parking) {
-        this.parking = parking;
-    }
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Parking parking;
+//
+//    public Parking getParking() {
+//        return parking;
+//    }
+//
+//    public void setParking(Parking parking) {
+//        this.parking = parking;
+//    }
 
     @Override
     public String toString() {
