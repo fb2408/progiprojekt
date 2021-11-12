@@ -1,4 +1,4 @@
-package hr.fer.proinz.proggers.parkshare.model.rest;
+package hr.fer.proinz.proggers.parkshare.rest;
 
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;

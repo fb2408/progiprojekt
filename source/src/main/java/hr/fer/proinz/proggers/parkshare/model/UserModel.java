@@ -6,7 +6,7 @@ import javax.persistence.*;
         @Index(name = "User_username_key", columnList = "username", unique = true)
 })
 @Entity
-public class User {
+public class UserModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "userid", nullable = false)
@@ -24,7 +24,7 @@ public class User {
     @Column(name = "useremail", length = 50, nullable = false)
     private String Email;
 
-    @Column(name = "temppassword", length = 35, nullable = false)
+    @Column(name = "temppassword", nullable = false)
     private String tempPassword;
 
     @Column(name = "usertype", length = 15, nullable = false)
