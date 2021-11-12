@@ -805,11 +805,17 @@
 				
 			\subsection{Sekvencijski dijagrami}
 				
-				\textbf{\textit{dio 1. revizije}}\\
+				\textbf{\textit{Obrazac uporabe UC18 - Rezervacija parkirališnog mjesta}}\\
 				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
-				\eject
-	
+				Klijent odabire svoje odredište, tip prijevoza i procjenu trajanja parkinga. Aplikacija mu pronalazi najbliži parking te prikazuje njegovu zauzetost. Klijent sada ima dvije mogućnosti: prvo odabrati termin nakon čega mu aplikacija dohvaća iz baze podataka slobodna mjesta u tom terminu ili najprije odabrati parking mjesto nakon čega mu aplikacija dohvaća iz baze podataka slobodne termine za to mjesto. Nakon klijentovog odabira aplikacija izračunava cijenu parkinga. U ovom slučaju uzeli smo opciju da klijent plaća putem aplikacije. Nakon plaćanja rezervacija se pohranjuje u bazu podataka i ispisuje se potvrda o rezervaciji. Postupak je iterativan. 
+				\eject	
+						
+			 	\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/RezervacijaParkingMjesta.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+					\caption{Sekvencijski dijagram za UC18}
+					\label{fig:rezarvacija}
+				\end{figure}
+				\eject	
 		\section{Ostali zahtjevi}
 		
 			\textbf{\textit{dio 1. revizije}}\\
