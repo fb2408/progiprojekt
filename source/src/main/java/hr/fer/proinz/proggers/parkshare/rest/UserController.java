@@ -16,8 +16,8 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/users")
 public class UserController {
 
-    private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserController(UserRepository userRepository,
