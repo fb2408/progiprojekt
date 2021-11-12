@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5cea828e-2fa1-43cb-833d-cd8a4b14149b" name="Changes" comment="" />
+    <list default="true" id="5cea828e-2fa1-43cb-833d-cd8a4b14149b" name="Changes" comment="Added logo to resources/images/logo">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,6 +36,8 @@
       <option name="presentableId" value="Default" />
       <updated>1636722511545</updated>
       <workItem from="1636722514438" duration="1112000" />
+      <workItem from="1636723655585" duration="482000" />
+      <workItem from="1636758298234" duration="313000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added logo to resources/images/logo">
       <created>1636723154158</created>
@@ -42,7 +46,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636723154158</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added logo to resources/images/logo">
+      <created>1636723795889</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1636723795890</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -70,9 +81,11 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: added logo to resources/images/logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: added logo to resources/images/logo" />
+    <MESSAGE value="Added logo to resources/images/logo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added logo to resources/images/logo" />
   </component>
 </project>
