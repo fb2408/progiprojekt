@@ -22,7 +22,7 @@ public class UserModel {
     private String surname;
 
     @Column(name = "useremail", length = 50, nullable = false)
-    private String Email;
+    private String email;
 
     @Column(name = "temppassword", nullable = false)
     private String tempPassword;
@@ -58,11 +58,11 @@ public class UserModel {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.email = Email;
     }
 
     public String getSurname() {
@@ -104,7 +104,7 @@ public class UserModel {
                 "Name = " + name + ", " +
                 "FirstName = " + firstName + ", " +
                 "Surname = " + surname + ", " +
-                "Email = " + Email + ", " +
+                "Email = " + email + ", " +
                 "tempPassword = " + tempPassword + ", " +
                 "type = " + type + ", " +
                 "confirmed = " + confirmed + ")";
