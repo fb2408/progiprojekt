@@ -1,25 +1,77 @@
 \chapter{Arhitektura i dizajn sustava}
+<<<<<<< Updated upstream
+
+		Sve web aplikacije sastavljene su od klijentske strane(eng.frontend) i od serverske strane(eng.backend). Kod u klijentskoj strani je pisan u HTML, CSS i JS i on se izvodi u web pregledniku. Dok serverska strana se sastoji od poslovne logike i koda koji odgovara na HTTP zahtjeve. Kod na serverskoj strani može biti pisan u Javi, PHP, Python, itd.
 		
-		\textbf{\textit{dio 1. revizije}}\\
+		
 
-		\textit{ Potrebno je opisati stil arhitekture te identificirati: podsustave, preslikavanje na radnu platformu, spremišta podataka, mrežne protokole, globalni upravljački tok i sklopovsko-programske zahtjeve. Po točkama razraditi i popratiti odgovarajućim skicama:}
-	\begin{itemize}
-		\item 	\textit{izbor arhitekture temeljem principa oblikovanja pokazanih na predavanjima (objasniti zašto ste baš odabrali takvu arhitekturu)}
-		\item 	\textit{organizaciju sustava s najviše razine apstrakcije (npr. klijent-poslužitelj, baza podataka, datotečni sustav, grafičko sučelje)}
-		\item 	\textit{organizaciju aplikacije (npr. slojevi frontend i backend, MVC arhitektura) }		
-	\end{itemize}
-
+		\begin{figure}[H]
+			
+			\includegraphics[width=\textwidth]{slike/webAplikacija.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+			\centering
+			\caption{Arhitektura web aplikacije}
+			\label{fig:arhitekturaWebApp}
+		\end{figure}
+		Web aplikacije podijeljene su na tri glavna sloja:
+		
+		\begin{itemize}
+			\item \textbf{Prvi sloj predstavlja prezentacijski sloj}, to je korisničko sučelje i komunikacijski sloj aplikacije gdje korisnik stupa u interakciju s aplikacijom. Glavna svrha prezentacijskog sloja je prikazivanje i prikupljanje informacija od korisnika.
+			\item\textbf{Drugi sloj predstavlja aplikacijski sloj}, je glavni sloj web aplikacije. U ovom sloju se informacije prikupljene u prezentacijskom sloju obrađuju korištenjem poslovne logike. Te se također u ovom sloju dohvaćaju unose i izmjenjuju podatci koji se nalaze u podatkovnom sloju
+			\item\textbf{Treći sloj je podatkovni sloj}, ili baza podataka je sloj u kojem se pohranjuju podatci koje koristi o obrađuje web aplikacija i u kojem se pristupa istim.
+		\end{itemize} 
 	
-		
-
-		
-
-				
+			Svi slojevi međusobno komuniciraju preko standardiziranih Internetskih protokola, kojih se prilikom razvoja 
+			aplikacija treba pridržavati.Glavne prednosti razvijanja aplikacija u tri sloja su:
+			\begin{itemize}
+				\item Svaki sloj može biti napravljen u različitom programskom jeziku i okruženju.
+				\item Svaki sloj može biti pokrenut na vlastitom serveru sto znači da slojevi ne ovise jedan o drugom.
+				\item Brži razvoj aplikacije zato sto se svaki sloj može razvijati istovremeno.
+				\item Poboljšana sigurnost zato sto možemo vršiti provjeru nad upitima i podatcima na tri razine i zbog toga što korisnik ne radi direktno sa SQL serverom.
+			\end{itemize}
+			Programski jezik kojeg smo odabrali za izradu naše web aplikacije je Java zajedno s Spring Boot-om i Thymeleaf-om. 
+			Odabrano razvojno okruženje je IntelliJ IDEA. Arhitektura sustava temeljiti  će se na MVC 
+			(Model-View-Controller) konceptu. MVC koncept podržan je od strane Spring Boot radnog okvira i kao takav ima gotove predloške koji nam olakšavaju razvoj web aplikacije.
+			MVC koncept sastoji se od:
+		\begin{itemize}
+			\item \textbf{Model} - Komponenta Model sadrzi cijelu logiku vezanu za podatke s kojom korisnik radi. To mogu biti podatci koji se prenose između komponenti View i Controler ili bilo koje druge podatke vezane za poslovnu logiku.
+			\item \textbf{View} - Komponenta View koristi se za svu logiku korisničkog sučelja aplikacije.  Na primjer, korisnički prikaz uključivat će sve komponente korisničkog sučelja kao što su tekstualni okviri, padajući izbornik itd. s kojima je u interakciji krajnji korisnik.
+			\item \textbf{Controller} - Kontroleri djeluju kao sučelje između komponenti Modela i Viewa za obradu sve poslovne logike i dolaznih zahtjeva, manipuliranje podacima pomoću komponente Model i interakciju s Viewsima kako bi prikazali konačni izlaz.
+		\end{itemize} 
+		\eject
+			
 		\section{Baza podataka}
 			
-			\textbf{\textit{dio 1. revizije}}\\
+=======
+		
+			 Arhitekturu dijelimo na tri podsustava:
+		\begin{itemize}
+			\item 	Web preglednik
+			\item 	Poslužitelj
+			\item 	Baza podataka	
+		\end{itemize}
+
+		\begin{figure}[H]
 			
-		\textit{Potrebno je opisati koju vrstu i implementaciju baze podataka ste odabrali, glavne komponente od kojih se sastoji i slično.}
+			\includegraphics[width=\textwidth]{slike/webAplikacija.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+			\centering
+			\caption{Arhitektura web aplikacije}
+			\label{fig:registrirani432132}
+		\end{figure}
+	
+		Princip rada Internet aplikacija temelji se na načinu komunikacije između klijenta i poslužitelja , preko internetske mreže. Zadatak svake Internet aplikacije je prijenos informacija 
+		putem Internet protokola od web poslužitelja, do njenog korisničkog sučelja na klijentskoj strani i 
+		obrnuto. Na slici 4.1. prikazana je arhitektura Internet aplikacije.
+
+		
+
+			\eject
+		\section{Baza podataka}
+			
+			
+>>>>>>> Stashed changes
+			
+			
+		
 		
 			\subsection{Opis tablica}
 			
@@ -46,7 +98,7 @@
 				
 			
 			\subsection{Dijagram baze podataka}
-				\textit{ U ovom potpoglavlju potrebno je umetnuti dijagram baze podataka. Primarni i strani ključevi moraju biti označeni, a tablice povezane. Bazu podataka je potrebno normalizirati. Podsjetite se kolegija "Baze podataka".}
+				
 			
 			\eject
 			
