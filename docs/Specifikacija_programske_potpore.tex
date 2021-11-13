@@ -805,7 +805,7 @@
 				
 			\subsection{Sekvencijski dijagrami}
 				
-				\textbf{\textit{Obrazac uporabe UC18 - Rezervacija parkirališnog mjesta}}\\
+				\textbf{Obrazac uporabe UC18 - Rezervacija parkirališnog mjesta}\\
 				
 				Klijent odabire svoje odredište, tip prijevoza i procjenu trajanja parkinga. Aplikacija mu pronalazi najbliži parking te prikazuje njegovu zauzetost. Klijent sada ima dvije mogućnosti: prvo odabrati termin nakon čega mu aplikacija dohvaća iz baze podataka slobodna mjesta u tom terminu ili najprije odabrati parking mjesto nakon čega mu aplikacija dohvaća iz baze podataka slobodne termine za to mjesto. Nakon klijentovog odabira aplikacija izračunava cijenu parkinga. U ovom slučaju uzeli smo opciju da klijent plaća putem aplikacije. Nakon plaćanja rezervacija se pohranjuje u bazu podataka i ispisuje se potvrda o rezervaciji. Postupak je iterativan. 
 				\eject	
@@ -816,6 +816,31 @@
 					\label{fig:rezarvacija}
 				\end{figure}
 				\eject	
+				
+				\textbf{Obrazac uporabe UC8 - Promjena mogućnosti rezervacije pojedinog parkirališnog mjesta}\\
+				
+				Voditelj zatraži prikaz parkirališta nakon čega aplikacija dohvaća iz baze podataka podatke o parkiralištu. Voditelj dobiva prikaz tog parkirališta. Voditelj odabere parkirališno mjesto. Aplikacija dohvaća podatke o parkirališnom mjestu iz baze podataka. Voditelj želi promjeniti njegovu mogućnost rezervacije. Aplikacija mu to odobrava jer je u ulozi voditelja. Voditelj mijenja mogućnost rezervacije parking mjesta, aplikacija promjene pohranjuje u bazu i javlja voditelju da su promjene obavljene. 
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/PromjenaMogucnostiRezer.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+					\caption{Sekvencijski dijagram za UC8}
+					\label{fig:mogucnostRezerv}
+				\end{figure}
+				\eject	
+				
+				
+				\textbf{Obrazac uporabe UC11 - Registracija}\\
+				
+				U primjeru smo izabrali registraciju voditelja parkinga jer uz standardan tijek registracije korisnika, voditelja dodatno mora potvrditi i administrator. Voditelj šalje zahtjev za registraciju s potrebnim podacima. Aplikacija provjerava postoji li već u bazi podataka taj voditelj. Ako postoji registracija je neuspješna i aplikacija ispisuje grešku. Ako još ne postoji takav voditelj izvršava se potvrda putem e-mail adrese. Nakon toga aplikacija šalje zahtjev za potvrdu administratoru. Nakon njegove potvrde aplikacija pohranjuje novog korisnika u bazu podataka. Baza podataka potvrđuje pohranu i registracija je uspješna.
+				\eject	
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/Registracija.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+					\caption{Sekvencijski dijagram za UC11}
+					\label{fig:Registracija}
+				\end{figure}
+				\eject	
+				
 		\section{Ostali zahtjevi}
 		
 			\textbf{\textit{dio 1. revizije}}\\
