@@ -6,7 +6,7 @@ public class UserDTO {
 
     private Integer userid;
     private String username;
-    private String userfirstname;
+    private String firstName;
     private String usersurname;
     private String usermail;
     private String temppassword;
@@ -15,7 +15,7 @@ public class UserDTO {
 
     public UserDTO(String username, String userfirstname, String usersurname, String usermail, String temppassword, String usertype, boolean confirmed) {
         this.username = username;
-        this.userfirstname = userfirstname;
+        this.firstName = userfirstname;
         this.usersurname = usersurname;
         this.usermail = usermail;
         this.temppassword = temppassword;
@@ -25,6 +25,10 @@ public class UserDTO {
     public UserDTO(UserModel userModel){
         this(userModel.getName(), userModel.getFirstName(), userModel.getSurname(), userModel.getEmail(), "", userModel.getType(), userModel.getConfirmed());
         setUserid(userModel.getId());
+    }
+
+    public UserDTO() {
+
     }
 
     public Integer getUserid() {
@@ -44,11 +48,11 @@ public class UserDTO {
     }
 
     public String getUserfirstname() {
-        return userfirstname;
+        return firstName;
     }
 
     public void setUserfirstname(String userfirstname) {
-        this.userfirstname = userfirstname;
+        this.firstName = userfirstname;
     }
 
     public String getUsersurname() {
