@@ -20,9 +20,9 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
-            <a class="nav-link font-navbar" href="/map">Find Parking</a>
-            <a class="nav-link font-navbar" href="/about">About us</a>
-            <a class="nav-link font-navbar" href="/profile">
+            <a class="nav-link font-navbar" th:href="@{/map}">Find Parking</a>
+            <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
+            <a class="nav-link font-navbar" th:href="@{/profile}">
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
                      th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
             </a>
@@ -37,21 +37,21 @@
         </div>
         <div class="d-flex col justify-content-center align-content-center">
             <div class="m-auto container padding-top-btm w-70 h-auto rounded-25px bg-darkblue-60">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li class="nav-item nav-tab" role="presentation">
-                        <button class="nav-link active"
+                        <button class="nav-link active first-tab"
                                 id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login"
                                 aria-selected="true">Login</button>
                     </li>
                     <li class="nav-item nav-tab" role="presentation">
-                        <button class="nav-link"
+                        <button class="nav-link last-tab"
                                 id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register"
                                 aria-selected="false">Register</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                        <form action="/login" method="post">
+                        <form th:action="@{/login}" method="post">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email address</label>
                                 <input type="email" class="form-control" id="loginEmail">
@@ -68,10 +68,10 @@
                     </div>
                     <div class="text-center tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                         <div class="d-grid gap-2">
-                            <a class="w-75 btn btn-lg btn-primary" href="/register/user">
+                            <a class="w-75 btn btn-lg btn-primary" th:href="@{/register/user}">
                                 Register as user
                             </a>
-                            <a class="w-75 btn bg-light btn-lg text-muted" href="/register/owner">
+                            <a class="w-75 btn bg-light btn-lg text-muted" th:href="@{/register/owner}">
                                 Register as parking owner
                             </a>
                         </div>

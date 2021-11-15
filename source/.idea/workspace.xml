@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="Add IDEA project files">
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="Fix link to register from login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,7 +145,7 @@
       <workItem from="1636924242807" duration="1198000" />
       <workItem from="1636974589027" duration="4968000" />
       <workItem from="1636989789573" duration="6927000" />
-      <workItem from="1637013747745" duration="1179000" />
+      <workItem from="1637013747745" duration="2759000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized Spring Boot project">
       <created>1634077445228</created>
@@ -216,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636813109718</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fix link to register from login">
+      <created>1637015006487</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1637015006487</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,6 +252,7 @@
     <MESSAGE value="Comment out currently non-working entity relationships" />
     <MESSAGE value="Add index view with test controller; Move images to static folder" />
     <MESSAGE value="Add IDEA project files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add IDEA project files" />
+    <MESSAGE value="Fix link to register from login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix link to register from login" />
   </component>
 </project>

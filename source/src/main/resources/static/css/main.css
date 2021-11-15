@@ -54,3 +54,25 @@
 #navbar-items{
     padding-left: 2%;
 }
+
+.nav-tab button.nav-link {
+    font-family: "Eras ITC";
+    font-weight: bold;
+    font-size: 24px;
+    background-color: rgba(0,0,0,0)!important;
+    color: lightgray!important;
+    border: none;
+    text-align: center;
+}
+
+.nav-tab button.first-tab {
+    text-align: right;
+}
+
+.nav-tab button.last-tab {
+    text-align: left;
+}
+
+.nav-tabs .nav-link.active {
+    color: white!important;
+}
