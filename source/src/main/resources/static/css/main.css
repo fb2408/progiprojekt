@@ -1,0 +1,19 @@
+.bg-darkblue{
+    background-color: #011d4a;
+}
+
+.bg-darkblue-60{
+    background-color: rgba(1, 29, 74, 0.6);
+}
+
+.nav-tabs:first-child{
+    margin-left: auto;
+}
+
+.nav-tabs:last-child {
+    margin-right: auto;
+}
+
+.nav-tab {
+    margin-top: 5px;
+}
