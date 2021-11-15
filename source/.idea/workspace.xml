@@ -4,23 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="Add index view with test controller; Move images to static folder">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ParkShare.iml" afterDir="false" />
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="Add IDEA project files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +20,7 @@
         <option value="JpaEntity" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -86,11 +73,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="jpb.reverseEngineering" />
     <property name="sql.rename.search.for.storage.occurrences" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DCryophoenix\Documents\FER\sem5\progi\ProgiProjekt\source\src\main\resources\static\css" />
       <recent name="C:\Users\DCryophoenix\Documents\FER\sem5\progi\ProgiProjekt\source\src\main\resources\static" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -150,7 +140,11 @@
       <workItem from="1636467069263" duration="9130000" />
       <workItem from="1636558127847" duration="4541000" />
       <workItem from="1636637841348" duration="7391000" />
-      <workItem from="1636798022905" duration="9680000" />
+      <workItem from="1636798022905" duration="10313000" />
+      <workItem from="1636924242807" duration="1198000" />
+      <workItem from="1636974589027" duration="4968000" />
+      <workItem from="1636989789573" duration="6927000" />
+      <workItem from="1637013747745" duration="1179000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized Spring Boot project">
       <created>1634077445228</created>
@@ -215,7 +209,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636807232515</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add IDEA project files">
+      <created>1636813109718</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636813109718</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +243,7 @@
     <MESSAGE value="Re-add spring boot starter thymeleaf dependency" />
     <MESSAGE value="Comment out currently non-working entity relationships" />
     <MESSAGE value="Add index view with test controller; Move images to static folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add index view with test controller; Move images to static folder" />
+    <MESSAGE value="Add IDEA project files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add IDEA project files" />
   </component>
 </project>
