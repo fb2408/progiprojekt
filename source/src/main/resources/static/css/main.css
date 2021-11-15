@@ -17,3 +17,40 @@
 .nav-tab {
     margin-top: 5px;
 }
+
+.font-navbar{
+    font-family: "Eras ITC";
+    font-weight: bold;
+    font-size:18px;
+    color: white;
+}
+
+.rounded-25px{
+    border-radius: 25px;
+}
+
+.h-auto{
+    height: auto;
+}
+
+.w-70{
+    width: 70%;
+}
+
+.padding-top-btm{
+    padding: 5%;
+}
+
+#navbarNavAltMarkup{
+    justify-content: right;
+    padding-right: 7%;
+}
+
+.nav-link.font-navbar{
+    padding-right: 0!important;
+    padding-left: 3rem!important;
+}
+
+#navbar-items{
+    padding-left: 2%;
+}

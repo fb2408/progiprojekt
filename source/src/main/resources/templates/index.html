@@ -10,19 +10,19 @@
 </head>
 <body class="text-white"
       th:style="'background: url(' + @{/images/pictures/parkingPlacesFloor.jpg} + ') no-repeat center center fixed;background-size: cover;'">
-<nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-darkblue bg-darkblue-60" id="navbar-items">
+    <div>
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
-                 width="210" height="70" class="d-inline-block align-text-top">
+                 width="240"  class="d-inline-block align-text-top">
         </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="#">Find Parking</a>
-            <a class="nav-link" href="#">About us</a>
-            <a class="nav-link" href="#">
+            <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
+            <a class="nav-link font-navbar" href="#">Find Parking</a>
+            <a class="nav-link font-navbar" href="#">About us</a>
+            <a class="nav-link font-navbar" href="#">
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
                      th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
             </a>
@@ -36,7 +36,7 @@
                  th:src="@{/images/logo/parkshare.png}" alt="logo" width="80%">
         </div>
         <div class="d-flex col justify-content-center align-content-center">
-            <div class="m-auto container w-75 h-75 rounded bg-darkblue-60">
+            <div class="m-auto container padding-top-btm w-70 h-auto rounded-25px bg-darkblue-60">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item nav-tab" role="presentation">
                         <button class="nav-link"
