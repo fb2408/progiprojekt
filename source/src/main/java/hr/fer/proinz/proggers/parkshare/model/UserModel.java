@@ -97,6 +97,14 @@ public class UserModel {
         this.id = id;
     }
 
+    public boolean isAdmin(){
+        return type.equals("ROLE_ADMIN");
+    }
+
+    public boolean isOwner(){
+        return type.equals("ROLE_OWNER");
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
