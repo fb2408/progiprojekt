@@ -22,7 +22,7 @@ public class EmailService implements EmailSender{
             helper.setTo(to);
             helper.setSubject("Confirm your reservation");
             helper.setText(buildEmail(name, link), true);
-            helper.setFrom("parhShare@gmail.com"); //temporarily
+            helper.setFrom("parhShare9@gmail.com");
             mailSender.send(mimeMessage);
 
         } catch (MessagingException exc){
