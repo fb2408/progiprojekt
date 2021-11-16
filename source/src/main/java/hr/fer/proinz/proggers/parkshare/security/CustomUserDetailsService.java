@@ -27,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserModel user = userRepo.findByName(s);
+        UserModel user = userRepo.findByEmail(s);
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(user.isAdmin()){
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
