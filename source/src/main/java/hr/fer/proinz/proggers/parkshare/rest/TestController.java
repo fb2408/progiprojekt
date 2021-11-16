@@ -11,4 +11,8 @@ public class TestController {
     public String test() {
         return "index";
     }
+    @GetMapping("/profile")
+    public String t() {
+        return "userpage";
+    }
 }

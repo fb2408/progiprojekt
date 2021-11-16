@@ -24,6 +24,10 @@
     font-size:18px;
     color: white;
 }
+.font-navbar:hover{
+    color: white;
+    opacity: 0.6;
+}
 
 .rounded-25px{
     border-radius: 25px;
@@ -90,5 +94,39 @@
 }
 .container-fluid.px-4{
     position: absolute;
-    top: 6rem;
+    top: 10rem;
+}
+
+.wrapper{
+    position: absolute;
+    top: 10rem;
+}
+
+.grid3{
+    position: relative;
+    top: 5rem;
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.person{
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+    margin: auto;
+}
+
+.content.mygrid.amounts{
+    grid-column: 3;
+    grid-row: 1;
+    margin: auto;
+}
+
+.content.mygrid.personalinfo{
+    grid-column: 2;
+    grid-row: 1;
+    margin: auto;
+}
+.social-description{
+    text-align: center;
 }
