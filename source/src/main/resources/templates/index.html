@@ -80,6 +80,11 @@
             </div>
         </div>
     </div>
+    <div th:if="${error != null}" th:inline="text" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong th:text="${(error != null) ? error.msg : 'No error!'}">Not logged in!</strong>
+        [[(${error} != null) ? ${error.desc} : ' Everything is fine :)']]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 </div>
 <script
         src="https://code.jquery.com/jquery-3.6.0.js"
