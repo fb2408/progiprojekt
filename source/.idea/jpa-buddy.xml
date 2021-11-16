@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="postgres">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="1557a0b7-7d4e-4608-a9c2-d6d4e391c87c" />
+    <option name="reLastEntityCreationPackage" value="src/main/java/hr/fer/proinz/proggers/parkshare/user" />
+  </component>
+</project>

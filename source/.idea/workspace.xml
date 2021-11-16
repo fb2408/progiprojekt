@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JpaRepository" />
+        <option value="JpaEntity" />
+        <option value="HTML File" />
+        <option value="Class" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="JPA Inspector" value="true" />
+        <entry key="JPA Palette" value="true" />
+        <entry key="JPA Structure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="JPA Inspector" value="false" />
+        <entry key="JPA Palette" value="false" />
+        <entry key="JPA Structure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="1zQLYsNz4abCWBrYseZgKF1V2Gf" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="jpb.reverseEngineering" />
+    <property name="sql.rename.search.for.storage.occurrences" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\DCryophoenix\Documents\FER\sem5\progi\ProgiProjekt\source\src\main\resources\static\css" />
+      <recent name="C:\Users\DCryophoenix\Documents\FER\sem5\progi\ProgiProjekt\source\src\main\resources\static" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="hr.fer.proinz.proggers.parkshare.hello" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ParkShareApplication">
+    <configuration name="ParkShareApplicationTests.testRepo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ParkShare" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hr.fer.proinz.proggers.parkshare.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hr.fer.proinz.proggers.parkshare" />
+      <option name="MAIN_CLASS_NAME" value="hr.fer.proinz.proggers.parkshare.ParkShareApplicationTests" />
+      <option name="METHOD_NAME" value="testRepo" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ParkShareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ParkShare" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="hr.fer.proinz.proggers.parkshare.ParkShareApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ParkShareApplicationTests.testRepo" />
+        <item itemvalue="JUnit.ParkShareApplicationTests.testRepo" />
+        <item itemvalue="JUnit.ParkShareApplicationTests.testRepo" />
+        <item itemvalue="JUnit.ParkShareApplicationTests.testRepo" />
+        <item itemvalue="JUnit.ParkShareApplicationTests.testRepo" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="" />
+      <created>1634075421414</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1634075421414</updated>
+      <workItem from="1634075423683" duration="2911000" />
+      <workItem from="1634132200212" duration="447000" />
+      <workItem from="1636233534056" duration="5457000" />
+      <workItem from="1636246618673" duration="2158000" />
+      <workItem from="1636372245305" duration="2903000" />
+      <workItem from="1636380227993" duration="71000" />
+      <workItem from="1636384252131" duration="6688000" />
+      <workItem from="1636409526599" duration="4019000" />
+      <workItem from="1636467069263" duration="9130000" />
+      <workItem from="1636558127847" duration="4541000" />
+      <workItem from="1636637841348" duration="7391000" />
+      <workItem from="1636798022905" duration="10313000" />
+      <workItem from="1636924242807" duration="1198000" />
+      <workItem from="1636974589027" duration="4968000" />
+      <workItem from="1636989789573" duration="6927000" />
+      <workItem from="1637013747745" duration="6469000" />
+      <workItem from="1637074782675" duration="667000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initialized Spring Boot project">
+      <created>1634077445228</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1634077445229</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initialized Spring Boot project">
+      <created>1636235382621</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1636235382622</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added JPA dependency">
+      <created>1636235496137</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1636235496137</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add initial models (WIP)">
+      <created>1636470683704</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1636470683704</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Remove old entities">
+      <created>1636470910143</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1636470910143</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add empty constructor to primary key classes">
+      <created>1636476122651</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636476122651</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Re-add spring boot starter thymeleaf dependency">
+      <created>1636642777143</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1636642777143</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Comment out currently non-working entity relationships">
+      <created>1636646991071</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1636646991071</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add index view with test controller; Move images to static folder">
+      <created>1636807232515</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1636807232515</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add IDEA project files">
+      <created>1636813109718</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1636813109718</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fix link to register from login">
+      <created>1637015006487</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1637015006487</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Change tab button style">
+      <created>1637016650207</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1637016650207</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initialized Spring Boot project" />
+    <MESSAGE value="Added JPA dependency" />
+    <MESSAGE value="Add initial models (WIP)" />
+    <MESSAGE value="Remove old entities" />
+    <MESSAGE value="Add empty constructor to primary key classes" />
+    <MESSAGE value="Re-add spring boot starter thymeleaf dependency" />
+    <MESSAGE value="Comment out currently non-working entity relationships" />
+    <MESSAGE value="Add index view with test controller; Move images to static folder" />
+    <MESSAGE value="Add IDEA project files" />
+    <MESSAGE value="Fix link to register from login" />
+    <MESSAGE value="Change tab button style" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change tab button style" />
+  </component>
+</project>

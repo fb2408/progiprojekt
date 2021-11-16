@@ -1,0 +1,132 @@
+.bg-darkblue{
+    background-color: #011d4a;
+}
+
+.bg-darkblue-60{
+    background-color: rgba(1, 29, 74, 0.6);
+}
+
+.nav-tabs:first-child{
+    margin-left: auto;
+}
+
+.nav-tabs:last-child {
+    margin-right: auto;
+}
+
+.nav-tab {
+    margin-top: 5px;
+}
+
+.font-navbar{
+    font-family: "Eras ITC";
+    font-weight: bold;
+    font-size:18px;
+    color: white;
+}
+.font-navbar:hover{
+    color: white;
+    opacity: 0.6;
+}
+
+.rounded-25px{
+    border-radius: 25px;
+}
+
+.h-auto{
+    height: auto;
+}
+
+.w-70{
+    width: 70%;
+}
+
+.padding-top-btm{
+    padding: 5%;
+}
+
+#navbarNavAltMarkup{
+    justify-content: right;
+    padding-right: 7%;
+}
+
+.nav-link.font-navbar{
+    padding-right: 0!important;
+    padding-left: 3rem!important;
+}
+
+#navbar-items{
+    padding-left: 2%;
+}
+
+.nav-tab button.nav-link {
+    font-family: "Eras ITC";
+    font-weight: bold;
+    font-size: 1.5rem;
+    background-color: rgba(0,0,0,0)!important;
+    color: lightgray!important;
+    border: none;
+    text-align: center;
+}
+
+.nav-tab button.first-tab {
+    text-align: right;
+}
+
+.nav-tab button.last-tab {
+    text-align: left;
+}
+
+.nav-tabs .nav-link.active {
+    color: white!important;
+}
+
+.btn-margin-top{
+   margin-top: 2rem;
+    transform: translate(18%);
+}
+
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 9999;
+}
+.container-fluid.px-4{
+    position: absolute;
+    top: 10rem;
+}
+
+.wrapper{
+    position: absolute;
+    top: 10rem;
+}
+
+.grid3{
+    position: relative;
+    top: 5rem;
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.person{
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+    margin: auto;
+}
+
+.content.mygrid.amounts{
+    grid-column: 3;
+    grid-row: 1;
+    margin: auto;
+}
+
+.content.mygrid.personalinfo{
+    grid-column: 2;
+    grid-row: 1;
+    margin: auto;
+}
+.social-description{
+    text-align: center;
+}
