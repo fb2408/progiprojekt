@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class CustomUserDetails implements UserDetails {
 
-    private UserModel userModel;
+    private final UserModel userModel;
 
     public CustomUserDetails(UserModel userModel){
         Objects.requireNonNull(userModel);
