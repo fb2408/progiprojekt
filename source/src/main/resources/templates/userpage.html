@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      th:with="registerActive=${(param.tab!=null && param.tab[0]=='register')}">
+      th:with="registerActive=${(param.tab!=null && param.tab[0]=='register')}" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>ParkShare</title>
@@ -36,26 +36,26 @@
        <div class="photo-container">
         <img src="/images/icons/user-avatar.jpg" th:width="120px" alt="Circle Image" class="rounded-circle">
         </div>
-        <h3 class="title">Luka Gjurić</h3>
-        <p class="category">User</p>
+        <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getUsersurname()}">Ime Prezime</h3>
+        <p class="category" th:text="${user.getUsertype()}">User</p>
     </div>
 
     <div class="content mygrid amounts">
         <div class="social-description">
-            <h2>88 HRK</h2>
+            <h2>0 HRK</h2>
             <p>Balance</p>
         </div>
         <div class="social-description">
-            <h2>3</h2>
+            <h2>0</h2>
             <p>Active Reservations</p>
         </div>
     </div>
     <div class="content mygrid personalinfo">
         <div style="align-content: center">
             <h3>Personal information</h3></br>
-            <p><b>Email:</b> luka.gjuric@gmail.com</p>
-            <p><b>Address:</b> Unska ulica 3, 10000 Zagreb</p>
-            <p><b>Phone number:</b> 00 385 99 753 1430</p>
+            <span><b>Username:</b></span> <span th:text="${'  ' + user.getUsername()}"> Unska ulica 3, 10000 Zagreb</span>
+            <br><br>
+            <span><b>Email:</b></span><span th:text="${'  ' + user.getUsermail()}"> luka.gjuric@gmail.com</span>
         </div>
     </div>
 </div>
