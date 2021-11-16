@@ -34,7 +34,7 @@ public class UserController {
             model.addAttribute("errorMsg", "Account with given username or email already exists");
             return "register";
         }
-        return "home";
+        return "register";
     }
 
     @GetMapping("/register")
@@ -46,7 +46,7 @@ public class UserController {
     @GetMapping("/details")
     public String showUserDetails(Model model, Authentication auth){
         UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
-        model.addAttribute("user", currentUser.toString());
-        return  "userDetails";
+        model.addAttribute("user", currentUser);
+        return  "userpage";
     }
 }
