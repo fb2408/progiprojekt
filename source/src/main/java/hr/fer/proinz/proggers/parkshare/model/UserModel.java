@@ -6,7 +6,7 @@ import javax.persistence.*;
         @Index(name = "User_username_key", columnList = "username", unique = true)
 })
 @Entity
-public class User {
+public class UserModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "userid", nullable = false)
@@ -22,9 +22,9 @@ public class User {
     private String surname;
 
     @Column(name = "useremail", length = 50, nullable = false)
-    private String Email;
+    private String email;
 
-    @Column(name = "temppassword", length = 35, nullable = false)
+    @Column(name = "temppassword", nullable = false)
     private String tempPassword;
 
     @Column(name = "usertype", length = 15, nullable = false)
@@ -58,11 +58,11 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String Email) {
-        this.Email = Email;
+        this.email = Email;
     }
 
     public String getSurname() {
@@ -97,6 +97,14 @@ public class User {
         this.id = id;
     }
 
+    public boolean isAdmin(){
+        return type.equals("ROLE_ADMIN");
+    }
+
+    public boolean isOwner(){
+        return type.equals("ROLE_OWNER");
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName() + "(" +
@@ -104,7 +112,7 @@ public class User {
                 "Name = " + name + ", " +
                 "FirstName = " + firstName + ", " +
                 "Surname = " + surname + ", " +
-                "Email = " + Email + ", " +
+                "Email = " + email + ", " +
                 "tempPassword = " + tempPassword + ", " +
                 "type = " + type + ", " +
                 "confirmed = " + confirmed + ")";
