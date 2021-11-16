@@ -33,12 +33,12 @@ public class UserModel {
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed = false;
 
-    @Column(name = "verificationcode", nullable = false)
+    @Column(name = "verificationcode", nullable = true)
     private String verificationCode;
 
-    private  String getVerificationCode() { return this.verificationCode; }
+    public String getVerificationCode() { return this.verificationCode; }
 
-    private void setVerificationCode(String verificationCode) {
+    public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
     }
 
