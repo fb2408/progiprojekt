@@ -76,3 +76,19 @@
 .nav-tabs .nav-link.active {
     color: white!important;
 }
+
+.btn-margin-top{
+   margin-top: 2rem;
+    transform: translate(18%);
+}
+
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 9999;
+}
+.container-fluid.px-4{
+    position: absolute;
+    top: 6rem;
+}

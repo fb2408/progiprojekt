@@ -10,7 +10,7 @@
 </head>
 <body class="text-white"
       th:style="'background: url(' + @{/images/pictures/parkingPlacesFloor.jpg} + ') no-repeat center center fixed;background-size: cover;'">
-<nav class="navbar navbar-expand-lg bg-darkblue bg-darkblue-60" id="navbar-items">
+<nav class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
     <div>
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
@@ -68,10 +68,10 @@
                     </div>
                     <div class="text-center tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                         <div class="d-grid gap-2">
-                            <a class="w-75 btn btn-lg btn-primary" th:href="@{/register/user}">
+                            <a class="btn w-75 btn-lg btn-primary btn-margin-top" th:href="@{/register/user}">
                                 Register as user
                             </a>
-                            <a class="w-75 btn bg-light btn-lg text-muted" th:href="@{/register/owner}">
+                            <a class="btn w-75 bg-light btn-lg text-muted btn-margin-top" th:href="@{/register/owner}">
                                 Register as parking owner
                             </a>
                         </div>
