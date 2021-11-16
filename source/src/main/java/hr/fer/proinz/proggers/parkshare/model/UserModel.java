@@ -33,6 +33,15 @@ public class UserModel {
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed = false;
 
+    @Column(name = "verificationcode", nullable = false)
+    private String verificationCode;
+
+    private  String getVerificationCode() { return this.verificationCode; }
+
+    private void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
     public Boolean getConfirmed() {
         return confirmed;
     }
