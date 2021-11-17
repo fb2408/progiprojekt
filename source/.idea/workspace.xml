@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: verify email URL">
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="change index navbar to be transparent">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637157260117</updated>
-      <workItem from="1637157282679" duration="5111000" />
+      <workItem from="1637157282679" duration="6135000" />
     </task>
     <task id="LOCAL-00001" summary="fix: email confirmation integration">
       <created>1637160118256</created>
@@ -99,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637162065832</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="change index navbar to be transparent">
+      <created>1637162776319</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1637162776319</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +128,7 @@
     <MESSAGE value="fix: email confirmation integration" />
     <MESSAGE value="feature: make email sending asynchronous" />
     <MESSAGE value="fix: verify email URL" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: verify email URL" />
+    <MESSAGE value="change index navbar to be transparent" />
+    <option name="LAST_COMMIT_MESSAGE" value="change index navbar to be transparent" />
   </component>
 </project>
