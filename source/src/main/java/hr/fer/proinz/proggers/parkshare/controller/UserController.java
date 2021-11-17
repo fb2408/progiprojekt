@@ -8,6 +8,8 @@ import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.print.attribute.standard.PresentationDirection;
 import java.util.ArrayList;
 
 @Controller
@@ -53,7 +56,10 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model, Authentication auth){
+        if(auth != null) {
+            return "redirect:/profile";
+        }
         model.addAttribute("registerForm", new RegisterFormDTO());
         return "index";
     }
@@ -64,4 +70,10 @@ public class UserController {
         model.addAttribute("user", currentUser);
         return  "userpage";
     }
+
+//    @GetMapping("/logout")
+//    public String logout(){
+//        SecurityContextHolder.getContext().setAuthentication(null);
+//        return "redirect:/";
+//    }
 }
