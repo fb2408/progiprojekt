@@ -35,15 +35,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/users/register").permitAll()
-                .antMatchers("/users/**").authenticated()
-                .anyRequest().permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/profile")
+                .hasAnyRole("OWNER", "CLIENT")
                 .and()
                 .formLogin()
-                .usernameParameter("email")
-                .defaultSuccessUrl("/users/details")
-                .permitAll()
-                .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .loginPage("/")
+                .usernameParameter("loginEmail")
+                .passwordParameter("loginPassword")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/profile")
+                .failureUrl("/?error=true")
+                .permitAll();
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/?logout=true")
+                //.permitAll();
     }
 }
