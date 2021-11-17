@@ -11,9 +11,11 @@ public class UserDTO {
     private String usermail;
     private String temppassword;
     private String usertype;
-    private boolean confirmed;
 
-    public UserDTO(String username, String userfirstname, String usersurname, String usermail, String temppassword, String usertype, boolean confirmed) {
+    private boolean isOwner;
+
+    private boolean confirmed;
+    public UserDTO(String username, String userfirstname, String usersurname, String usermail, String temppassword, String usertype, boolean confirmed, boolean isOwner) {
         this.username = username;
         this.firstName = userfirstname;
         this.usersurname = usersurname;
@@ -21,14 +23,31 @@ public class UserDTO {
         this.temppassword = temppassword;
         this.usertype = usertype;
         this.confirmed = confirmed;
+        this.isOwner = isOwner;
     }
+
     public UserDTO(UserModel userModel){
-        this(userModel.getName(), userModel.getFirstName(), userModel.getSurname(), userModel.getEmail(), "", userModel.getType(), userModel.getConfirmed());
+        this(userModel.getName(), userModel.getFirstName(), userModel.getSurname(), userModel.getEmail(), "", userModel.getType(), userModel.getConfirmed(), userModel.isOwner());
         setUserid(userModel.getId());
     }
-
     public UserDTO() {
 
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public boolean getIsOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        isOwner = owner;
     }
 
     public Integer getUserid() {
