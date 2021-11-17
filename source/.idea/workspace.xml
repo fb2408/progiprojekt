@@ -4,20 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="feature: add logout; add restriction to index and profile">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: email confirmation integration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ParkShare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ParkShare.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/ParkShareApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/ParkShareApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icons/person_icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/logo/parkshare.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/pictures/parkingPlacesFloor.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +43,7 @@
       <map>
         <entry key="JPA Inspector" value="false" />
         <entry key="JPA Palette" value="false" />
-        <entry key="JPA Structure" value="true" />
+        <entry key="JPA Structure" value="false" />
       </map>
     </option>
   </component>
@@ -87,8 +80,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637157260117</updated>
-      <workItem from="1637157282679" duration="2640000" />
+      <workItem from="1637157282679" duration="4130000" />
     </task>
+    <task id="LOCAL-00001" summary="fix: email confirmation integration">
+      <created>1637160118256</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637160118256</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,5 +106,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: email confirmation integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: email confirmation integration" />
   </component>
 </project>

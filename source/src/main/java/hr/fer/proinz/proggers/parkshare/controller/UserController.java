@@ -42,7 +42,9 @@ public class UserController {
         UserModel registered;
         try {
             registered = userService.registerNewUser(registerFormDTO);
-            userService.sendMail(registered, getSiteURL(request));
+            if(registered.getType().equals("client")){
+                userService.sendMail(registered, getSiteURL(request));
+            }
         } catch (ResponseStatusException e){
             model.addAttribute("registerForm", new RegisterFormDTO());
             errors.add(new MessageDTO("Registration failed!",
@@ -69,9 +71,6 @@ public class UserController {
         if (userService.verify(code)) {
             return "redirect:/?verifySuccess=true";
         }
-        model.addAttribute("user", new UserDTO());
-        model.addAttribute("errorMsg", "Sorry, we could not verify account." +
-                " It maybe already verified or verification code is incorrect.");
         return "redirect:/?verifyFailure=true";
     }
 

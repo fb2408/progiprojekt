@@ -2,6 +2,7 @@ package hr.fer.proinz.proggers.parkshare.service;
 
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import net.bytebuddy.utility.RandomString;
@@ -39,8 +40,13 @@ public class UserService {
         userModel.setFirstName(registerFormDTO.getUserFirstName());
         userModel.setSurname(registerFormDTO.getUserSurname());
         userModel.setTempPassword(bCryptPasswordEncoder.encode(registerFormDTO.getPassword()));
-        userModel.setType(registerFormDTO.getIsOwner() ? "owner" : "client");
-        userModel.setConfirmed(registerFormDTO.isConfirmed());
+        userModel.setConfirmed(false);
+        //TODO SAVE SPECIALISATION TABLE ENTRY
+        if(registerFormDTO.getIsOwner()) {
+            userModel.setType("owner");
+        } else {
+            userModel.setType("client");
+        }
         System.out.println(userModel);
         return userRepository.save(userModel);
     }
@@ -55,7 +61,8 @@ public class UserService {
     public boolean verify(String verificationCode) {
         UserModel userModel = userRepository.findById(Integer.parseInt(verificationCode)).orElse(null);
 
-        if (userModel == null || userModel.getConfirmed()) {
+        //TODO REMOVE WHEN IMPLEMENT DOUBLE VERIFICATION(MAIL AND ADMIN) FOR OWNER
+        if (userModel == null || userModel.getConfirmed() || userModel.getType().equals("owner")) {
             return false;
         } else {
 //            userModel.setVerificationCode(null);
