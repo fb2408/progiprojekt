@@ -1,10 +1,9 @@
 \chapter{Opis projektnog zadatka}
 		
-		\textbf{\textit{dio 1. revizije}}\\
 		
-		\textit{Cilj projekta je razviti programsku podršku za stvaranje aplikacije „ParkShare“ koja će korisniku omogućiti da rezervira i plati parking. Korisnik će moći također pregledati sva slobodna parkirališna mjesta za automobile i bicikle. Prilikom pokretanja sustava korisnik će na mapi vidjeti obližnja parkirališta i dobit će rutu do najbližeg te će moći vidjeti ima li slobodnih mjesta kako ne bi došao na popunjeno parkiralište.
+		Cilj projekta je razviti programsku podršku za stvaranje aplikacije „ParkShare“ koja će korisniku omogućiti rezervaciju i plati parking. Korisnik će moći također pregledati sva slobodna parkirališna mjesta za automobile i bicikle. Prilikom pokretanja sustava korisnik će na mapi vidjeti obližnja parkirališta i dobit će rutu do najbližeg te će moći vidjeti ima li slobodnih mjesta kako ne bi došao na popunjeno parkiralište.
 Neregistrirani korisnik šalje zahtjev za registraciju s odabranom ulogom koju želi, dakle voditelj parkinga ili klijent. Neregistriranom korisniku pokazuju se dostupa parkirališta i dostupna mjesta, a klijentima se prikazuje i zauzetost mjesta u stvarnom vremenu. Za registraciju korisniku su potrebni sljedeći podaci:
-}
+
 		\begin{packed_item}
 			\item \textit{Korisničko ime }
 			\item \textit{Lozinka }
@@ -15,18 +14,18 @@ Neregistrirani korisnik šalje zahtjev za registraciju s odabranom ulogom koju �
 			\item \textit{Email adresa }
 		\end{packed_item}
 		
-		\textit{Registracija završava potvrdom putem emaila korisnika, a voditelje mora potvrditi dodatno i administrator. Svaki korisnik aplikacije može vidjeti svoje privatne podatke u aplikaciji i može ih mijenjati. Također korisnik može izbrisati svoj korisnički račun. 
+	Registracija završava potvrdom putem emaila korisnika, a voditelje mora potvrditi dodatno i administrator. Svaki korisnik aplikacije može vidjeti svoje privatne podatke u aplikaciji i može ih mijenjati. Također korisnik može izbrisati svoj korisnički račun. 
 Postoje 3 vrste korisnika:
-}
+
                 \begin{packed_item}
 			\item \textit{Klijent }
 			\item \textit{Administrator }
 			\item \textit{Voditelj parkirališta}
 		\end{packed_item}
 
-\textit{Administrator može vidjeti popis svih klijenata i voditelja i njihove osobne podatke i može ih mijenjati po volji ako je potrebno. Administrator može također pregledati sva parkirališta i njihova mjesta u aplikaciji i može mijenjati njihove podatke. Administrator može ukloniti ili promijeniti korisnički račun bilo kojeg ne-administrativnog korisnika. 
+Administrator može vidjeti popis svih klijenata i voditelja i njihove osobne podatke i može ih mijenjati po volji ako je potrebno. Administrator može također pregledati sva parkirališta i njihova mjesta u aplikaciji i može mijenjati njihove podatke. Administrator može ukloniti ili promijeniti korisnički račun bilo kojeg ne-administrativnog korisnika. 
 Voditelj zapisuje specifikacije svog parkirališta kao što su:
-}
+
                 \begin{packed_item}
 			\item \textit{Naziv parkirališta }
 			\item \textit{Opis }
@@ -34,11 +33,11 @@ Voditelj zapisuje specifikacije svog parkirališta kao što su:
                         \item \textit{Cjenik}
 		\end{packed_item}
 
-\textit{Voditelj ucrtava na karti svako parkirališno mjesto svog parkirališta i može za po želji odabrano parkirališno mjesto odrediti može li se rezervirati i postavlja senzore na parkirališna mjesta koji govore je li mjesto zauzeto. Nakon ucrtavanja parkirališnih mjesta zapisuje ukupan kapacitet parkirališta.
+Voditelj ucrtava na karti svako parkirališno mjesto svog parkirališta i može za po želji odabrano parkirališno mjesto odrediti može li se rezervirati i postavlja senzore na parkirališna mjesta koji govore je li mjesto zauzeto. Nakon ucrtavanja parkirališnih mjesta zapisuje ukupan kapacitet parkirališta.
 Klijent na karti pregledava parkirališta u svojoj blizini i klikom na njih može vidjeti dostupne informacije o tom parkiralištu ujedno i je li ima slobodnih mjesta na parkiralištu. Ukoliko klijent želi biti siguran, on može rezervirati parkirališno mjesto tako da upiše termin u kojem želi parkirališno mjesto i pokazat će mu sva dostupna parkirališna mjesta na karti koja se mogu rezervirati. Drugi način za rezervaciju je da klijent unaprijed odabere parkirališna mjesta koja želi i onda će mu se prikazati kalendar s dostupnim terminima rezervacije. Klijent može rezervirati mjesto na proizvoljno dugo vremena i može rezervacija biti definirana kao ponavljajuća. Voditelj za svoje parkiralište određuje cijenu ovisno o trajanju rezervacije. Ukoliko se klijent odluči rezervirati parkirališno mjesto, parking mu se odmah naplaćuje putem aplikacije, ako pak klijent dođe bez rezervacije i odabere slobodno parkirališno mjesto, parking se naplaćuje na licu mjesta. U aplikaciji svaki klijent posjeduje novčanik kojim plaća parking, a u svakom trenu može uplatiti određenu svotu novca u novčanik kako bi mogao plaćati parking.
 Voditelji mogu vidjeti statistiku zauzetosti parkirališnih mjesta kroz vrijeme na svom parkiralištu. Prikupljaju se povijesne informacije kako je kroz vrijeme parkiralište bilo zauzeto i statistički se izračunava zauzetost u tom periodu vremena te se voditelju to prikazuje u obliku grafa. Voditelj može ucrtati najviše jedno parkiralište u aplikaciji, a parkirališna mjesta može ucrtavati i brisati kad god poželi, isto tako može izbrisati cijelo parkiralište. Voditelj parkinga može izmijeniti mogućnost rezervacije nekog parkirališnog mjesta te promijeniti cijenu parkinga. 
 Napomenuli smo da će na svakom parkiralištu biti moguće ponuditi parking i biciklima. Voditelj parkirališta ne ucrtava parkirališna mjesta kao za automobile već samo određuje ukupan kapacitet parkirališta za bicikle. Korisnici bicikla neće morati brinuti o naplati parking jer se on neće naplaćivati takvim korisnicima samim tim neće imati ni opciju za rezervaciju parkinga. Svaki voditelj mora na karti naznačiti je li parkiralište dostupno i za bicikle kako bi korisnici znali na karti gdje mogu parkirati svoje bicikle. Parkirališna mjesta za bicikle neće imati senzor za očitavanje dostupnosti mjesta. U bazu podataka spremamo sve podatke o korisnicima i njihovim ovlastima. Pohranjujemo sve podatke o parkiralištima(ime, cijena, opis), također sve informacije o parkirališnim mjestima(zauzetost, tip). Svaki klijent u aplikaciji nakon korištenja određenog parkirališta dobiva „Like“ opciju, ikonu palčića gore  i dolje te odabire klikom je li mu se parkiralište sviđalo ili ne. Također može i zanemariti danu opciju nije obvezno odgovoriti. Aplikacija mora podržavati sustav u kojem može biti više korisnika odjednom.
-}
+
 
 		\eject
 		

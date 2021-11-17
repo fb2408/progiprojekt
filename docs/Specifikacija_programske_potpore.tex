@@ -2,12 +2,8 @@
 		
 	\section{Funkcionalni zahtjevi}
 			
-			\textbf{\textit{dio 1. revizije}}\\
 			
-			\textit{Navesti \textbf{dionike} koji imaju \textbf{interes u ovom sustavu} ili  \textbf{su nositelji odgovornosti}. To su prije svega korisnici, ali i administratori sustava, naručitelji, razvojni tim.}\\
-				
-			\textit{Navesti \textbf{aktore} koji izravno \textbf{koriste} ili \textbf{komuniciraju sa sustavom}. Oni mogu imati inicijatorsku ulogu, tj. započinju određene procese u sustavu ili samo sudioničku ulogu, tj. obavljaju određeni posao. Za svakog aktora navesti funkcionalne zahtjeve koji se na njega odnose.}\\
-			
+		
 			
 			\noindent \textbf{Dionici:}
 			
@@ -25,7 +21,7 @@
 			
 			
 			\begin{packed_enum}
-				\item  \underbar{Vlasnik parkinga (inicijator) može:}
+				\item  \underbar{Voditelj parkinga (inicijator) može:}
 				
 				\begin{packed_enum}
 					
@@ -42,7 +38,7 @@
 				
 				\begin{packed_enum}
 					
-					\item Registrirati se kao klijent ili kao vlasnik parkinga
+					\item Registrirati se kao klijent ili kao voditelj parkinga
 					\item Prijaviti se
 					\item Pregledati sva parkirališta i parkirališna mjesta dostupna u aplikaciji
 					
@@ -472,7 +468,7 @@
     				\noindent \underbar{\textbf{UC12 - Prijava u sustav}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin)
+    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, voditelj, admin)
     				\item  \textbf{Cilj:} Dobiti pristup korisničkom sučelju  
     				\item  \textbf{Sudionici:} Baza podataka
     				\item  \textbf{Preduvjet:} Korisnik je već registriran u sustav
@@ -500,7 +496,7 @@
     				\noindent \underbar{\textbf{UC13 - Odjava iz sustava}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin) 
+    					\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, voditelj, admin) 
     					\item  \textbf{Cilj:} Odjavljivanje iz korisničkog sučelja
     					\item  \textbf{Sudionici:} 
     					\item  \textbf{Preduvjet:} Korisnik prijavljen u sustav
@@ -517,7 +513,7 @@
     				\noindent \underbar{\textbf{UC14 - Brisanje korisničkog računa}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin) 
+    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, voditelj, admin) 
     				\item  \textbf{Cilj:} Omogućuje brisanje korisničkog računa
     				\item  \textbf{Sudionici:} Baza podataka
     				\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
@@ -691,7 +687,7 @@
     				
     				\item \textbf{Glavni sudionik: } Klijent
     				\item  \textbf{Cilj:} Uplata klijenta na račun vlasnika parkinga
-    				\item  \textbf{Sudionici:} Baza podataka, Vlasnik parkinga
+    				\item  \textbf{Sudionici:} Baza podataka, Voditelj parkinga
     				\item  \textbf{Preduvjet:} Korisnik registriran kao klijent te klijent izvršio rezervaciju
     				\item  \textbf{Opis osnovnog tijeka:}
     				
@@ -762,7 +758,7 @@
     					\item \textbf{Glavni sudionik: } Administrator
     					\item  \textbf{Cilj:} Potvrditi račun voditelja parkinga
     					\item  \textbf{Sudionici:} Baza podataka
-    					\item  \textbf{Preduvjet:} Vlasnik je napravio račun potvrdom email adrese te korisnik je prijavljen kao administrator
+    					\item  \textbf{Preduvjet:} Voditelj je napravio račun potvrdom email adrese te korisnik je prijavljen kao administrator
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
@@ -843,9 +839,20 @@
 				
 		\section{Ostali zahtjevi}
 		
-			\textbf{\textit{dio 1. revizije}}\\
 		 
-			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
+			\begin{packed_item}
+				\item {Sustav treba biti oblikovan i implementiran kako bi imao sva svojstva web aplikacije koristeći objektno orijentirane jezike}
+				\item {Aplikacija bi trebala podržavati rad više korisnika u stvarnom vremenu }
+				\item {Izvršavanje dijela programa u kojem se pristupa bazi podataka ne smije trajati duže od nekoliko sekundi }
+				\item {Korisničko sučelje i sustav moraju podržavati sve znakove hrvatske abecede pri radu na aplikaciji, unos podataka, ispis podataka, u to se ubrajaju specijalni(dijaktrički) znakovi}
+				\item {Ako se korisnik sustavom koristi na neispravan način, sustav mora i dalje ostati funkcionalan i raditi bez odstupanja}
+				\item {Kako ne bismo korisnike dodatno opteretili s učenjem na koji način sustav radi, korisničko sučelje mora biti jednostavno za korištenje bez dodatnih uputa}
+				\item {Nadodavanjem novih funkcionalnosti u sustav ne smijemo narušiti rad ranije implementiranih funkcionalnosti}
+				\item {Službena i jedina valuta sustava jest hrvatska kuna - HRK}
+				\item {Pristup sustavu mora biti omogucen iz javne mreže pomoću HTTPS}
+				\item {Veza s bazom podataka mora biti jako dobro zaštićena od neželjenih vanjskih utjecaja, mora biti brza kako bi sustav mogao biti funkcionalan i mora biti otporna na vanjske greške}
+			\end{packed_item}
+			
 			 
 			 
 			 
