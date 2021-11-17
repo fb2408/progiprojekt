@@ -1,5 +1,7 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
+import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
+import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
@@ -8,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
 
 @Controller
 public class UserController {
@@ -23,26 +29,32 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/register")
-    public String register(UserDTO userDTO, Model model) {
+    @PostMapping("/")
+    public ModelAndView register(RegisterFormDTO registerFormDTO, ModelMap model) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        UserModel registered;
         try {
-            //Ovo je ovde samo da kod radi trenutno
-            //TODO refactor
-            String type = userDTO.getIsOwner() ? "ROLE_OWNER" : "ROLE_CLIENT";
-            userDTO.setUsertype(type);
-
-            UserModel registered = userService.registerNewUser(userDTO);
+            registered = userService.registerNewUser(registerFormDTO);
         } catch (ResponseStatusException e){
-            model.addAttribute("user", new UserDTO());
-            model.addAttribute("errExists", "Account with given username or email already exists");
-            return "index";
+            model.addAttribute("registerForm", new RegisterFormDTO());
+            errors.add(new MessageDTO("Registration failed!",
+                    "Account with given username or email already exists."));
+            model.addAttribute("errors", errors);
+            return new ModelAndView("index", model);
         }
-        return "index";
+        model.addAttribute("registerForm", new RegisterFormDTO());
+        information.add(new MessageDTO("Registration successful!",
+                registered.getType().equals("owner") ?
+                "Please wait for an administrator to confirm your registration." :
+                "To login, please confirm your account by email."));
+        model.addAttribute("information", information);
+        return new ModelAndView("index", model);
     }
 
     @GetMapping("/")
     public String showRegistrationForm(Model model){
-        model.addAttribute("user", new UserDTO());
+        model.addAttribute("registerForm", new RegisterFormDTO());
         return "index";
     }
 

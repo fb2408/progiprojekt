@@ -1,5 +1,6 @@
 package hr.fer.proinz.proggers.parkshare.service;
 
+import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
@@ -25,18 +26,18 @@ public class UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public UserModel registerNewUser(UserDTO userDTO) {
-        if (userRepository.existsByEmailOrName(userDTO.getUsermail(), userDTO.getUsername()))
+    public UserModel registerNewUser(RegisterFormDTO registerFormDTO) {
+        if (userRepository.existsByEmailOrName(registerFormDTO.getUserMail(), registerFormDTO.getUsername()))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         UserModel userModel = new UserModel();
-        userModel.setEmail(userDTO.getUsermail());
-        userModel.setName(userDTO.getUsername());
-        userModel.setFirstName(userDTO.getUserfirstname());
-        userModel.setSurname(userDTO.getUsersurname());
-        userModel.setTempPassword(bCryptPasswordEncoder.encode(userDTO.getTemppassword()));
-        userModel.setType(userDTO.getUsertype());
-        userModel.setConfirmed(userDTO.isConfirmed());
+        userModel.setEmail(registerFormDTO.getUserMail());
+        userModel.setName(registerFormDTO.getUsername());
+        userModel.setFirstName(registerFormDTO.getUserFirstName());
+        userModel.setSurname(registerFormDTO.getUserSurname());
+        userModel.setTempPassword(bCryptPasswordEncoder.encode(registerFormDTO.getPassword()));
+        userModel.setType(registerFormDTO.getIsOwner() ? "owner" : "client");
+        userModel.setConfirmed(registerFormDTO.isConfirmed());
         System.out.println(userModel);
         return userRepository.save(userModel);
     }
