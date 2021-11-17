@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: change maven target version">
-      <change afterPath="$PROJECT_DIR$/system.properties" afterDir="false" />
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="add system properties for heroku">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ParkShare.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ParkShare.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637157260117</updated>
-      <workItem from="1637157282679" duration="6346000" />
+      <workItem from="1637157282679" duration="6718000" />
+      <workItem from="1637167383164" duration="772000" />
     </task>
     <task id="LOCAL-00001" summary="fix: email confirmation integration">
       <created>1637160118256</created>
@@ -112,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637163938370</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add system properties for heroku">
+      <created>1637164109316</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1637164109316</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,6 +146,7 @@
     <MESSAGE value="fix: verify email URL" />
     <MESSAGE value="change index navbar to be transparent" />
     <MESSAGE value="fix: change maven target version" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: change maven target version" />
+    <MESSAGE value="add system properties for heroku" />
+    <option name="LAST_COMMIT_MESSAGE" value="add system properties for heroku" />
   </component>
 </project>
