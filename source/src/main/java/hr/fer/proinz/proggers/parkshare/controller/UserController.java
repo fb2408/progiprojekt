@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
-@RequestMapping("/users")
 public class UserController {
 
     UserService userService;
@@ -34,16 +33,16 @@ public class UserController {
             model.addAttribute("errorMsg", "Account with given username or email already exists");
             return "register";
         }
-        return "register";
+        return "userpage";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/")
     public String showRegistrationForm(Model model){
         model.addAttribute("user", new UserDTO());
-        return "register";
+        return "index";
     }
 
-    @GetMapping("/details")
+    @GetMapping("/profile")
     public String showUserDetails(Model model, Authentication auth){
         UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
