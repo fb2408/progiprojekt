@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: email confirmation integration">
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="feature: make email sending asynchronous">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/ParkShareApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/ParkShareApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +77,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637157260117</updated>
-      <workItem from="1637157282679" duration="4130000" />
+      <workItem from="1637157282679" duration="4509000" />
     </task>
     <task id="LOCAL-00001" summary="fix: email confirmation integration">
       <created>1637160118256</created>
@@ -89,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637160118256</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feature: make email sending asynchronous">
+      <created>1637161572835</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1637161572835</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +113,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: email confirmation integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: email confirmation integration" />
+    <MESSAGE value="feature: make email sending asynchronous" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature: make email sending asynchronous" />
   </component>
 </project>

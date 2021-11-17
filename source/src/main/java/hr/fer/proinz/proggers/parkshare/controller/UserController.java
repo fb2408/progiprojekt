@@ -62,8 +62,7 @@ public class UserController {
     }
 
     private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
+        return request.getRequestURL().toString();
     }
 
     @GetMapping("/confirm")

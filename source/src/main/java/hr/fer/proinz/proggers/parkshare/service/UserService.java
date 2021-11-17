@@ -53,7 +53,7 @@ public class UserService {
 
     public void sendMail(UserModel userModel, String siteURL) {
 
-        String verifyURL = siteURL + "/confirm?code=" + userModel.getId();
+        String verifyURL = siteURL + "confirm?code=" + userModel.getId();
         emailService.send(userModel.getEmail(), userModel.getName(), verifyURL);
 
     }
