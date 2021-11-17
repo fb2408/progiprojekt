@@ -54,35 +54,39 @@
                         <form th:action="@{/login}" method="post">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="loginEmail">
+                                <input type="email" class="form-control" name="loginEmail" id="loginEmail" required>
                             </div>
                             <div class="mb-3">
                                 <label for="loginPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="loginPassword">
+                                <input type="password" class="form-control" name="loginPassword" id="loginPassword" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" value="Login" class="btn btn-primary">Login</button>
                         </form>
                         <div> <small class="text-muted">Don't have an account?</small>
                             <a href="#register" class="text-white outside-link">Register instead!</a>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                        <form th:action="@{/register}" method="post">
+                        <form th:action="@{/register}" th:object="${user}" method="post">
                             <div class="mb-3">
                                 <label for="registerEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="registerEmail">
+                                <input type="email" th:field="*{usermail}" class="form-control" id="registerEmail">
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerUsername" class="form-label">Username</label>
+                                <input type="text" th:field="*{username}" class="form-control" id="registerUsername">
                             </div>
                             <div class="mb-3">
                                 <label for="registerName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="registerName">
+                                <input type="text" th:field="*{userfirstname}" class="form-control" id="registerName">
                             </div>
                             <div class="mb-3">
                                 <label for="registerSurname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="registerSurname">
+                                <input type="text" th:field="*{usersurname}" class="form-control" id="registerSurname">
                             </div>
                             <div class="mb-3">
                                 <label for="registerPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="registerPassword">
+                                <input type="password" th:field="*{temppassword}" class="form-control" id="registerPassword">
                             </div>
                             <div class="mb-3">
                                 <label for="registerPasswordConfirm" class="form-label">Confirm your password</label>
@@ -94,7 +98,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="registerOwner" class="form-check-label">I am a parking owner: </label>
-                                <input type="checkbox" class="form-check-input" id="registerOwner">
+                                <input type="checkbox" th:field="*{isOwner}" class="form-check-input" id="registerOwner">
                             </div>
                             <div style="display: none" class="input-group" id="ownerGroup">
                                 TEST
