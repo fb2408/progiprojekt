@@ -13,7 +13,7 @@
 
 <nav class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
     <div>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
                  width="240"  class="d-inline-block align-text-top">
         </a>
@@ -34,10 +34,11 @@
 <div class="grid3">
     <div class="person">
        <div class="photo-container">
-        <img src="/images/icons/user-avatar.jpg" th:width="120px" alt="Circle Image" class="rounded-circle">
+        <img th:src="@{/images/icons/user_avatar.jpg}" th:width="120px" alt="Circle Image" class="rounded-circle" src="">
         </div>
         <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getUsersurname()}">Ime Prezime</h3>
         <p class="category" th:text="${user.getUsertype()}">User</p>
+        <a class="link-info" th:href="@{/logout}">Logout</a>
     </div>
 
     <div class="content mygrid amounts">

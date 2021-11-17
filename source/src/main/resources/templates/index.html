@@ -12,9 +12,9 @@
       th:style="'background: url(' + @{/images/pictures/parkingPlacesFloor.jpg} + ') no-repeat center center fixed;background-size: cover;'">
 <nav class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
     <div>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
-                 width="240"  class="d-inline-block align-text-top">
+                 width="270"  class="d-inline-block align-text-top">
         </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -54,11 +54,11 @@
                         <form th:action="@{/login}" method="post">
                             <div class="mb-3">
                                 <label for="loginEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="loginEmail">
+                                <input type="email" class="form-control" id="loginEmail" name="loginEmail">
                             </div>
                             <div class="mb-3">
                                 <label for="loginPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="loginPassword">
+                                <input type="password" class="form-control" id="loginPassword" name="loginPassword">
                             </div>
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
@@ -67,61 +67,84 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                        <form th:action="@{/register}" method="post">
-                            <div class="mb-3">
+                        <form th:action="@{/}" th:object="${registerForm}" method="post">
+                            <div class="mb-2">
+                                <label for="registerUsername" class="form-label">Username</label>
+                                <input th:field="*{username}" type="text" class="form-control form-control-sm" id="registerUsername">
+                            </div>
+                            <div class="mb-2">
                                 <label for="registerEmail" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="registerEmail">
+                                <input th:field="*{userMail}" type="email" class="form-control form-control-sm" id="registerEmail">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="registerName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="registerName">
+                                <input th:field="*{userFirstName}" type="text" class="form-control form-control-sm" id="registerName">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="registerSurname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="registerSurname">
+                                <input th:field="*{userSurname}" type="text" class="form-control form-control-sm" id="registerSurname">
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2">
                                 <label for="registerPassword" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="registerPassword">
+                                <input th:field="*{password} "type="password" class="form-control form-control-sm" id="registerPassword">
                             </div>
-                            <div class="mb-3">
-                                <label for="registerPasswordConfirm" class="form-label">Confirm your password</label>
-                                <input type="password" class="form-control" id="registerPasswordConfirm">
-                            </div>
-                            <div class="mb-3">
-                                <label for="registerProfilePicture" class="form-label">Upload a profile picture(optional)</label>
-                                <input type="file" class="form-control" id="registerProfilePicture">
-                            </div>
-                            <div class="mb-3">
+                            <!--                            <div class="mb-2">-->
+                            <!--                                <label for="registerProfilePicture" class="form-label">Upload a profile picture(optional)</label>-->
+                            <!--                                <input type="file" class="form-control form-control-sm" id="registerProfilePicture">-->
+                            <!--                            </div>-->
+                            <div class="mb-2">
                                 <label for="registerOwner" class="form-check-label">I am a parking owner: </label>
-                                <input type="checkbox" class="form-check-input" id="registerOwner">
+                                <input th:field="*{isOwner}" type="checkbox" class="form-check-input" id="registerOwner">
                             </div>
-                            <div style="display: none" class="input-group" id="ownerGroup">
-                                TEST
+                            <div style="display: none" id="ownerGroup">
+                                <div class="mb-2">
+                                    <label for="registerIban" class="form-label">IBAN</label>
+                                    <input th:field="*{iban}" type="text" class="form-control form-control-sm" id="registerIban">
+                                </div>
+                                <!--                                <div class="mb-2">-->
+                                <!--                                    <label for="registerIdPicture" class="form-label">Upload a id picture</label>-->
+                                <!--                                    <input type="file" class="form-control form-control-sm" id="registerIdPicture">-->
+                                <!--                                    </div>-->
                             </div>
                             <button type="submit" class="btn btn-primary">Register</button>
+                            <div class="d-inline-block"> <small class="text-muted">Already have an account?</small>
+                                <a href="#login" class="text-white outside-link">Click here to login!</a>
+                            </div>
                         </form>
-                        <div> <small class="text-muted">Already have an account?</small>
-                            <a href="#login" class="text-white outside-link">Click here to login!</a>
-                        </div>
-<!--                        <div class="d-grid gap-2">-->
-<!--                            <a class="btn w-75 btn-lg btn-primary btn-margin-top" th:href="@{/register/user}">-->
-<!--                                Register as user-->
-<!--                            </a>-->
-<!--                            <a class="btn w-75 bg-light btn-lg text-muted btn-margin-top" th:href="@{/register/owner}">-->
-<!--                                Register as parking owner-->
-<!--                            </a>-->
-<!--                        </div>-->
+                        <!--                        <div class="d-grid gap-2">-->
+                        <!--                            <a class="btn w-75 btn-lg btn-primary btn-margin-top" th:href="@{/register/user}">-->
+                        <!--                                Register as user-->
+                        <!--                            </a>-->
+                        <!--                            <a class="btn w-75 bg-light btn-lg text-muted btn-margin-top" th:href="@{/register/owner}">-->
+                        <!--                                Register as parking owner-->
+                        <!--                            </a>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div th:each="error: ${errors}">
-        <div th:inline="text" class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong th:text="${(error != null) ? error.msg : 'No error!'}">Not logged in!</strong>
-            [[(${error} != null) ? ${error.desc} : ' Everything is fine :)']]
+    <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
+        <div th:if="${param.errorNotLoggedIn}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Not logged in!</strong>
+            Please log to use the app.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
+        <div th:each="info: ${information}">
+            <div th:inline="text" class="alert alert-info alert-dismissible fade show" role="alert">
+                <strong th:text="${(info != null) ? info.msg : 'No error!'}">Not logged in!</strong>
+                [[(${info} != null) ? ${info.desc} : ' Everything is fine :)']]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div th:each="error: ${errors}">
+            <div th:inline="text" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong th:text="${(error != null) ? error.msg : 'No error!'}">Not logged in!</strong>
+                [[(${error} != null) ? ${error.desc} : ' Everything is fine :)']]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
     </div>
 </div>

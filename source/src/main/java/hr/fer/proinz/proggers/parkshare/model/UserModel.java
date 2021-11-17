@@ -24,7 +24,7 @@ public class UserModel {
     @Column(name = "useremail", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "temppassword", nullable = false)
+    @Column(name = "password", nullable = false)
     private String tempPassword;
 
     @Column(name = "usertype", length = 15, nullable = false)
@@ -33,14 +33,14 @@ public class UserModel {
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed = false;
 
-    @Column(name = "verificationcode", nullable = false)
-    private String verificationCode;
-
-    private  String getVerificationCode() { return this.verificationCode; }
-
-    private void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
+//    @Column(name = "verificationcode", nullable = false)
+//    private String verificationCode;
+//
+//    private  String getVerificationCode() { return this.verificationCode; }
+//
+//    private void setVerificationCode(String verificationCode) {
+//        this.verificationCode = verificationCode;
+//    }
 
     public Boolean getConfirmed() {
         return confirmed;
@@ -107,11 +107,11 @@ public class UserModel {
     }
 
     public boolean isAdmin(){
-        return type.equals("ROLE_ADMIN");
+        return type.equals("admin");
     }
 
     public boolean isOwner(){
-        return type.equals("ROLE_OWNER");
+        return type.equals("owner");
     }
 
     @Override
