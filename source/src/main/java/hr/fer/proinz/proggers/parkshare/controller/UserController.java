@@ -36,12 +36,13 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ModelAndView register(RegisterFormDTO registerFormDTO, ModelMap model) {
+    public ModelAndView register(RegisterFormDTO registerFormDTO, ModelMap model, HttpServletRequest request) {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         UserModel registered;
         try {
             registered = userService.registerNewUser(registerFormDTO);
+            userService.sendMail(registered, getSiteURL(request));
         } catch (ResponseStatusException e){
             model.addAttribute("registerForm", new RegisterFormDTO());
             errors.add(new MessageDTO("Registration failed!",
@@ -66,13 +67,12 @@ public class UserController {
     @GetMapping("/confirm")
     public String verifyUser(@Param("code") String code, Model model) {
         if (userService.verify(code)) {
-            model.addAttribute("succesfull_msg", "Congratulations, your account has been verified.");
-            return "redirect:/";
+            return "redirect:/?verifySuccess=true";
         }
         model.addAttribute("user", new UserDTO());
         model.addAttribute("errorMsg", "Sorry, we could not verify account." +
                 " It maybe already verified or verification code is incorrect.");
-        return "redirect:/";
+        return "redirect:/?verifyFailure=true";
     }
 
     @GetMapping("/")

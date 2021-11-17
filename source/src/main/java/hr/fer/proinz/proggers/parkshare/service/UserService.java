@@ -47,13 +47,13 @@ public class UserService {
 
     public void sendMail(UserModel userModel, String siteURL) {
 
-        String verifyURL = siteURL + "/confirm?" + userModel.getId();
+        String verifyURL = siteURL + "/confirm?code=" + userModel.getId();
         emailService.send(userModel.getEmail(), userModel.getName(), verifyURL);
 
     }
 
     public boolean verify(String verificationCode) {
-        UserModel userModel = userRepository.findById(Integer.parseInt(verificationCode));
+        UserModel userModel = userRepository.findById(Integer.parseInt(verificationCode)).orElse(null);
 
         if (userModel == null || userModel.getConfirmed()) {
             return false;

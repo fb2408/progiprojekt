@@ -12,6 +12,5 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
     boolean existsByEmailOrName(String email, String username);
 
-    @Query("SELECT u FROM UserModel u WHERE u.verificationCode = ?1")
-    public UserModel findByVerificationCode(String code);
+//    UserModel findByVerificationCode(String code);
 }

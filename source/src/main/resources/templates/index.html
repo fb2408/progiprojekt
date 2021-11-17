@@ -130,6 +130,21 @@
             Please log to use the app.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <div th:if="${param.errorLoginFailed}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Could not log you in!</strong>
+            Wrong username or password, or account is not confirmed.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${param.verifySuccess}" class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Congratulations!</strong>
+            Your account has been successfully activated.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${param.verifyFailure}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Sorry, we could not verify your account.</strong>
+            It may already be verified or verification code is incorrect.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
     </div>
     <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
         <div th:each="info: ${information}">
