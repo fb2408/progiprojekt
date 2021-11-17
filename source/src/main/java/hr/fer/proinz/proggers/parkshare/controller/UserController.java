@@ -7,6 +7,7 @@ import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.print.attribute.standard.PresentationDirection;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class UserController {
@@ -55,6 +58,23 @@ public class UserController {
         return new ModelAndView("index", model);
     }
 
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+
+    @GetMapping("/confirm")
+    public String verifyUser(@Param("code") String code, Model model) {
+        if (userService.verify(code)) {
+            model.addAttribute("succesfull_msg", "Congratulations, your account has been verified.");
+            return "redirect:/";
+        }
+        model.addAttribute("user", new UserDTO());
+        model.addAttribute("errorMsg", "Sorry, we could not verify account." +
+                " It maybe already verified or verification code is incorrect.");
+        return "redirect:/";
+    }
+
     @GetMapping("/")
     public String showRegistrationForm(Model model, Authentication auth){
         if(auth != null) {
@@ -70,10 +90,4 @@ public class UserController {
         model.addAttribute("user", currentUser);
         return  "userpage";
     }
-
-//    @GetMapping("/logout")
-//    public String logout(){
-//        SecurityContextHolder.getContext().setAuthentication(null);
-//        return "redirect:/";
-//    }
 }
