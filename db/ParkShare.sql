@@ -140,21 +140,3 @@ create table clientreservation
 alter table clientreservation
     owner to postgres;
 
-CREATE OR REPLACE FUNCTION update_owner_client() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    IF NEW.usertype = 'owner' THEN
-        insert into parkingowner(userid, iban, idpicture) values (NEW.userid, 'HR0000000000000000000', '');
-    else
-        insert into client(userid, walletbalance) values (NEW.userid, 0);
-    end if;
-    RETURN new;
-END;
-$BODY$
-    language plpgsql;
-
-Create trigger updateOwnerClient
-    after insert
-    on usertable
-    for each row
-execute function update_owner_client();
