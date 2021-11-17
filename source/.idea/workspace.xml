@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="feature: make email sending asynchronous">
+    <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: verify email URL">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +76,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637157260117</updated>
-      <workItem from="1637157282679" duration="4509000" />
+      <workItem from="1637157282679" duration="5111000" />
     </task>
     <task id="LOCAL-00001" summary="fix: email confirmation integration">
       <created>1637160118256</created>
@@ -93,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637161572835</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix: verify email URL">
+      <created>1637162065832</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1637162065832</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +120,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: email confirmation integration" />
     <MESSAGE value="feature: make email sending asynchronous" />
-    <option name="LAST_COMMIT_MESSAGE" value="feature: make email sending asynchronous" />
+    <MESSAGE value="fix: verify email URL" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: verify email URL" />
   </component>
 </project>
