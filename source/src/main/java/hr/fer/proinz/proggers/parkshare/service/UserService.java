@@ -2,8 +2,11 @@ package hr.fer.proinz.proggers.parkshare.service;
 
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.Client;
 import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +25,20 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
-
+    private final ClientRepository clientRepository;
+    private final ParkingOwnerRepository ownerRepository;
     private final EmailService emailService;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService(EmailService emailService, UserRepository userRepository,
-                       BCryptPasswordEncoder bCryptPasswordEncoder) {
+                       BCryptPasswordEncoder bCryptPasswordEncoder, ClientRepository clientRepository, ParkingOwnerRepository ownerRepository) {
         this.emailService = emailService;
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.clientRepository = clientRepository;
+        this.ownerRepository = ownerRepository;
     }
 
     public UserModel registerNewUser(RegisterFormDTO registerFormDTO) {
@@ -86,5 +92,21 @@ public class UserService {
 
     public List<UserModel> getAllUnconfirmedOwners(){
         return userRepository.findByConfirmedAndType(false, "owner");
+    }
+
+    public UserDTO UserToDTO(UserModel model) {
+        if (model.getType().equals("owner")) {
+            ParkingOwner associatedOwner = ownerRepository.findById(model.getId()).orElse(null);
+            assert associatedOwner != null;
+            return new UserDTO(model.getId(), model.getName(), model.getFirstName(), model.getSurname(),
+                    model.getEmail(), model.getTempPassword(), model.getType(), associatedOwner.getIban(), null, model.getConfirmed());
+        } else if (model.getType().equals("client")) {
+            Client associatedClient = clientRepository.findById(model.getId()).orElse(null);
+            assert associatedClient != null;
+            return new UserDTO(model.getId(), model.getName(), model.getFirstName(), model.getSurname(), model.getEmail(),
+                    model.getTempPassword(), model.getType(), null, associatedClient.getWalletBalance(), model.getConfirmed());
+        }
+        return new UserDTO(model.getId(), model.getName(), model.getFirstName(), model.getSurname(), model.getEmail(),
+                model.getTempPassword(), model.getType(), null, null, model.getConfirmed());
     }
 }

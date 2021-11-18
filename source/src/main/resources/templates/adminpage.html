@@ -65,7 +65,7 @@
     </div>
 </div>
 
-<form th:action="@{/}" method="post" id="changeUserInfoForm" style="display: none">
+<form th:action="@{/admin}" method="post" id="changeUserInfoForm" style="display: none">
     <div class="grid3" id="hidingeditblock">
         <div class="editUserInfoGrids">
             <div class="mb-2">
@@ -131,7 +131,7 @@
             <td th:text="${listing.getSurname}"></td>
             <td th:text="${listing.getEmail}"></td>
             <td>HR54651984651586458</td>
-            <td><a href="#"><img th:src="@{/images/icons/check-icon.png}" width="20px" style="display: block; margin: auto"></a></td>
+            <td><a href="#" th:href="@{/admin/chaneguser(id=listing.getId())}"><img th:src="@{/images/icons/check-icon.png}" width="20px" style="display: block; margin: auto"></a></td>
         </tr>
         </tbody>
 

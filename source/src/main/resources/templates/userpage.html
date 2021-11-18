@@ -36,8 +36,8 @@
        <div class="photo-container">
         <img th:src="@{/images/icons/user_avatar.jpg}" th:width="120px" alt="Circle Image" class="rounded-circle" src="">
         </div>
-        <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getUsersurname()}">Ime Prezime</h3>
-        <p class="category" th:text="${user.getUsertype()}">User</p>
+        <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getUserSurname()}">Ime Prezime</h3>
+        <p class="category" th:text="${user.getUserType()}">User</p>
         <a class="link-info" th:href="@{/logout}">Logout</a>
     </div>
 
@@ -60,7 +60,7 @@
             </div><br>
             <span><b>Username:</b></span> <span th:text="${'  ' + user.getUsername()}"> Unska ulica 3, 10000 Zagreb</span>
             <br><br>
-            <span><b>Email:</b></span><span th:text="${'  ' + user.getUsermail()}"> luka.gjuric@gmail.com</span>
+            <span><b>Email:</b></span><span th:text="${'  ' + user.getUserMail()}"> luka.gjuric@gmail.com</span>
     </div>
 </div>
 
@@ -73,7 +73,7 @@
             </div>
             <div class="mb-2">
                 <label for="registerEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control form-control-sm" id="registerEmail" th:value="${user.getUsermail()}">
+                <input type="email" class="form-control form-control-sm" id="registerEmail" th:value="${user.getUserMail()}">
             </div>
         </div>
         <div class="editUserInfoGrids">
@@ -83,7 +83,7 @@
             </div>
             <div class="mb-2">
                 <label for="registerSurname" class="form-label">Last Name</label>
-                <input type="text" class="form-control form-control-sm" id="registerSurname" th:value="${user.getUsersurname()}">
+                <input type="text" class="form-control form-control-sm" id="registerSurname" th:value="${user.getUserSurname()}">
             </div>
         </div>
         <div class="editUserInfoGrids">
@@ -114,7 +114,7 @@
     </div>
 </form>
 
-<div th:if="${user.getUsertype() == 'admin'}" id="requests">
+<div th:if="${user.getUserType() == 'admin'}" id="requests">
     <h3>Active requests for registration of parking owners</h3>
 </div>
 

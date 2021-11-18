@@ -100,7 +100,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public String showUserDetails(Model model, Authentication auth){
-        UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
+        UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         return  "userpage";
     }
@@ -126,7 +126,7 @@ public class UserController {
         List<UserModel> unconfirmedOwners = userService.getAllUnconfirmedOwners();
         model.addAttribute("unconfirmedOwners", unconfirmedOwners);
 
-        UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
+        UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         return "userpage";
     }
