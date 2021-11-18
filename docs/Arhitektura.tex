@@ -215,6 +215,15 @@ su dohvaćeni pomoću metoda implementiranih u Model razredima. Metode implement
 	\label{fig:controllers}
 \end{figure}
 
+Model razredi preslikavaju strukturu baze podataka u aplikaciji. Razred User predstavlja neregistriranog korisnika koji se moze registrirati u sustav unoseći osnovne informacije. Razred Client predstavlja klijenta koji je registriran u sustav i koji može koristiti njegove osnovne funkcionalnosti. Razred Owner predstavlja voditelja parkinga koji ima mogućnost upravljanja svojim parkiralištima i parkirališnim mjestima. Razred Parking prikazuje parking sa definirajućim atributima i parkirališnim mjestima koji su zaseban razred. Razred ClientReservation služi za ispis statističkih podataka. Razredi ParkingSpot, ParkingSpotOccupancy i ClientReservation imaju složene ključeve koji su izdvojeni u zasebne razrede.
+
+\begin{figure}[H]
+	
+	\includegraphics[width=\textwidth]{slike/dto.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\centering
+	\caption{Dijagram razreda - dio Data transfer objects}
+	\label{fig:dto}
+\end{figure}
 
 
 
