@@ -3,7 +3,11 @@ package hr.fer.proinz.proggers.parkshare.controller;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.ClientReservation;
+import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +35,15 @@ public class UserController {
 
     UserService userService;
     UserRepository userRepository;
+    ParkingOwnerRepository ownerRepository;
+    ClientRepository clientRepository;
 
     @Autowired
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
+        this.ownerRepository = ownerRepository;
+        this.clientRepository = clientRepository;
     }
 
     @PostMapping("/")
@@ -47,6 +55,11 @@ public class UserController {
             registered = userService.registerNewUser(registerFormDTO);
             if(registered.getType().equals("client")){
                 userService.sendMail(registered, getSiteURL(request));
+            } else {
+                ownerRepository.findById(registered.getId()).ifPresent((owner) ->{
+                    owner.setIban(registerFormDTO.getIban());
+                    ownerRepository.save(owner);
+                });
             }
         } catch (ResponseStatusException e){
             model.addAttribute("registerForm", new RegisterFormDTO());
