@@ -1,5 +1,7 @@
 package hr.fer.proinz.proggers.parkshare.dto;
 
+import hr.fer.proinz.proggers.parkshare.model.UserModel;
+
 public class RegisterFormDTO {
     private Integer userId;
     private String username;
@@ -26,6 +28,11 @@ public class RegisterFormDTO {
 
     public RegisterFormDTO() {
 
+    }
+
+    public RegisterFormDTO(UserModel userModel, String iban) {
+        this(userModel.getName(), userModel.getFirstName(), userModel.getSurname(), userModel.getEmail(), "", userModel.isOwner(), userModel.getConfirmed(), iban);
+        setUserId(userModel.getId());
     }
 
     public Integer getUserId() {
