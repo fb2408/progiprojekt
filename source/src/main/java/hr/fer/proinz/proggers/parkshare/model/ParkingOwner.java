@@ -23,7 +23,23 @@ public class ParkingOwner {
         this.id = id;
     }
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parkingOwner", optional = false)
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getIdPicture() {
+        return idPicture;
+    }
+
+    public void setIdPicture(String idPicture) {
+        this.idPicture = idPicture;
+    }
+
+    //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parkingOwner", optional = false)
 //    private User user;
 //
 //    public User getUser() {
