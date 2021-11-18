@@ -4,6 +4,7 @@ import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,13 +30,15 @@ public class UserService {
 
     private final EmailService emailService;
     private final UserRepository userRepository;
+    private final ParkingOwnerRepository parkingOwnerRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService(EmailService emailService, UserRepository userRepository,
-                       BCryptPasswordEncoder bCryptPasswordEncoder) {
+                       ParkingOwnerRepository parkingOwnerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.emailService = emailService;
         this.userRepository = userRepository;
+        this.parkingOwnerRepository = parkingOwnerRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -63,6 +70,30 @@ public class UserService {
 
     }
 
+    public void updateUser(RegisterFormDTO registerFormDTO, boolean isAdmin, int id){
+        if(userRepository.existsByName(registerFormDTO.getUsername()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        Optional<UserModel> optionalUserModel = userRepository.findById(id);
+        if(optionalUserModel.isEmpty())
+            throw new NoSuchElementException("There is no user with given id");
+
+        UserModel userModel = optionalUserModel.get();
+        userModel.setName(registerFormDTO.getUsername());
+        userModel.setFirstName(registerFormDTO.getUserFirstName());
+        userModel.setSurname(registerFormDTO.getUserSurname());
+        if(!Objects.equals(registerFormDTO.getPassword(), ""))
+          userModel.setTempPassword(bCryptPasswordEncoder.encode(registerFormDTO.getPassword()));
+
+        parkingOwnerRepository.findById(userModel.getId()).ifPresent((parkingOwner) ->{
+            parkingOwner.setIban(registerFormDTO.getIban());
+            parkingOwnerRepository.save(parkingOwner);
+        });
+        if(isAdmin){
+            //TODO prominit confirmed u enabled, treba dodat enabled boolean u bazi
+            userModel.setConfirmed(registerFormDTO.isConfirmed());
+        }
+        userRepository.save(userModel);
+    }
     public boolean verify(String verificationCode) {
         UserModel userModel = userRepository.findById(Integer.parseInt(verificationCode)).orElse(null);
 
