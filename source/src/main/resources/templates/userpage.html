@@ -31,7 +31,7 @@
     </div>
 </nav>
 
-<div class="grid3">
+<div class="grid3" style="padding-top: 10rem">
     <div class="person">
        <div class="photo-container">
         <img th:src="@{/images/icons/user_avatar.jpg}" th:width="120px" alt="Circle Image" class="rounded-circle" src="">
@@ -52,14 +52,82 @@
         </div>
     </div>
     <div class="content mygrid personalinfo">
-        <div style="align-content: center">
-            <h3>Personal information</h3></br>
+            <div>
+                <h3 style='display:inline; padding-right: 1rem'>Personal information</h3>
+                <a href="#" onclick="showChangeForm();return false;">
+                    <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" th:src="@{/images/icons/pencil-icon.png}" alt="edit" width="30" height="30" style="display: inline; vertical-align: bottom">
+                </a>
+            </div><br>
             <span><b>Username:</b></span> <span th:text="${'  ' + user.getUsername()}"> Unska ulica 3, 10000 Zagreb</span>
             <br><br>
             <span><b>Email:</b></span><span th:text="${'  ' + user.getUsermail()}"> luka.gjuric@gmail.com</span>
-        </div>
     </div>
 </div>
 
+<form th:action="@{/}" method="post" id="changeUserInfoForm" style="display: none">
+    <div class="grid3" style="padding-top: 3rem; background-color: lightblue">
+        <div class="editUserInfoGrids">
+            <div class="mb-2">
+                <label for="registerUsername" class="form-label">Username</label>
+                <input type="text" class="form-control form-control-sm" id="registerUsername" th:value="${user.getUsername()}">
+            </div>
+            <div class="mb-2">
+                <label for="registerEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control form-control-sm" id="registerEmail" th:value="${user.getUsermail()}">
+            </div>
+        </div>
+        <div class="editUserInfoGrids">
+            <div class="mb-2">
+                <label for="registerName" class="form-label">First Name</label>
+                <input type="text" class="form-control form-control-sm" id="registerName" th:value="${user.getUserfirstname()}">
+            </div>
+            <div class="mb-2">
+                <label for="registerSurname" class="form-label">Last Name</label>
+                <input type="text" class="form-control form-control-sm" id="registerSurname" th:value="${user.getUsersurname()}">
+            </div>
+        </div>
+        <div class="editUserInfoGrids">
+            <div class="mb-2">
+                <label for="oldPassword" class="form-label">Old password*</label>
+                <input type="password" class="form-control form-control-sm" id="oldPassword">
+            </div>
+            <div class="mb-2">
+                <label for="newPassword" class="form-label">New password*</label>
+                <input type="password" class="form-control form-control-sm" id="newPassword">
+            </div>
+
+        </div>
+        <div th:if="${user.getIsOwner() == true}" class="editUserInfoGrids" id="ownerGroup">
+            <div class="mb-2">
+                <label for="registerIban" class="form-label">IBAN</label>
+                <input type="text" class="form-control form-control-sm" id="registerIban">
+            </div>
+        </div>
+        <div style="grid-column: 1; text-align: left; padding-left: 2rem; margin-top: auto">
+            <p>* Leave empty if you don't want to change it.</p>
+        </div>
+        <div style="grid-column: 2; text-align: center; padding-top: 2rem">
+            <button type="submit" class="btn btn-primary">Submit changes</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelChange()">Cancel</button>
+        </div>
+
+    </div>
+</form>
+
+<div th:if="${user.getUsertype() == 'admin'}" id="requests">
+    <h3>Active requests for registration of parking owners</h3>
+</div>
+
 </body>
+<script th:inline="javascript">
+    function showChangeForm(){
+        var changeForm = document.getElementById('changeUserInfoForm');
+        changeForm.style.display = "block";
+    }
+    function cancelChange(){
+        var changeForm = document.getElementById('changeUserInfoForm');
+        changeForm.reset();
+        changeForm.style.display = "none";
+    }
+</script>
 </html>

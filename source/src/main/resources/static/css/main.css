@@ -103,9 +103,7 @@
 }
 
 .grid3{
-    position: relative;
-    top: 5rem;
-    padding: 5rem;
+    padding: 5rem 5rem 2rem 5rem;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
@@ -129,4 +127,9 @@
 }
 .social-description{
     text-align: center;
+}
+
+.editUserInfoGrids{
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
