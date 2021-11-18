@@ -1,35 +1,41 @@
 package hr.fer.proinz.proggers.parkshare.dto;
 
+import hr.fer.proinz.proggers.parkshare.model.Client;
+import hr.fer.proinz.proggers.parkshare.model.ClientReservation;
+import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
 
 public class UserDTO {
 
     private Integer userid;
     private String username;
     private String firstName;
-    private String usersurname;
-    private String usermail;
+    private String userSurname;
+    private String userMail;
     private String temppassword;
-    private String usertype;
-
-    private boolean isOwner;
+    private String userType;
+    private String iban;
+    private BigDecimal walletBalance;
 
     private boolean confirmed;
-    public UserDTO(String username, String userfirstname, String usersurname, String usermail, String temppassword, String usertype, boolean confirmed, boolean isOwner) {
+
+    public UserDTO(Integer userid, String username, String firstName, String userSurname, String userMail, String temppassword, String userType, String iban, BigDecimal walletBalance, boolean confirmed) {
+        this.userid = userid;
         this.username = username;
-        this.firstName = userfirstname;
-        this.usersurname = usersurname;
-        this.usermail = usermail;
+        this.firstName = firstName;
+        this.userSurname = userSurname;
+        this.userMail = userMail;
         this.temppassword = temppassword;
-        this.usertype = usertype;
+        this.userType = userType;
+        this.iban = iban;
+        this.walletBalance = walletBalance;
         this.confirmed = confirmed;
-        this.isOwner = isOwner;
     }
 
-    public UserDTO(UserModel userModel){
-        this(userModel.getName(), userModel.getFirstName(), userModel.getSurname(), userModel.getEmail(), "", userModel.getType(), userModel.getConfirmed(), userModel.isOwner());
-        setUserid(userModel.getId());
-    }
     public UserDTO() {
 
     }
@@ -40,14 +46,6 @@ public class UserDTO {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public boolean getIsOwner() {
-        return isOwner;
-    }
-
-    public void setOwner(boolean owner) {
-        isOwner = owner;
     }
 
     public Integer getUserid() {
@@ -74,20 +72,20 @@ public class UserDTO {
         this.firstName = userfirstname;
     }
 
-    public String getUsersurname() {
-        return usersurname;
+    public String getUserSurname() {
+        return userSurname;
     }
 
-    public void setUsersurname(String usersurname) {
-        this.usersurname = usersurname;
+    public void setUserSurname(String userSurname) {
+        this.userSurname = userSurname;
     }
 
-    public String getUsermail() {
-        return usermail;
+    public String getUserMail() {
+        return userMail;
     }
 
-    public void setUsermail(String usermail) {
-        this.usermail = usermail;
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
     }
 
     public String getTemppassword() {
@@ -98,12 +96,12 @@ public class UserDTO {
         this.temppassword = temppassword;
     }
 
-    public String getUsertype() {
-        return usertype;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public boolean isConfirmed() {
@@ -112,5 +110,33 @@ public class UserDTO {
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public int getWalletBalance() {
+        return walletBalance;
+    }
+
+    public void setWalletBalance(int walletBalance) {
+        this.walletBalance = walletBalance;
+    }
+
+    public boolean isOwner() {
+        return userType.equals("owner");
+    }
+
+    public boolean isAdmin() {
+        return userType.equals("admin");
+    }
+
+    public boolean isClient() {
+        return userType.equals("client");
     }
 }

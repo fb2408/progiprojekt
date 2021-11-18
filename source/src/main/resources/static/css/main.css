@@ -129,7 +129,17 @@
     text-align: center;
 }
 
-.editUserInfoGrids{
+.editUserInfoGrids {
     padding-left: 2rem;
     padding-right: 2rem;
+}
+
+#requests{
+    padding : 5rem;
+    padding-top: 2rem;
+}
+
+#hidingeditblock{
+    padding-top: 3rem;
+    background-color: #cfe2ff;
 }
