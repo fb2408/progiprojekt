@@ -31,23 +31,21 @@ import java.util.Optional;
 @Transactional
 public class UserService {
     private final ClientRepository clientRepository;
-    private final ParkingOwnerRepository ownerRepository;
     private final EmailService emailService;
     private final UserRepository userRepository;
     private final ParkingOwnerRepository parkingOwnerRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @Autowired
-    public UserService(EmailService emailService, UserRepository userRepository,
-                       BCryptPasswordEncoder bCryptPasswordEncoder, ClientRepository clientRepository, ParkingOwnerRepository ownerRepository) {
-                       ParkingOwnerRepository parkingOwnerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(ClientRepository clientRepository, EmailService emailService, UserRepository userRepository, ParkingOwnerRepository parkingOwnerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.clientRepository = clientRepository;
         this.emailService = emailService;
         this.userRepository = userRepository;
         this.parkingOwnerRepository = parkingOwnerRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.clientRepository = clientRepository;
-        this.ownerRepository = ownerRepository;
     }
+
 
     public UserModel registerNewUser(RegisterFormDTO registerFormDTO) {
         if (userRepository.existsByEmailOrName(registerFormDTO.getUserMail(), registerFormDTO.getUsername()))
@@ -128,7 +126,7 @@ public class UserService {
 
     public UserDTO UserToDTO(UserModel model) {
         if (model.getType().equals("owner")) {
-            ParkingOwner associatedOwner = ownerRepository.findById(model.getId()).orElse(null);
+            ParkingOwner associatedOwner = parkingOwnerRepository.findById(model.getId()).orElse(null);
             assert associatedOwner != null;
             return new UserDTO(model.getId(), model.getName(), model.getFirstName(), model.getSurname(),
                     model.getEmail(), model.getTempPassword(), model.getType(), associatedOwner.getIban(), null, model.getConfirmed());

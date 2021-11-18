@@ -120,11 +120,11 @@ public class UserDTO {
         this.iban = iban;
     }
 
-    public int getWalletBalance() {
+    public BigDecimal getWalletBalance() {
         return walletBalance;
     }
 
-    public void setWalletBalance(int walletBalance) {
+    public void setWalletBalance(BigDecimal walletBalance) {
         this.walletBalance = walletBalance;
     }
 
