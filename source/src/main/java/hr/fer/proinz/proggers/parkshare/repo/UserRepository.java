@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
     boolean existsByEmailOrName(String email, String username);
 
+    boolean existsByName(String name);
+
     Page<UserModel> findByTypeNotLike(String type, Pageable pageable);
 //    UserModel findByVerificationCode(String code);
 
