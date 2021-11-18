@@ -3,8 +3,6 @@ package hr.fer.proinz.proggers.parkshare.controller;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
-import hr.fer.proinz.proggers.parkshare.model.ClientReservation;
-import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
@@ -14,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,8 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -112,7 +110,7 @@ public class UserController {
         Page<UserModel> userPage = userService.getUserPage(page, size);
         model.addAttribute("userPage", userPage);
         int pageCount = userPage.getTotalPages();
-        List<Integer> pageNumbers = new ArrayList<>();
+        List<Integer> pageNumbers;
         if(pageCount<=9) {
             pageNumbers = IntStream.rangeClosed(1, pageCount)
                     .boxed().collect(Collectors.toList());
@@ -129,5 +127,39 @@ public class UserController {
         UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         return "userpage";
+    }
+
+    @PostMapping("/profile")
+    public ModelAndView editUserDetails(RegisterFormDTO updatedUser, ModelMap model, Authentication auth) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        try {
+            userService.updateUser(updatedUser, false, userRepository.findByEmail(auth.getName()).getId());
+        } catch (ResponseStatusException e) {
+            UserModel currentUserModel = userRepository.findByEmail(auth.getName());
+            AtomicReference<String> iban = new AtomicReference<>("");
+            ownerRepository.findById(currentUserModel.getId()).ifPresent(owner -> iban.set(owner.getIban()));
+            model.addAttribute("user", new RegisterFormDTO(currentUserModel, iban.get()));
+            errors.add(new MessageDTO("Update failed!",
+                    "Account with given username already exists."));
+            model.addAttribute("errors", errors);
+            return new ModelAndView("userpage", model);
+        }
+        model.addAttribute("user", updatedUser);
+        information.add(new MessageDTO("Success!", "Your data has been updated."));
+        model.addAttribute("information", information);
+        return new ModelAndView("userpage", model);
+    }
+
+    @PostMapping("/admin/changeuser")
+    public String adminEditUserDetails(@RequestParam String id, RegisterFormDTO updatedUser){
+        try {
+            userService.updateUser(updatedUser, true, Integer.parseInt(id));
+        } catch (NoSuchElementException n) {
+            return "redirect:/admin?invalidId=true";
+        } catch (ResponseStatusException e) {
+            return "redirect:/admin?userWithGivenUsernameExists=true";
+        }
+        return "redirect:/admin?dataUpdated=true";
     }
 }
