@@ -7,21 +7,24 @@ import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.print.attribute.standard.PresentationDirection;
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class UserController {
@@ -87,5 +90,31 @@ public class UserController {
         UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         return  "userpage";
+    }
+
+    @GetMapping("/admin")
+    public String getAdminPage(Model model, Authentication auth,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "5") int size) {
+        Page<UserModel> userPage = userService.getUserPage(page, size);
+        model.addAttribute("userPage", userPage);
+        int pageCount = userPage.getTotalPages();
+        List<Integer> pageNumbers = new ArrayList<>();
+        if(pageCount<=9) {
+            pageNumbers = IntStream.rangeClosed(1, pageCount)
+                    .boxed().collect(Collectors.toList());
+        } else {
+            int startNumber = Math.max(1, page - 4);
+            int endNumber = Math.min(pageCount, page+4);
+            pageNumbers = IntStream.rangeClosed(startNumber, endNumber)
+                    .boxed().collect(Collectors.toList());
+        }
+        model.addAttribute("pageNumbers", pageNumbers);
+        List<UserModel> unconfirmedOwners = userService.getAllUnconfirmedOwners();
+        model.addAttribute("unconfirmedOwners", unconfirmedOwners);
+
+        UserDTO currentUser = new UserDTO(userRepository.findByEmail(auth.getName()));
+        model.addAttribute("user", currentUser);
+        return "userpage";
     }
 }

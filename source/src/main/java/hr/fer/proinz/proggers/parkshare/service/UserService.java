@@ -7,12 +7,17 @@ import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -71,5 +76,15 @@ public class UserService {
 
             return true;
         }
+    }
+
+    public Page<UserModel> getUserPage(int pageNumber, int pageSize) {
+        return userRepository.findByTypeNotLike("admin", PageRequest.of(pageNumber, pageSize,
+                Sort.by(Sort.Direction.ASC, "confirmed").and(Sort.by(Sort.Direction.DESC, "type")))
+        );
+    }
+
+    public List<UserModel> getAllUnconfirmedOwners(){
+        return userRepository.findByConfirmedAndType(false, "owner");
     }
 }
