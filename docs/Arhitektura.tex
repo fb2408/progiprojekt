@@ -202,11 +202,21 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 
 \section{Dijagram razreda}
 
-\textit{Potrebno je priložiti dijagram razreda s pripadajućim opisom. Zbog preglednosti je moguće dijagram razlomiti na više njih, ali moraju biti grupirani prema sličnim razinama apstrakcije i srodnim funkcionalnostima.}\\
+Na slikama 4.3, 4.4 i 4.5 su prikazani razredi koji pripadaju backend dijelu MVC
+arhitekture. Razredi prikazani na slici 4.3 nasljeđuju Controller razred. Metode
+implementirane u tim razredima manipuliraju s DTO (Data transfer object), a oni
+su dohvaćeni pomoću metoda implementiranih u Model razredima. Metode implementirane u Controller razredima vraćaju objekt tipa String kojim se framework povezuje sa frontendom. Zbog lakše organizacije, razredi su podijeljeni logički po pravu pristupa metodama određenih aktora. Iz naziva i tipova atributa u razredima moze se zaključiti vrsta ovisnosti među različitim razredima.
 
-\textbf{\textit{dio 1. revizije}}\\
+\begin{figure}[H]
+	
+	\includegraphics[width=\textwidth]{slike/controller.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\centering
+	\caption{Dijagram razreda - dio Controllers}
+	\label{fig:controllers}
+\end{figure}
 
-\textit{Prilikom prve predaje projekta, potrebno je priložiti potpuno razrađen dijagram razreda vezan uz \textbf{generičku funkcionalnost} sustava. Ostale funkcionalnosti trebaju biti idejno razrađene u dijagramu sa sljedećim komponentama: nazivi razreda, nazivi metoda i vrste pristupa metodama (npr. javni, zaštićeni), nazivi atributa razreda, veze i odnosi između razreda.}\\
+
+
 
 \textbf{\textit{dio 2. revizije}}\\			
 
