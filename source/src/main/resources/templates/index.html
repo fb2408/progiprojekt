@@ -99,7 +99,7 @@
                             <div style="display: none" id="ownerGroup">
                                 <div class="mb-2">
                                     <label for="registerIban" class="form-label">IBAN</label>
-                                    <input th:field="*{iban}" type="text" class="form-control form-control-sm" id="registerIban">
+                                    <input maxlength="21" minlength="21" th:field="*{iban}" type="text" class="form-control form-control-sm" id="registerIban">
                                 </div>
                                 <!--                                <div class="mb-2">-->
                                 <!--                                    <label for="registerIdPicture" class="form-label">Upload a id picture</label>-->
@@ -127,12 +127,12 @@
     <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
         <div th:if="${param.errorNotLoggedIn}" class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Not logged in!</strong>
-            Please log to use the app.
+            Please log in to use the app.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div th:if="${param.errorLoginFailed}" class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Could not log you in!</strong>
-            Wrong username or password, or account is not confirmed.
+            Wrong e-mail or password, or account is not confirmed.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <div th:if="${param.verifySuccess}" class="alert alert-info alert-dismissible fade show" role="alert">

@@ -96,7 +96,7 @@
         <div th:if="${user.isOwner}" class="editUserInfoGrids" id="ownerGroup">
             <div class="mb-2">
                 <label for="registerIban" class="form-label">IBAN</label>
-                <input type="text" class="form-control form-control-sm" id="registerIban" th:field="*{iban}">
+                <input minlength="21" maxlength="21" type="text" class="form-control form-control-sm" id="registerIban" th:field="*{iban}">
             </div>
         </div>
         <div style="grid-column: 1; text-align: left; padding-left: 2rem; margin-top: auto">

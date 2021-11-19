@@ -152,9 +152,10 @@
             </div>
             <nav aria-label="userEditPagination" class="mb-1 text-center">
                 <ul class="pagination justify-content-center">
-                    <li th:each="number : ${pageNumbers}" class="page-item">
-                        <!--            th:classappend="${((param.page != null) && ((number - 1) == Integer.parseInt(param.page))) ? ' active' : '' + ((param.page != null) && (number == 1))}">-->
-                        <a class="page-link" th:text="${number}" th:href="@{/admin(page=${number - 1},size=5)}">1</a>
+                    <li th:each="number : ${pageNumbers}" class="page-item"
+                        th:classappend="${((param.page != null) && (#strings.equals(#strings.toString(number - 1), param.page[0]))) ? ' active' : ''} +
+                        ${((param.page == null) && (number == 1)) ? ' active' : ''}">
+                        <a class="page-link" th:text="${number}" th:href="@{/admin(page=${number - 1},size=${(param.size==null) ? '5' : param.size[0]})}">1</a>
                     </li>
                 </ul>
             </nav>
