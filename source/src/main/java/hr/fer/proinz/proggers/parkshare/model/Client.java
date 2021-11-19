@@ -10,7 +10,7 @@ public class Client {
     @Column(name = "userid", nullable = false)
     private Integer id;
 
-    @Column(name = "walletbalance", nullable = false, precision = 131089)
+    @Column(name = "walletbalance", nullable = false, precision = 1000, scale = 2)
     private BigDecimal walletBalance;
 
     public BigDecimal getWalletBalance() {
