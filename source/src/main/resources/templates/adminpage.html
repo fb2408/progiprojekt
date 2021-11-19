@@ -24,7 +24,7 @@
             <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
             <a class="nav-link font-navbar" th:href="@{/map}">Find Parking</a>
             <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
-            <a class="nav-link font-navbar" th:href="@{/profile}">
+            <a class="nav-link font-navbar" th:href="@{/admin}">
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
                      th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
             </a>
@@ -37,8 +37,8 @@
        <div class="photo-container">
         <img th:src="@{/images/icons/user_avatar.jpg}" th:width="120px" alt="Circle Image" class="rounded-circle" src="">
         </div>
-        <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getUsersurname()}">Ime Prezime</h3>
-        <p class="category" th:text="${user.getUsertype()}">User</p>
+        <h3 class="title" th:text="${user.getFirstName() +' '+ user.getLastName()}">Ime Prezime</h3>
+        <p class="category" th:text="${user.getRole()}">User</p>
         <a class="link-info" th:href="@{/logout}">Logout</a>
     </div>
 
@@ -61,40 +61,36 @@
             </div><br>
             <span><b>Username:</b></span> <span th:text="${'  ' + user.getUsername()}"> Unska ulica 3, 10000 Zagreb</span>
             <br><br>
-            <span><b>Email:</b></span><span th:text="${'  ' + user.getUsermail()}"> luka.gjuric@gmail.com</span>
+            <span><b>Email:</b></span><span th:text="${'  ' + user.getMail()}"> luka.gjuric@gmail.com</span>
     </div>
 </div>
 
-<form th:action="@{/admin}" method="post" id="changeUserInfoForm" style="display: none">
+<form th:action="@{/admin}"  th:object="${user}" method="post" id="changeUserInfoForm" style="display: none">
     <div class="grid3" id="hidingeditblock">
         <div class="editUserInfoGrids">
             <div class="mb-2">
                 <label for="registerUsername" class="form-label">Username</label>
-                <input type="text" class="form-control form-control-sm" id="registerUsername" th:value="${user.getUsername()}">
-            </div>
-            <div class="mb-2">
-                <label for="registerEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control form-control-sm" id="registerEmail" th:value="${user.getUsermail()}">
+                <input type="text" class="form-control form-control-sm" id="registerUsername" th:field="*{username}">
             </div>
         </div>
         <div class="editUserInfoGrids">
             <div class="mb-2">
                 <label for="registerName" class="form-label">First Name</label>
-                <input type="text" class="form-control form-control-sm" id="registerName" th:value="${user.getUserfirstname()}">
+                <input type="text" class="form-control form-control-sm" id="registerName" th:field="*{firstName}">
             </div>
             <div class="mb-2">
                 <label for="registerSurname" class="form-label">Last Name</label>
-                <input type="text" class="form-control form-control-sm" id="registerSurname" th:value="${user.getUsersurname()}">
+                <input type="text" class="form-control form-control-sm" id="registerSurname" th:field="*{lastName}">
             </div>
         </div>
         <div class="editUserInfoGrids">
             <div class="mb-2">
                 <label for="oldPassword" class="form-label">Old password*</label>
-                <input type="password" class="form-control form-control-sm" id="oldPassword">
+                <input type="password" class="form-control form-control-sm" id="oldPassword" th:field="*{confirmationPassword}">
             </div>
             <div class="mb-2">
                 <label for="newPassword" class="form-label">New password*</label>
-                <input type="password" class="form-control form-control-sm" id="newPassword">
+                <input type="password" class="form-control form-control-sm" id="newPassword" th:field="*{password}">
             </div>
 
         </div>
@@ -125,31 +121,32 @@
         </thead>
         <tbody th:each="listing : ${unconfirmedOwners}" >
         <tr>
-            <td th:text="${listing.getId}"></td>
-            <td th:text="${listing.getName()}"></td>
-            <td th:text="${listing.getFirstName}"></td>
-            <td th:text="${listing.getSurname}"></td>
-            <td th:text="${listing.getEmail}"></td>
-            <td>HR54651984651586458</td>
-            <td><a href="#" th:href="@{/admin/chaneguser(id=listing.getId())}"><img th:src="@{/images/icons/check-icon.png}" width="20px" style="display: block; margin: auto"></a></td>
+            <td th:text="${listing.getId()}"></td>
+            <td th:text="${listing.getUsername()}"></td>
+            <td th:text="${listing.getFirstName()}"></td>
+            <td th:text="${listing.getLastName()}"></td>
+            <td th:text="${listing.getMail()}"></td>
+            <td th:text="${listing.getIban()}"></td>
+            <td><a href="#" th:href="@{'/admin/confirmOwner/' + ${listing.getId()}}"><img th:src="@{/images/icons/check-icon.png}" width="20px" style="display: block; margin: auto"></a></td>
+
         </tr>
         </tbody>
 
     </table>
 </div>
 <h3 style="padding-left: 5rem">Edit user information</h3>
-<form th:action="@{/}" method="post" id="changeOtherUserInfo">
+<form th:action="@{/admin/changeuser}" th:object="${emptyUser}" method="post" id="changeOtherUserInfo">
     <div class="grid3" style="padding-top: 0">
         <div class="editUserInfoGrids" style="padding-left: 0; padding-right: 0; padding-top: 2rem">
             <div>
                 <div th:each="listing : ${userPage}">
-                    <a href="javascript:void(0)" onclick="refreshOtherUserForm(id)" th:id="${listing.getId() + '|' + listing.getName() + '|' + listing.getFirstName() + '|' + listing.getSurname() + '|' + listing.getEmail()}" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="javascript:void(0)" onclick="refreshOtherUserForm(id)" th:id="${listing.getId() + '|' + listing.getUsername() + '|' + listing.getFirstName() + '|' + listing.getLastName() + '|' + listing.getMail()}" class="list-group-item list-group-item-action" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1" th:text="${listing.getFirstName()} + ' ' + ${listing.getSurname()}">List group item heading</h5>
-                            <small th:text="${listing.getType()}">client</small>
+                            <h5 class="mb-1" th:text="${listing.getFirstName()} + ' ' + ${listing.getLastName()}">List group item heading</h5>
+                            <small th:text="${listing.getRole()}">client</small>
                         </div>
-                        <p class="mb-1" th:text="'Username: ' + ${listing.getName()}">Some placeholder content in a paragraph.</p>
-                        <small th:text="${listing.getEmail()}">And some small print.</small>
+                        <p class="mb-1" th:text="'Username: ' + ${listing.getUsername()}">Some placeholder content in a paragraph.</p>
+                        <small th:text="${listing.getMail()}">And some small print.</small>
                     </a>
                 </div>
             </div>
@@ -163,44 +160,57 @@
             </nav>
         </div>
         <div class="editUserInfoGrids" style="grid-column: 2; padding-right: 0">
+            <input type="hidden" id="hiddenId" th:field="*{id}"/>
             <div class="mb-2">
                 <label for="otherName" class="form-label">First Name</label>
-                <input type="text" class="form-control form-control-sm" id="otherName">
+                <input type="text" class="form-control form-control-sm" id="otherName" th:field="*{firstName}">
             </div>
             <div class="mb-2">
                 <label for="otherUsername" class="form-label">Username</label>
-                <input type="text" class="form-control form-control-sm" id="otherUsername">
-            </div>
-            <div class="mb-2">
-                <label for="otherMail" class="form-label">Email address</label>
-                <input type="email" class="form-control form-control-sm" id="otherMail">
+                <input type="text" class="form-control form-control-sm" id="otherUsername" th:field="*{username}">
             </div>
 
         </div>
         <div class="editUserInfoGrids" style="grid-column: 3; padding-right: 0">
             <div class="mb-2">
                 <label for="otherSurname" class="form-label">Last Name</label>
-                <input type="text" class="form-control form-control-sm" id="otherSurname">
+                <input type="text" class="form-control form-control-sm" id="otherSurname" th:field="*{lastName}">
             </div>
             <div class="mb-2">
                 <label for="otherPassword" class="form-label">New password*</label>
-                <input type="password" class="form-control form-control-sm" id="otherPassword">
+                <input type="password" class="form-control form-control-sm" id="otherPassword" th:field="*{password}">
             </div>
             <!--<div class="mb-2">
                 <label for="otherIban" class="form-label">IBAN</label>
                 <input type="text" class="form-control form-control-sm" id="otherIban">
             </div>-->
-            <button type="submit" class="btn btn-primary">Submit changes</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary" value = Submit disabled>Submit changes</button>
             <button type="button" class="btn btn-secondary" onclick="cancelOtherUserChange()">Cancel</button>
         </div>
 
     </div>
 </form>
 
-
+<div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
+    <div th:each="info: ${information}">
+        <div th:inline="text" class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong th:text="${(info != null) ? info.msg : 'No error!'}">Not logged in!</strong>
+            [[(${info} != null) ? ${info.desc} : ' Everything is fine :)']]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div th:each="error: ${errors}">
+        <div th:inline="text" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong th:text="${(error != null) ? error.msg : 'No error!'}">Not logged in!</strong>
+            [[(${error} != null) ? ${error.desc} : ' Everything is fine :)']]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 </body>
 
 <script th:inline="javascript">
+    var id1;
     function showChangeForm(){
         var changeForm = document.getElementById('changeUserInfoForm');
         changeForm.style.display = "block";
@@ -213,11 +223,23 @@
 
     function cancelOtherUserChange(){
         var changeForm = document.getElementById('changeOtherUserInfo');
+        var submit = document.getElementById("submitBtn")
+        submit.disabled = true;
         changeForm.reset();
     }
-
+    function setValue(){
+        var input = document.getElementById("hiddenId");
+        input.value = id1;
+    }
+    function enableSubmit(){
+        var submit = document.getElementById("submitBtn")
+        submit.disabled = false;
+    }
     function refreshOtherUserForm(id){
         const arrStr = id.split("|");
+        id1 = arrStr[0];
+        setValue();
+        enableSubmit()
         document.getElementById('otherUsername').value = arrStr[1];
         document.getElementById('otherName').value = arrStr[2];
         document.getElementById('otherSurname').value = arrStr[3];
