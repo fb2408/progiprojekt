@@ -1,3 +1,5 @@
 //Ovo je dnevnik sastanaka tima
 2021.10.12. - Inicijalni sastanak, osnovna pitanja i upoznavanje
 2021.10.26. - Sastanak uživo za raspodjelu rada
+2021.11.02. - Rasprava o stanju na projektu
+2021.11.15. - Pregled dokumentacije, dogovor o deployju aplikacije 
