@@ -16,8 +16,8 @@ Web aplikacije podijeljene su na tri glavna sloja:
 
 \begin{itemize}
 	\item \textbf{Prvi sloj predstavlja prezentacijski sloj}, to je korisničko sučelje i komunikacijski sloj aplikacije gdje korisnik stupa u interakciju s aplikacijom. Glavna svrha prezentacijskog sloja je prikazivanje i prikupljanje informacija od korisnika.
-	\item\textbf{Drugi sloj predstavlja aplikacijski sloj}, je glavni sloj web aplikacije. U ovom sloju se informacije prikupljene u prezentacijskom sloju obrađuju korištenjem poslovne logike. Te se također u ovom sloju dohvaćaju unose i izmjenjuju podatci koji se nalaze u podatkovnom sloju
-	\item\textbf{Treći sloj je podatkovni sloj}, ili baza podataka je sloj u kojem se pohranjuju podatci koje koristi o obrađuje web aplikacija i u kojem se pristupa istim.
+	\item\textbf{Drugi sloj predstavlja aplikacijski sloj}, to je glavni sloj web aplikacije. U ovom sloju se informacije prikupljene u prezentacijskom sloju obrađuju korištenjem poslovne logike. Te se također u ovom sloju dohvaćaju unose i izmjenjuju podatci koji se nalaze u podatkovnom sloju
+	\item\textbf{Treći podatkovni sloj}, ili baza podataka je sloj u kojem se pohranjuju podatci koje koristi o obrađuje web aplikacija i u kojem se pristupa istim.
 \end{itemize} 
 
 Svi slojevi međusobno komuniciraju preko standardiziranih Internetskih protokola, kojih se prilikom razvoja 
@@ -28,7 +28,7 @@ aplikacija treba pridržavati.Glavne prednosti razvijanja aplikacija u tri sloja
 	\item Brži razvoj aplikacije zato sto se svaki sloj može razvijati istovremeno.
 	\item Poboljšana sigurnost zato sto možemo vršiti provjeru nad upitima i podatcima na tri razine i zbog toga što korisnik ne radi direktno sa SQL serverom.
 \end{itemize}
-Programski jezik kojeg smo odabrali za izradu naše web aplikacije je Java zajedno s Spring Boot-om i Thymeleaf-om. 
+Programski jezik kojeg smo odabrali za izradu naše web aplikacije je \textbf{Java} zajedno s \textbf{Spring Boot}-om i \textbf{Thymeleaf}-om, koristeći sustava baza podataka \textbf{PostgreSQL}. 
 Odabrano razvojno okruženje je IntelliJ IDEA. Arhitektura sustava temeljiti  će se na MVC 
 (Model-View-Controller) konceptu. MVC koncept podržan je od strane Spring Boot radnog okvira i kao takav ima gotove predloške koji nam olakšavaju razvoj web aplikacije.
 MVC koncept sastoji se od:
@@ -60,7 +60,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 \subsection{Opis tablica}
 
 
-\textbf{Korisnik}  Ovaj entitet sadrži sve važne informacije o korisniku aplikacije. Sadrži atribute: identifikator korisnika, korisničko ime, ime, prezime, email korisnika, lozinku, tip korisnika aplikacije i oznaku je li administrator potvrdio taj korisnički račun. Ovaj entitet ima dvije specijalizacije na klijenta i voditelja parkinga.
+\textbf{Korisnik}  Ovaj entitet sadrži sve važne informacije o korisniku aplikacije. Sadrži atribute: identifikator korisnika, korisničko ime, ime, prezime, email korisnika, lozinku, tip korisnika aplikacije i oznaku je li administrator potvrdio taj korisnički račun. Ovaj entitet ima tri specijalizacije na klijenta, voditelja parkinga i administratora, s tim da je ta specijalizacija na administratora nepotpuna, administrator nema nikakve dodatne atribute te ne postoji tablica za njega.
 \begin{longtblr}[
 	label=none,
 	entry=none
@@ -80,7 +80,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 	confirmed & BOOLEAN & Varijabla koja pokazuje je li korisnik potvrđen od strane administratora \\\hline
 \end{longtblr}
 
-\textbf{Voditelj parkirališta}  Ovaj entitet je specijalizacija entiteta korisnik on sadrži dodatne atribute: iban i poveznicu na sliku osobne iskaznice. Povezan je sa parkiralištem vezom n naprema n.
+\textbf{Voditelj parkirališta}  Ovaj entitet je specijalizacija entiteta korisnik on sadrži dodatne atribute: iban i poveznicu na sliku osobne iskaznice. Povezan je sa parkiralištem vezom 1 naprema 1.
 \begin{longtblr}[
 	label=none,
 	entry=none
@@ -95,7 +95,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 	idpicture & VARCHAR &  Poveznica na sliku osobne iskaznice \\ \hline 
 \end{longtblr}
 
-\textbf{Klijent}  Ovaj entitet je specijalizacija entiteta korisnik on sadrži dodatni atribut stanje računa klijenta. Povezan je sa entitetom rezervacija vezom n naprema n.
+\textbf{Klijent}  Ovaj entitet je specijalizacija entiteta korisnik on sadrži dodatni atribut stanje računa klijenta. Povezan je sa entitetom rezervacija vezom n (rezervacija) naprema 1(klijent).
 \begin{longtblr}[
 	label=none,
 	entry=none
@@ -109,7 +109,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 	walletbalance	& NUMERIC &   Stanje računa klijenta	\\ \hline 
 \end{longtblr}
 
-\textbf{Parkiralište}  Ovaj entitet sadrži sve bitne informacije o parkiralištu. Atributi su mu: korisnički id voditelja parkirališta, ime parkinga, poveznica na sliku parkinga, cijena parkinga po satu i opis parkirališta. Povezan je sa voditeljem parkiralista vezom n naprema n i sa parkirališnim mjestom vezom n naprema n. 
+\textbf{Parkiralište}  Ovaj entitet sadrži sve bitne informacije o parkiralištu. Atributi su mu: korisnički id voditelja parkirališta, ime parkinga, poveznica na sliku parkinga, cijena parkinga po satu i opis parkirališta. Povezan je sa voditeljem parkiralista vezom 1 naprema 1 i sa parkirališnim mjestom vezom n (mjesto) naprema 1 (parkiralište). 
 \begin{longtblr}[
 	label=none,
 	entry=none
@@ -126,7 +126,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 	description & VARCHAR &   Opis parkirališta	\\ \hline 
 \end{longtblr}
 
-\textbf{Parkirališno mjesto}  Ovaj entitet sadrži sve bitne informacije o parkirališnom mjestu. Atributi su mu: korisnički id voditelja parkirališta, broj parkirališnog mjesta na parkiralištu, tip parkirališnog mjesta, mogućnost rezervacije te x i y koordinate za 4 točke koje označavaju granice parkirališnog mjesta. Povezan je vezon n naprema n sa parkiralištem i rezervacijom a vezom 1 naprema n sa zauzetosti parkirališnog mjesta.
+\textbf{Parkirališno mjesto}  Ovaj entitet sadrži sve bitne informacije o parkirališnom mjestu. Atributi su mu: korisnički id voditelja parkirališta, broj parkirališnog mjesta na parkiralištu, tip parkirališnog mjesta, mogućnost rezervacije te x i y koordinate za 4 točke koje označavaju granice parkirališnog mjesta. Povezan je vezon 1 naprema n sa parkiralištem i rezervacijom a vezom  n(zauzetost) naprema 1(mjesto) sa zauzetosti parkirališnog mjesta.
 \begin{longtblr}[
 	label=none,
 	entry=none
@@ -150,7 +150,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 	pointy4 & NUMERIC & Koordinata y četvrte točke parkirnog mjesta\\\hline
 \end{longtblr}
 
-\textbf{Zauzetost parkirališnog mjesta}  Ovaj entitet sadrži informacije koje se koriste za statističku analizu zauzetosti parkirališnog mjesta. Atributi su mu: korisnički id voditelja parkirališta, broj parkirališnog mjesta na parkiralištu, vrijeme od, vrijeme do i zauzetost u tom razdoblju. Povezan je vezom n naprema 1 sa parkirališnim mjestom.
+\textbf{Zauzetost parkirališnog mjesta}  Ovaj entitet sadrži informacije koje se koriste za statističku analizu zauzetosti parkirališnog mjesta. Atributi su mu: korisnički id voditelja parkirališta, broj parkirališnog mjesta na parkiralištu, vrijeme od, vrijeme do i zauzetost u tom razdoblju. Povezan je vezom 1(mjesto) naprema n(zauzetost) sa parkirališnim mjestom.
 \begin{longtblr}[
 	label=none,
 	entry=none
@@ -167,7 +167,7 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 	occupancy & BOOLEAN  &  Varijabla koja nam govori da li je parkirališno mjesto bilo zauzeto \\ \hline 
 \end{longtblr}
 \eject
-\textbf{Rezervacija}  Ovaj entitet sadrži informacije o rezervacijama parkirališnih mjesta. Sadrži atribute: jedinstveni identifikator klijenta, vrijeme početka rezervacije, jedinstveni identifikator voditelja parkinga, broj parkirnog mjesta na parkiralištu, duljina rezervacije i varijablu koja nam govori je li rezervacija ponavljajuća. Povezan je vezon n naprema n sa klijentom i sa parkirališnim mjestom.
+\textbf{Rezervacija}  Ovaj entitet sadrži informacije o rezervacijama parkirališnih mjesta. Sadrži atribute: jedinstveni identifikator klijenta, vrijeme početka rezervacije, jedinstveni identifikator voditelja parkinga, broj parkirnog mjesta na parkiralištu, duljina rezervacije i varijablu koja nam govori je li rezervacija ponavljajuća. Povezan je vezon 1(klijent) naprema n(rezervacija) sa klijentom i vezom 1(mjesto) naprema n(rezervacija) sa parkirališnim mjestom.
 \begin{longtblr}[
 	label=none,
 	entry=none
