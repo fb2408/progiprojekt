@@ -13,16 +13,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -51,15 +54,15 @@ public class UserController {
         UserModel registered;
         try {
             registered = userService.registerNewUser(registerFormDTO);
-            if(registered.getType().equals("client")){
+            if (registered.getType().equals("client")) {
                 userService.sendMail(registered, getSiteURL(request));
             } else {
-                ownerRepository.findById(registered.getId()).ifPresent((owner) ->{
+                ownerRepository.findById(registered.getId()).ifPresent((owner) -> {
                     owner.setIban(registerFormDTO.getIban());
                     ownerRepository.save(owner);
                 });
             }
-        } catch (ResponseStatusException e){
+        } catch (ResponseStatusException e) {
             model.addAttribute("registerForm", new RegisterFormDTO());
             errors.add(new MessageDTO("Registration failed!",
                     "Account with given username or email already exists."));
@@ -69,8 +72,8 @@ public class UserController {
         model.addAttribute("registerForm", new RegisterFormDTO());
         information.add(new MessageDTO("Registration successful!",
                 registered.getType().equals("owner") ?
-                "Please wait for an administrator to confirm your registration." :
-                "To login, please confirm your account by email."));
+                        "Please wait for an administrator to confirm your registration." :
+                        "To login, please confirm your account by email."));
         model.addAttribute("information", information);
         return new ModelAndView("index", model);
     }
@@ -88,78 +91,51 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String showRegistrationForm(Model model, Authentication auth){
-        if(auth != null) {
-            return "redirect:/profile";
+    public String showRegistrationForm(Model model, Authentication auth) {
+        if (auth != null) {
+            return "redirect:/loginRouter";
         }
         model.addAttribute("registerForm", new RegisterFormDTO());
         return "index";
     }
 
     @GetMapping("/profile")
-    public String showUserDetails(Model model, Authentication auth){
-        UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
-        model.addAttribute("user", currentUser);
-        return  "userpage";
-    }
-
-    @GetMapping("/admin")
-    public String getAdminPage(Model model, Authentication auth,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
-        Page<UserModel> userPage = userService.getUserPage(page, size);
-        model.addAttribute("userPage", userPage);
-        int pageCount = userPage.getTotalPages();
-        List<Integer> pageNumbers;
-        if(pageCount<=9) {
-            pageNumbers = IntStream.rangeClosed(1, pageCount)
-                    .boxed().collect(Collectors.toList());
-        } else {
-            int startNumber = Math.max(1, page - 4);
-            int endNumber = Math.min(pageCount, page+4);
-            pageNumbers = IntStream.rangeClosed(startNumber, endNumber)
-                    .boxed().collect(Collectors.toList());
-        }
-        model.addAttribute("pageNumbers", pageNumbers);
-        List<UserModel> unconfirmedOwners = userService.getAllUnconfirmedOwners();
-        model.addAttribute("unconfirmedOwners", unconfirmedOwners);
-
+    public String showUserDetails(Model model, Authentication auth) {
         UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         return "userpage";
     }
 
+
     @PostMapping("/profile")
-    public ModelAndView editUserDetails(RegisterFormDTO updatedUser, ModelMap model, Authentication auth) {
+    public ModelAndView editUserDetails(UserDTO updatedUser, ModelMap model, Authentication auth) {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
+        UserModel userModel;
+        //TODO make it pretty lmao
         try {
-            userService.updateUser(updatedUser, false, userRepository.findByEmail(auth.getName()).getId());
-        } catch (ResponseStatusException e) {
+            userModel = userService.updateUser(updatedUser, false, userRepository.findByEmail(auth.getName()).getId());
+        } catch (InvalidParameterException i) {
+            errors.add(new MessageDTO("Update failed!",
+                    "Old password isn't correct."));
+            model.addAttribute("errors", errors);
             UserModel currentUserModel = userRepository.findByEmail(auth.getName());
-            AtomicReference<String> iban = new AtomicReference<>("");
-            ownerRepository.findById(currentUserModel.getId()).ifPresent(owner -> iban.set(owner.getIban()));
-            model.addAttribute("user", new RegisterFormDTO(currentUserModel, iban.get()));
+            model.addAttribute("user", userService.UserToDTO(currentUserModel));
+            return new ModelAndView("userpage", model);
+        } catch (ResponseStatusException e) {
             errors.add(new MessageDTO("Update failed!",
                     "Account with given username already exists."));
             model.addAttribute("errors", errors);
+            UserModel currentUserModel = userRepository.findByEmail(auth.getName());
+            model.addAttribute("user", userService.UserToDTO(currentUserModel));
             return new ModelAndView("userpage", model);
         }
+
         model.addAttribute("user", updatedUser);
         information.add(new MessageDTO("Success!", "Your data has been updated."));
         model.addAttribute("information", information);
+        System.out.println(updatedUser);
+        updatedUser.setRole(userModel.getType());
         return new ModelAndView("userpage", model);
-    }
-
-    @PostMapping("/admin/changeuser")
-    public String adminEditUserDetails(@RequestParam String id, RegisterFormDTO updatedUser){
-        try {
-            userService.updateUser(updatedUser, true, Integer.parseInt(id));
-        } catch (NoSuchElementException n) {
-            return "redirect:/admin?invalidId=true";
-        } catch (ResponseStatusException e) {
-            return "redirect:/admin?userWithGivenUsernameExists=true";
-        }
-        return "redirect:/admin?dataUpdated=true";
     }
 }

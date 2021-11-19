@@ -1,36 +1,30 @@
 package hr.fer.proinz.proggers.parkshare.dto;
 
-import hr.fer.proinz.proggers.parkshare.model.Client;
-import hr.fer.proinz.proggers.parkshare.model.ClientReservation;
-import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
-import hr.fer.proinz.proggers.parkshare.model.UserModel;
-import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.math.BigDecimal;
 
 public class UserDTO {
 
-    private Integer userid;
+    private Integer id;
     private String username;
     private String firstName;
-    private String userSurname;
-    private String userMail;
-    private String temppassword;
-    private String userType;
+    private String lastName;
+    private String mail;
+    private String password;
+    private String confirmationPassword;
+    private String role;
     private String iban;
     private BigDecimal walletBalance;
 
     private boolean confirmed;
 
-    public UserDTO(Integer userid, String username, String firstName, String userSurname, String userMail, String temppassword, String userType, String iban, BigDecimal walletBalance, boolean confirmed) {
-        this.userid = userid;
+    public UserDTO(Integer userid, String username, String firstName, String userSurname, String mail, String password, String role, String iban, BigDecimal walletBalance, boolean confirmed) {
+        this.id = userid;
         this.username = username;
         this.firstName = firstName;
-        this.userSurname = userSurname;
-        this.userMail = userMail;
-        this.temppassword = temppassword;
-        this.userType = userType;
+        this.lastName = userSurname;
+        this.mail = mail;
+        this.password = password;
+        this.role = role;
         this.iban = iban;
         this.walletBalance = walletBalance;
         this.confirmed = confirmed;
@@ -48,12 +42,12 @@ public class UserDTO {
         this.firstName = firstName;
     }
 
-    public Integer getUserid() {
-        return userid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -64,6 +58,14 @@ public class UserDTO {
         this.username = username;
     }
 
+    public String getConfirmationPassword() {
+        return confirmationPassword;
+    }
+
+    public void setConfirmationPassword(String confirmationPassword) {
+        this.confirmationPassword = confirmationPassword;
+    }
+
     public String getUserfirstname() {
         return firstName;
     }
@@ -72,36 +74,36 @@ public class UserDTO {
         this.firstName = userfirstname;
     }
 
-    public String getUserSurname() {
-        return userSurname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUserSurname(String userSurname) {
-        this.userSurname = userSurname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUserMail() {
-        return userMail;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUserMail(String userMail) {
-        this.userMail = userMail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getTemppassword() {
-        return temppassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTemppassword(String temppassword) {
-        this.temppassword = temppassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserType() {
-        return userType;
+    public String getRole() {
+        return role;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean isConfirmed() {
@@ -129,14 +131,31 @@ public class UserDTO {
     }
 
     public boolean isOwner() {
-        return userType.equals("owner");
+        return role.equals("owner");
     }
 
     public boolean isAdmin() {
-        return userType.equals("admin");
+        return role.equals("admin");
     }
 
     public boolean isClient() {
-        return userType.equals("client");
+        return role.equals("client");
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmationPassword='" + confirmationPassword + '\'' +
+                ", role='" + role + '\'' +
+                ", iban='" + iban + '\'' +
+                ", walletBalance=" + walletBalance +
+                ", confirmed=" + confirmed +
+                '}';
     }
 }
