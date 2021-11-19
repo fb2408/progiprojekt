@@ -7,21 +7,19 @@ import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import javax.xml.bind.ValidationException;
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -59,7 +57,7 @@ public class UserService {
         userModel.setTempPassword(bCryptPasswordEncoder.encode(registerFormDTO.getPassword()));
         userModel.setConfirmed(false);
         //TODO SAVE SPECIALISATION TABLE ENTRY
-        if(registerFormDTO.getIsOwner()) {
+        if (registerFormDTO.getIsOwner()) {
             userModel.setType("owner");
         } else {
             userModel.setType("client");
@@ -75,30 +73,43 @@ public class UserService {
 
     }
 
-    public void updateUser(RegisterFormDTO registerFormDTO, boolean isAdmin, int id){
-        if(userRepository.existsByName(registerFormDTO.getUsername()))
+    public void confirmOwner(int ownerId) {
+        Optional<UserModel> owner = userRepository.findById(ownerId);
+        owner.ifPresent(userModel -> userModel.setConfirmed(true));
+    }
+
+    public UserModel updateUser(UserDTO userDTO, boolean isAdmin, int id) {
+
+        if (userRepository.existsByName(userDTO.getUsername()) && userRepository.findByName(userDTO.getUsername()).getId() != id) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        System.out.println(userRepository.getById(id).getTempPassword());
+        System.out.println((userDTO.getConfirmationPassword()));
+        if (!isAdmin && !Objects.equals(userDTO.getConfirmationPassword(), "") && !bCryptPasswordEncoder.matches((userDTO.getConfirmationPassword()), userRepository.getById(id).getTempPassword())) {
+            throw new InvalidParameterException();
+        }
         Optional<UserModel> optionalUserModel = userRepository.findById(id);
-        if(optionalUserModel.isEmpty())
+        if (optionalUserModel.isEmpty())
             throw new NoSuchElementException("There is no user with given id");
 
         UserModel userModel = optionalUserModel.get();
-        userModel.setName(registerFormDTO.getUsername());
-        userModel.setFirstName(registerFormDTO.getUserFirstName());
-        userModel.setSurname(registerFormDTO.getUserSurname());
-        if(!Objects.equals(registerFormDTO.getPassword(), ""))
-          userModel.setTempPassword(bCryptPasswordEncoder.encode(registerFormDTO.getPassword()));
+        System.out.println(userModel);
+        userModel.setName(userDTO.getUsername());
+        userModel.setFirstName(userDTO.getFirstName());
+        userModel.setSurname(userDTO.getLastName());
+        System.out.println("pass: " + userDTO.getPassword());
+        System.out.println("confPass: " + userDTO.getConfirmationPassword());
+        if (isAdmin || (!Objects.equals(userDTO.getConfirmationPassword(), "") && userDTO.getConfirmationPassword() != null))
+            userModel.setTempPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
 
-        parkingOwnerRepository.findById(userModel.getId()).ifPresent((parkingOwner) ->{
-            parkingOwner.setIban(registerFormDTO.getIban());
-            parkingOwnerRepository.save(parkingOwner);
-        });
-        if(isAdmin){
-            //TODO prominit confirmed u enabled, treba dodat enabled boolean u bazi
-            userModel.setConfirmed(registerFormDTO.isConfirmed());
-        }
-        userRepository.save(userModel);
+        if (userDTO.getIban() != null)
+            parkingOwnerRepository.findById(userModel.getId()).ifPresent((parkingOwner) -> {
+                parkingOwner.setIban(userDTO.getIban());
+                parkingOwnerRepository.save(parkingOwner);
+            });
+        return userRepository.save(userModel);
     }
+
     public boolean verify(String verificationCode) {
         UserModel userModel = userRepository.findById(Integer.parseInt(verificationCode)).orElse(null);
 
@@ -120,7 +131,7 @@ public class UserService {
         );
     }
 
-    public List<UserModel> getAllUnconfirmedOwners(){
+    public List<UserModel> getAllUnconfirmedOwners() {
         return userRepository.findByConfirmedAndType(false, "owner");
     }
 

@@ -36,8 +36,8 @@
        <div class="photo-container">
         <img th:src="@{/images/icons/user_avatar.jpg}" th:width="120px" alt="Circle Image" class="rounded-circle" src="">
         </div>
-        <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getUserSurname()}">Ime Prezime</h3>
-        <p class="category" th:text="${user.getUserType()}">User</p>
+        <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getLastName()}">Ime Prezime</h3>
+        <p class="category" th:text="${user.getRole()}">User</p>
         <a class="link-info" th:href="@{/logout}">Logout</a>
     </div>
 
@@ -60,47 +60,43 @@
             </div><br>
             <span><b>Username:</b></span> <span th:text="${'  ' + user.getUsername()}"> Unska ulica 3, 10000 Zagreb</span>
             <br><br>
-            <span><b>Email:</b></span><span th:text="${'  ' + user.getUserMail()}"> luka.gjuric@gmail.com</span>
+            <span><b>Email:</b></span><span th:text="${'  ' + user.getMail()}"> luka.gjuric@gmail.com</span>
     </div>
 </div>
 
-<form th:action="@{/}" method="post" id="changeUserInfoForm" style="display: none">
+<form th:action="@{/profile}" th:object="${user}" method="post" id="changeUserInfoForm" style="display: none">
     <div class="grid3" id="hidingeditblock">
         <div class="editUserInfoGrids">
             <div class="mb-2">
                 <label for="registerUsername" class="form-label">Username</label>
-                <input type="text" class="form-control form-control-sm" id="registerUsername" th:value="${user.getUsername()}">
-            </div>
-            <div class="mb-2">
-                <label for="registerEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control form-control-sm" id="registerEmail" th:value="${user.getUserMail()}">
+                <input type="text" class="form-control form-control-sm" id="registerUsername" th:field="*{username}">
             </div>
         </div>
         <div class="editUserInfoGrids">
             <div class="mb-2">
                 <label for="registerName" class="form-label">First Name</label>
-                <input type="text" class="form-control form-control-sm" id="registerName" th:value="${user.getUserfirstname()}">
+                <input type="text" class="form-control form-control-sm" id="registerName" th:field="*{firstName}">
             </div>
             <div class="mb-2">
                 <label for="registerSurname" class="form-label">Last Name</label>
-                <input type="text" class="form-control form-control-sm" id="registerSurname" th:value="${user.getUserSurname()}">
+                <input type="text" class="form-control form-control-sm" id="registerSurname" th:field="*{lastName}">
             </div>
         </div>
         <div class="editUserInfoGrids">
             <div class="mb-2">
                 <label for="oldPassword" class="form-label">Old password*</label>
-                <input type="password" class="form-control form-control-sm" id="oldPassword">
+                <input type="password" class="form-control form-control-sm" id="oldPassword" th:field="*{confirmationPassword}">
             </div>
             <div class="mb-2">
                 <label for="newPassword" class="form-label">New password*</label>
-                <input type="password" class="form-control form-control-sm" id="newPassword">
+                <input type="password" class="form-control form-control-sm" id="newPassword" th:field="*{password}">
             </div>
 
         </div>
-        <div th:if="${user.getIsOwner() == true}" class="editUserInfoGrids" id="ownerGroup">
+        <div th:if="${user.isOwner}" class="editUserInfoGrids" id="ownerGroup">
             <div class="mb-2">
                 <label for="registerIban" class="form-label">IBAN</label>
-                <input type="text" class="form-control form-control-sm" id="registerIban">
+                <input type="text" class="form-control form-control-sm" id="registerIban" th:field="*{iban}">
             </div>
         </div>
         <div style="grid-column: 1; text-align: left; padding-left: 2rem; margin-top: auto">
@@ -113,11 +109,22 @@
 
     </div>
 </form>
-
-<div th:if="${user.getUserType() == 'admin'}" id="requests">
-    <h3>Active requests for registration of parking owners</h3>
+<div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
+    <div th:each="info: ${information}">
+        <div th:inline="text" class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong th:text="${(info != null) ? info.msg : 'No error!'}">Not logged in!</strong>
+            [[(${info} != null) ? ${info.desc} : ' Everything is fine :)']]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div th:each="error: ${errors}">
+        <div th:inline="text" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong th:text="${(error != null) ? error.msg : 'No error!'}">Not logged in!</strong>
+            [[(${error} != null) ? ${error.desc} : ' Everything is fine :)']]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
 </div>
-
 </body>
 <script th:inline="javascript">
     function showChangeForm(){
