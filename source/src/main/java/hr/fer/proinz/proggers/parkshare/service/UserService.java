@@ -99,8 +99,11 @@ public class UserService {
         userModel.setSurname(userDTO.getLastName());
         System.out.println("pass: " + userDTO.getPassword());
         System.out.println("confPass: " + userDTO.getConfirmationPassword());
-        if (isAdmin || (!Objects.equals(userDTO.getConfirmationPassword(), "") && userDTO.getConfirmationPassword() != null))
-            userModel.setTempPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+        if (isAdmin || (!Objects.equals(userDTO.getConfirmationPassword(), "") && userDTO.getConfirmationPassword() != null)) {
+            if((!Objects.equals(userDTO.getPassword(), "") && userDTO.getPassword() != null)) {
+                userModel.setTempPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            }
+        }
 
         if (userDTO.getIban() != null)
             parkingOwnerRepository.findById(userModel.getId()).ifPresent((parkingOwner) -> {

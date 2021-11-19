@@ -49,7 +49,7 @@
         </div>
         <div class="social-description">
             <h2>2541</h2>
-            <p>User</p>
+            <p>Users</p>
         </div>
     </div>
     <div class="content mygrid personalinfo">
@@ -152,9 +152,10 @@
             </div>
             <nav aria-label="userEditPagination" class="mb-1 text-center">
                 <ul class="pagination justify-content-center">
-                    <li th:each="number : ${pageNumbers}" class="page-item">
-                        <!--            th:classappend="${((param.page != null) && ((number - 1) == Integer.parseInt(param.page))) ? ' active' : '' + ((param.page != null) && (number == 1))}">-->
-                        <a class="page-link" th:text="${number}" th:href="@{/admin(page=${number - 1},size=5)}">1</a>
+                    <li th:each="number : ${pageNumbers}" class="page-item"
+                        th:classappend="${((param.page != null) && (#strings.equals(#strings.toString(number - 1), param.page[0]))) ? ' active' : ''} +
+                        ${((param.page == null) && (number == 1)) ? ' active' : ''}">
+                        <a class="page-link" th:text="${number}" th:href="@{/admin(page=${number - 1},size=${(param.size==null) ? '5' : param.size[0]})}">1</a>
                     </li>
                 </ul>
             </nav>
@@ -208,7 +209,13 @@
     </div>
 </div>
 </body>
-
+<script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script th:inline="javascript">
     var id1;
     function showChangeForm(){
