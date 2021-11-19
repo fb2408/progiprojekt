@@ -110,9 +110,6 @@ public class UserController {
 
     @PostMapping("/profile")
     public ModelAndView editUserDetails(UserDTO updatedUser, ModelMap model, Authentication auth) {
-        if(auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return new ModelAndView("redirect:/admin", model);
-        }
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         UserModel userModel;
