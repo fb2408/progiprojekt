@@ -1,35 +1,35 @@
 package hr.fer.proinz.proggers.parkshare.dto;
 
-import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import java.math.BigDecimal;
 
 public class UserDTO {
 
-    private Integer userid;
+    private Integer id;
     private String username;
     private String firstName;
-    private String usersurname;
-    private String usermail;
-    private String temppassword;
-    private String usertype;
-
-    private boolean isOwner;
+    private String lastName;
+    private String mail;
+    private String password;
+    private String confirmationPassword;
+    private String role;
+    private String iban;
+    private BigDecimal walletBalance;
 
     private boolean confirmed;
-    public UserDTO(String username, String userfirstname, String usersurname, String usermail, String temppassword, String usertype, boolean confirmed, boolean isOwner) {
+
+    public UserDTO(Integer userid, String username, String firstName, String userSurname, String mail, String password, String role, String iban, BigDecimal walletBalance, boolean confirmed) {
+        this.id = userid;
         this.username = username;
-        this.firstName = userfirstname;
-        this.usersurname = usersurname;
-        this.usermail = usermail;
-        this.temppassword = temppassword;
-        this.usertype = usertype;
+        this.firstName = firstName;
+        this.lastName = userSurname;
+        this.mail = mail;
+        this.password = password;
+        this.role = role;
+        this.iban = iban;
+        this.walletBalance = walletBalance;
         this.confirmed = confirmed;
-        this.isOwner = isOwner;
     }
 
-    public UserDTO(UserModel userModel){
-        this(userModel.getName(), userModel.getFirstName(), userModel.getSurname(), userModel.getEmail(), "", userModel.getType(), userModel.getConfirmed(), userModel.isOwner());
-        setUserid(userModel.getId());
-    }
     public UserDTO() {
 
     }
@@ -42,20 +42,12 @@ public class UserDTO {
         this.firstName = firstName;
     }
 
-    public boolean getIsOwner() {
-        return isOwner;
+    public Integer getId() {
+        return id;
     }
 
-    public void setOwner(boolean owner) {
-        isOwner = owner;
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -66,6 +58,14 @@ public class UserDTO {
         this.username = username;
     }
 
+    public String getConfirmationPassword() {
+        return confirmationPassword;
+    }
+
+    public void setConfirmationPassword(String confirmationPassword) {
+        this.confirmationPassword = confirmationPassword;
+    }
+
     public String getUserfirstname() {
         return firstName;
     }
@@ -74,36 +74,36 @@ public class UserDTO {
         this.firstName = userfirstname;
     }
 
-    public String getUsersurname() {
-        return usersurname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUsersurname(String usersurname) {
-        this.usersurname = usersurname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUsermail() {
-        return usermail;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUsermail(String usermail) {
-        this.usermail = usermail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getTemppassword() {
-        return temppassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setTemppassword(String temppassword) {
-        this.temppassword = temppassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUsertype() {
-        return usertype;
+    public String getRole() {
+        return role;
     }
 
-    public void setUsertype(String usertype) {
-        this.usertype = usertype;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean isConfirmed() {
@@ -112,5 +112,50 @@ public class UserDTO {
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public BigDecimal getWalletBalance() {
+        return walletBalance;
+    }
+
+    public void setWalletBalance(BigDecimal walletBalance) {
+        this.walletBalance = walletBalance;
+    }
+
+    public boolean isOwner() {
+        return role.equals("owner");
+    }
+
+    public boolean isAdmin() {
+        return role.equals("admin");
+    }
+
+    public boolean isClient() {
+        return role.equals("client");
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmationPassword='" + confirmationPassword + '\'' +
+                ", role='" + role + '\'' +
+                ", iban='" + iban + '\'' +
+                ", walletBalance=" + walletBalance +
+                ", confirmed=" + confirmed +
+                '}';
     }
 }
