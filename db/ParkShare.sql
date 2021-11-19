@@ -1,4 +1,4 @@
-/*
+
 drop table if exists clientreservation;
 drop table if exists parkingspotoccupancy;
 drop table if exists parkingspot;
@@ -6,7 +6,7 @@ drop table if exists parking;
 drop table if exists parkingowner;
 drop table if exists client;
 drop table if exists usertable;
-*/
+
 
 create table usertable
 (
