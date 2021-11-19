@@ -2,12 +2,8 @@
 		
 	\section{Funkcionalni zahtjevi}
 			
-			\textbf{\textit{dio 1. revizije}}\\
 			
-			\textit{Navesti \textbf{dionike} koji imaju \textbf{interes u ovom sustavu} ili  \textbf{su nositelji odgovornosti}. To su prije svega korisnici, ali i administratori sustava, naručitelji, razvojni tim.}\\
-				
-			\textit{Navesti \textbf{aktore} koji izravno \textbf{koriste} ili \textbf{komuniciraju sa sustavom}. Oni mogu imati inicijatorsku ulogu, tj. započinju određene procese u sustavu ili samo sudioničku ulogu, tj. obavljaju određeni posao. Za svakog aktora navesti funkcionalne zahtjeve koji se na njega odnose.}\\
-			
+		
 			
 			\noindent \textbf{Dionici:}
 			
@@ -25,7 +21,7 @@
 			
 			
 			\begin{packed_enum}
-				\item  \underbar{Vlasnik parkinga (inicijator) može:}
+				\item  \underbar{Voditelj parkinga (inicijator) može:}
 				
 				\begin{packed_enum}
 					
@@ -42,7 +38,7 @@
 				
 				\begin{packed_enum}
 					
-					\item Registrirati se kao klijent ili kao vlasnik parkinga
+					\item Registrirati se kao klijent ili kao voditelj parkinga
 					\item Prijaviti se
 					\item Pregledati sva parkirališta i parkirališna mjesta dostupna u aplikaciji
 					
@@ -69,7 +65,7 @@
 					\item Odjaviti se
 					\item Izbrisati ili promijeniti korisnički račun bilo kojeg ne-administratorskog korisnika
 					\item Pregledati sva parkirališta i parkirališna mjesta dostupna u aplikaciji, te promijeniti njihove podatke
-					\item Potvrditi novi račun vlasnika parkirališta
+					\item Potvrditi novi račun voditelja parkirališta
 					
 				\end{packed_enum}
 			
@@ -90,6 +86,15 @@
 					\item Šalje signal kad se parkirališno mjesto zauzme ili oslobodi
 					
 				\end{packed_enum}
+			
+				\item  \underbar{Banka (sudionik):}
+			
+				\begin{packed_enum}
+				
+				\item Na klijentov zahtjev prenosi novac s klijentovog računa na račun aplikacije
+
+				
+			\end{packed_enum}
 			\end{packed_enum}
 			
 			\eject 
@@ -270,18 +275,18 @@
 		    				
 		    			\end{packed_item}
 		    		\end{packed_item}
-	    			\noindent \underbar{\textbf{UC6 - Brisanje parking mjesta}}
+	    			\noindent \underbar{\textbf{UC6 - Brisanje parkirališnog mjesta}}
 	    			\begin{packed_item}
 	    				
 	    				\item \textbf{Glavni sudionik: }Voditelj parkirališta
-	    				\item  \textbf{Cilj:} Brisanje parking mjesta
+	    				\item  \textbf{Cilj:} Brisanje parkirališnog mjesta
 	    				\item  \textbf{Sudionici:} Voditelj parkirališta, baza podataka
 	    				\item  \textbf{Preduvjet:} Korisnik mora imati ulogu voditelja parkinga, voditelj mora upravljati tim parkingom, parkiralište već postoji u bazi podataka
 	    				\item  \textbf{Opis osnovnog tijeka:}
 	    				
 	    				\item[] \begin{packed_enum}
 	    					
-	    					\item Voditelj zatraži brisanje parkiraling mjesta
+	    					\item Voditelj zatraži brisanje parkirališnog mjesta
 	    					\item Parkirališno mjesto se briše iz baze podataka
 	    					\item Voditelju se javlja da je parkiralište uspješno izbrisano
 	    				\end{packed_enum}
@@ -352,7 +357,7 @@
     						\item[2.a] Kvar na senzoru zauzetosti
     						\item[] \begin{packed_enum}
     							
-    							\item Hitan popravak ili zamjena senzora od strane vlasnika parkinga
+    							\item Hitan popravak ili zamjena senzora od strane voditelja parkinga
     							
     						\end{packed_enum}
     						
@@ -472,7 +477,7 @@
     				\noindent \underbar{\textbf{UC12 - Prijava u sustav}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin)
+    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, voditelj, admin)
     				\item  \textbf{Cilj:} Dobiti pristup korisničkom sučelju  
     				\item  \textbf{Sudionici:} Baza podataka
     				\item  \textbf{Preduvjet:} Korisnik je već registriran u sustav
@@ -500,7 +505,7 @@
     				\noindent \underbar{\textbf{UC13 - Odjava iz sustava}}
     				\begin{packed_item}
     					
-    					\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin) 
+    					\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, voditelj, admin) 
     					\item  \textbf{Cilj:} Odjavljivanje iz korisničkog sučelja
     					\item  \textbf{Sudionici:} 
     					\item  \textbf{Preduvjet:} Korisnik prijavljen u sustav
@@ -517,7 +522,7 @@
     				\noindent \underbar{\textbf{UC14 - Brisanje korisničkog računa}}
     			\begin{packed_item}
     				
-    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, vlasnik, admin) 
+    				\item \textbf{Glavni sudionik:} Bilo koji registrirani korisnik (klijent, voditelj, admin) 
     				\item  \textbf{Cilj:} Omogućuje brisanje korisničkog računa
     				\item  \textbf{Sudionici:} Baza podataka
     				\item  \textbf{Preduvjet:} Korisnik je prijavljen u sustav
@@ -690,8 +695,8 @@
     			\begin{packed_item}
     				
     				\item \textbf{Glavni sudionik: } Klijent
-    				\item  \textbf{Cilj:} Uplata klijenta na račun vlasnika parkinga
-    				\item  \textbf{Sudionici:} Baza podataka, Vlasnik parkinga
+    				\item  \textbf{Cilj:} Uplata klijenta na račun voditelja parkinga
+    				\item  \textbf{Sudionici:} Baza podataka, Voditelj parkinga
     				\item  \textbf{Preduvjet:} Korisnik registriran kao klijent te klijent izvršio rezervaciju
     				\item  \textbf{Opis osnovnog tijeka:}
     				
@@ -756,13 +761,13 @@
     						
     					\end{packed_item}
     				\end{packed_item}
-    				\noindent \underbar{\textbf{UC22 - Potvrda računa vlasnika}}
+    				\noindent \underbar{\textbf{UC22 - Potvrda računa voditelja}}
     				\begin{packed_item}
     					
     					\item \textbf{Glavni sudionik: } Administrator
     					\item  \textbf{Cilj:} Potvrditi račun voditelja parkinga
     					\item  \textbf{Sudionici:} Baza podataka
-    					\item  \textbf{Preduvjet:} Vlasnik je napravio račun potvrdom email adrese te korisnik je prijavljen kao administrator
+    					\item  \textbf{Preduvjet:} Voditelj je napravio račun potvrdom email adrese te korisnik je prijavljen kao administrator
     					\item  \textbf{Opis osnovnog tijeka:}
     					
     					\item[] \begin{packed_enum}
@@ -783,7 +788,7 @@
 					
 					\begin{figure}[H]
 
-						\includegraphics[width=\textwidth]{slika.jpeg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+						\includegraphics[width=\textwidth]{slike/slika.jpeg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
 						\centering
 						\caption{UC registrirani i neregistrirani korisnik}
 						\label{fig:registrirani4312}
@@ -805,16 +810,58 @@
 				
 			\subsection{Sekvencijski dijagrami}
 				
-				\textbf{\textit{dio 1. revizije}}\\
+				\textbf{Obrazac uporabe UC18 - Rezervacija parkirališnog mjesta}\\
 				
-				\textit{Nacrtati sekvencijske dijagrame koji modeliraju najvažnije dijelove sustava (max. 4 dijagrama). Ukoliko postoji nedoumica oko odabira, razjasniti s asistentom. Uz svaki dijagram napisati detaljni opis dijagrama.}
-				\eject
-	
+				Klijent odabire svoje odredište, tip prijevoza i procjenu trajanja parkinga. Aplikacija mu pronalazi najbliži parking te prikazuje njegovu zauzetost. Klijent sada ima dvije mogućnosti: prvo odabrati termin nakon čega mu aplikacija dohvaća iz baze podataka slobodna mjesta u tom terminu ili najprije odabrati parking mjesto nakon čega mu aplikacija dohvaća iz baze podataka slobodne termine za to mjesto. Nakon klijentovog odabira aplikacija izračunava cijenu parkinga. U ovom slučaju uzeli smo opciju da klijent plaća putem aplikacije. Nakon plaćanja rezervacija se pohranjuje u bazu podataka i ispisuje se potvrda o rezervaciji. Postupak je iterativan. 
+				\eject	
+						
+			 	\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/RezervacijaParkingMjesta.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+					\caption{Sekvencijski dijagram za UC18}
+					\label{fig:rezarvacija}
+				\end{figure}
+				\eject	
+				
+				\textbf{Obrazac uporabe UC8 - Promjena mogućnosti rezervacije pojedinog parkirališnog mjesta}\\
+				
+				Voditelj zatraži prikaz parkirališta nakon čega aplikacija dohvaća iz baze podataka podatke o parkiralištu. Voditelj dobiva prikaz tog parkirališta. Voditelj odabere parkirališno mjesto. Aplikacija dohvaća podatke o parkirališnom mjestu iz baze podataka. Voditelj želi promjeniti njegovu mogućnost rezervacije. Aplikacija mu to odobrava jer je u ulozi voditelja. Voditelj mijenja mogućnost rezervacije parking mjesta, aplikacija promjene pohranjuje u bazu i javlja voditelju da su promjene obavljene. 
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/PromjenaMogucnostiRezer.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+					\caption{Sekvencijski dijagram za UC8}
+					\label{fig:mogucnostRezerv}
+				\end{figure}
+				\eject	
+				
+				
+				\textbf{Obrazac uporabe UC11 - Registracija}\\
+				
+				U primjeru smo izabrali registraciju voditelja parkinga jer uz standardan tijek registracije korisnika, voditelja dodatno mora potvrditi i administrator. Voditelj šalje zahtjev za registraciju s potrebnim podacima. Aplikacija provjerava postoji li već u bazi podataka taj voditelj. Ako postoji registracija je neuspješna i aplikacija ispisuje grešku. Ako još ne postoji takav voditelj izvršava se potvrda putem e-mail adrese. Nakon toga aplikacija šalje zahtjev za potvrdu administratoru. Nakon njegove potvrde aplikacija pohranjuje novog korisnika u bazu podataka. Baza podataka potvrđuje pohranu i registracija je uspješna.
+				\eject	
+				
+				\begin{figure}[H]
+					\includegraphics[width=\textwidth]{slike/Registracija.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+					\caption{Sekvencijski dijagram za UC11}
+					\label{fig:Registracija}
+				\end{figure}
+				\eject	
+				
 		\section{Ostali zahtjevi}
 		
-			\textbf{\textit{dio 1. revizije}}\\
 		 
-			 \textit{Nefunkcionalni zahtjevi i zahtjevi domene primjene dopunjuju funkcionalne zahtjeve. Oni opisuju \textbf{kako se sustav treba ponašati} i koja \textbf{ograničenja} treba poštivati (performanse, korisničko iskustvo, pouzdanost, standardi kvalitete, sigurnost...). Primjeri takvih zahtjeva u Vašem projektu mogu biti: podržani jezici korisničkog sučelja, vrijeme odziva, najveći mogući podržani broj korisnika, podržane web/mobilne platforme, razina zaštite (protokoli komunikacije, kriptiranje...)... Svaki takav zahtjev potrebno je navesti u jednoj ili dvije rečenice.}
+			\begin{packed_item}
+				\item {Sustav treba biti oblikovan i implementiran kako bi imao sva svojstva web aplikacije koristeći objektno orijentirane jezike}
+				\item {Aplikacija bi trebala podržavati rad više korisnika u stvarnom vremenu }
+				\item {Izvršavanje dijela programa u kojem se pristupa bazi podataka ne smije trajati duže od nekoliko sekundi }
+				\item {Korisničko sučelje i sustav moraju podržavati sve znakove hrvatske abecede pri radu na aplikaciji, unos podataka, ispis podataka, u to se ubrajaju specijalni(dijaktrički) znakovi}
+				\item {Ako se korisnik sustavom koristi na neispravan način, sustav mora i dalje ostati funkcionalan i raditi bez odstupanja}
+				\item {Kako ne bismo korisnike dodatno opteretili s učenjem na koji način sustav radi, korisničko sučelje mora biti jednostavno za korištenje bez dodatnih uputa}
+				\item {Nadodavanjem novih funkcionalnosti u sustav ne smijemo narušiti rad ranije implementiranih funkcionalnosti}
+				\item {Službena i jedina valuta sustava jest hrvatska kuna - HRK}
+				\item {Pristup sustavu mora biti omogucen iz javne mreže pomoću HTTPS}
+				\item {Veza s bazom podataka mora biti jako dobro zaštićena od neželjenih vanjskih utjecaja, mora biti brza kako bi sustav mogao biti funkcionalan i mora biti otporna na vanjske greške}
+			\end{packed_item}
+			
 			 
 			 
 			 
