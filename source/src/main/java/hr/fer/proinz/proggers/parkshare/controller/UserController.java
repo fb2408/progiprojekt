@@ -131,7 +131,7 @@ public class UserController {
             return new ModelAndView("userpage", model);
         }
 
-        model.addAttribute("user", updatedUser);
+        model.addAttribute("user", userService.UserToDTO(userModel));
         information.add(new MessageDTO("Success!", "Your data has been updated."));
         model.addAttribute("information", information);
         System.out.println(updatedUser);
