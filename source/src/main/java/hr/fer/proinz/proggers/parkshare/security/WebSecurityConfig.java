@@ -39,13 +39,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/profile")
                 .hasAnyRole("OWNER", "CLIENT")
+                .antMatchers("/admin/**")
+                .hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/?errorNotLoggedIn=true")
                 .usernameParameter("loginEmail")
                 .passwordParameter("loginPassword")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/profile")
+                .defaultSuccessUrl("/loginRouter")
                 .failureUrl("/?errorLoginFailed=true")
                 .permitAll()
                 .and()
@@ -53,9 +55,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .logoutSuccessUrl("/")
                 .permitAll();
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/?logout=true")
-                //.permitAll();
     }
 }
