@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: added user model and iban constructor">
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/ParkingOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/ParkingOwner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,13 +26,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/security/CustomUserDetailsService.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/UserModel.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/MessageDTO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/security/CustomUserDetailsService.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/MessageDTO.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/UserModel.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/UserDTO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/UserRepository.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/RegisterFormDTO.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/UserDTO.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -61,6 +65,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/fikayo" />
   </component>
   <component name="RunManager">
     <configuration name="ParkShareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
@@ -81,6 +86,11 @@
       <updated>1637157260117</updated>
       <workItem from="1637157282679" duration="6718000" />
       <workItem from="1637167383164" duration="772000" />
+      <workItem from="1638893545753" duration="11213000" />
+      <workItem from="1638967654743" duration="22496000" />
+      <workItem from="1639133612031" duration="1158000" />
+      <workItem from="1639414725268" duration="28000" />
+      <workItem from="1639845018307" duration="15404000" />
     </task>
     <task id="LOCAL-00001" summary="fix: email confirmation integration">
       <created>1637160118256</created>

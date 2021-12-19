@@ -3,6 +3,8 @@ package hr.fer.proinz.proggers.parkshare.controller;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.Parking;
+import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
@@ -102,8 +104,20 @@ public class UserController {
 
     @GetMapping("/profile")
     public String showUserDetails(Model model, Authentication auth) {
+        boolean loggedIn;
+        loggedIn = auth != null;
+        model.addAttribute("loggedIn", loggedIn);
+        assert auth != null;
         UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
+        if(currentUser.isOwner()) {
+            boolean hasParking = false;
+            Optional<Parking> ownerParking = ownerRepository.findById(currentUser.getId()).map(ParkingOwner::getParking);
+            if(ownerParking.isPresent()) {
+                hasParking = true;
+            }
+            model.addAttribute("hasParking", hasParking);
+        }
         return "userpage";
     }
 
