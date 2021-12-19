@@ -27,6 +27,10 @@
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
                      th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
             </a>
+            <a th:if="${loggedIn}" class="nav-link font-navbar" th:href="@{/logout}">
+                <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
+                     th:src="@{/images/icons/logout_icon.png}" alt="user" width="30" height="30">
+            </a>
         </div>
     </div>
 </nav>
@@ -38,7 +42,11 @@
         </div>
         <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getLastName()}">Ime Prezime</h3>
         <p class="category" th:text="${user.getRole()}">User</p>
-        <a class="link-info" th:href="@{/logout}">Logout</a>
+
+        <button th:if="${hasParking==false && user.isOwner()}" href="#" class="btn btn-primary">Create Parking</button>
+        <button th:if="${hasParking && user.isOwner()}" href="#" class="btn btn-primary">Edit Parking</button>
+        <button th:if="${user.isClient()}" href="#" class="btn btn-primary">Surcharge</button>
+
     </div>
 
     <div class="content mygrid amounts">
