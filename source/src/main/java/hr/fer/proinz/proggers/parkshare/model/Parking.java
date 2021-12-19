@@ -1,6 +1,9 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Table(name = "parking")
@@ -22,13 +25,23 @@ public class Parking {
     @Column(name = "description", length = 1000)
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
+    @Column(name = "entrancepointx", precision = 131089)
+    private BigDecimal entrancepointx;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    @Column(name = "entrancepointy", precision = 131089)
+    private BigDecimal entrancepointy;
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) {this.description = description; }
+
+    public BigDecimal getEntrancepointx() {return entrancepointx;}
+
+    public void setEntrancepointx(BigDecimal entrancepointx) { this.entrancepointx = entrancepointx;}
+
+    public BigDecimal getEntrancepointy() {return entrancepointy; }
+
+    public void setEntrancepointy(BigDecimal entrancepointy) { this.entrancepointy = entrancepointy;}
 
     public String getParkingPhoto() {
         return parkingPhoto;

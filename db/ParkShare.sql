@@ -159,6 +159,10 @@ Create trigger updateOwnerClient
     for each row
 execute function update_owner_client();
 
+alter table parking
+    ADD entrancepointx numeric,
+    Add entrancepointy numeric
+
 
 alter table parking
     ADD entrancepointx numeric,
