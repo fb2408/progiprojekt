@@ -1,11 +1,14 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
+import hr.fer.proinz.proggers.parkshare.dto.CreateParkingDTO;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +42,7 @@ public class UserController {
     UserRepository userRepository;
     ParkingOwnerRepository ownerRepository;
     ClientRepository clientRepository;
+    ParkingRepository parkingRepository;
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository) {
@@ -138,5 +142,42 @@ public class UserController {
         System.out.println(updatedUser);
         updatedUser.setRole(userModel.getType());
         return new ModelAndView("userpage", model);
+    }
+
+    @PostMapping("/profile/createParking")
+    public String createParking(CreateParkingDTO parking, Model model, Authentication auth) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(model.containsAttribute("currentUserID")) {
+            Integer id = (int)model.getAttribute("currentUserID");
+            if(!parkingRepository.existsById(id)) {
+                Parking newParking = new Parking();
+                newParking.setParkingName(parking.getParkingName());
+                newParking.setHourlyPrice(parking.getHourlyPrice());
+                newParking.setParkingPhoto(parking.getParkingPhoto());
+                newParking.setDescription(parking.getDescription());
+                newParking.setId(id);
+
+                parkingRepository.save(newParking);
+                information.add(new MessageDTO("Parking created successfuly", ""));
+                model.addAttribute("information", information);
+                return "redirect: profile/createParkingSpot";
+            } else {
+                errors.add(new MessageDTO("Parking already exists", "You can have only one parking"));
+            }
+        }
+        return "redirect:/profile";
+    }
+
+
+    @GetMapping("/profile/createParking")
+    public String createParkingForm(Model model, Authentication auth) {
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        if (currentUser.isOwner()) {
+            model.addAttribute("currentUserID", currentUser.getId());
+            return "createParking";
+        } else {
+           return "redirect:/profile";
+        }
     }
 }
