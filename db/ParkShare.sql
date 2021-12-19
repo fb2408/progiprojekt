@@ -158,3 +158,8 @@ Create trigger updateOwnerClient
     on usertable
     for each row
 execute function update_owner_client();
+
+
+alter table parking
+    ADD entrancepointx numeric,
+    Add entrancepointy numeric;
