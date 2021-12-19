@@ -8,6 +8,7 @@ import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,15 @@ public class UserController {
     UserRepository userRepository;
     ParkingOwnerRepository ownerRepository;
     ClientRepository clientRepository;
+    ParkingRepository parkingRepository;
 
     @Autowired
-    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository) {
+    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository, ParkingRepository parkingRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
+        this.parkingRepository = parkingRepository;
     }
 
     @PostMapping("/")
@@ -112,7 +115,7 @@ public class UserController {
         model.addAttribute("user", currentUser);
         if(currentUser.isOwner()) {
             boolean hasParking = false;
-            Optional<Parking> ownerParking = ownerRepository.findById(currentUser.getId()).map(ParkingOwner::getParking);
+            Optional<Parking> ownerParking = parkingRepository.findById(currentUser.getId());
             if(ownerParking.isPresent()) {
                 hasParking = true;
             }
