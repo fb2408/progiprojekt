@@ -43,8 +43,8 @@
         <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getLastName()}">Ime Prezime</h3>
         <p class="category" th:text="${user.getRole()}">User</p>
 
-        <button th:if="${hasParking==false && user.isOwner()}" href="#" class="btn btn-primary">Create Parking</button>
-        <button th:if="${hasParking && user.isOwner()}" href="#" class="btn btn-primary">Edit Parking</button>
+        <button th:if="${user.isOwner() && hasParking==false }" href="#" class="btn btn-primary">Create Parking</button>
+        <button th:if="${user.isOwner() && hasParking }" href="#" class="btn btn-primary">Edit Parking</button>
         <button th:if="${user.isClient()}" href="#" class="btn btn-primary">Surcharge</button>
 
     </div>
