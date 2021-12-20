@@ -107,6 +107,12 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+.grid2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 50px;
+
+}
 .person{
     grid-column: 1;
     grid-row: 1;
