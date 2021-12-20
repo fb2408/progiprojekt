@@ -6,6 +6,10 @@
     background-color: rgba(1, 29, 74, 0.6);
 }
 
+.bg-darkblue-80{
+    background-color: rgba(1, 29, 74, 0.8);
+}
+
 .nav-tabs:first-child{
     margin-left: auto;
 }
