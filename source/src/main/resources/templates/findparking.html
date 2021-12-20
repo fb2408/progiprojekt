@@ -19,11 +19,15 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
-            <a class="nav-link font-navbar" th:href="@{/map}">Find Parking</a>
+            <a class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
             <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
             <a class="nav-link font-navbar" th:href="@{/profile}">
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
                      th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
+            </a>
+            <a th:if="${loggedIn}" class="nav-link font-navbar" th:href="@{/logout}">
+                <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
+                     th:src="@{/images/icons/logout_icon.png}" alt="user" width="30" height="30">
             </a>
         </div>
     </div>
@@ -40,7 +44,7 @@
         crossorigin="anonymous"></script>
 <script th:src="@{/js/leaflet.js}"></script>
 <script>
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    var map = L.map('map').setView([45.801, 15.971], 15);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -49,6 +53,8 @@
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibWJhcmJpciIsImEiOiJja3hkeHB3aXIwd21tMzBtbXp1azVvd2xnIn0.wyoaoW90XWXlBgLK1NJaTA'
     }).addTo(map);
+    var marker = L.marker([45.800360, 15.971396]).addTo(map);
+    marker.bindPopup("<b>FER</b><br>A zgrada.");
 </script>
 
 </body>

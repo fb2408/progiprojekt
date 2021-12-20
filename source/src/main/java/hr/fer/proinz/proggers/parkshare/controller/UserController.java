@@ -162,7 +162,7 @@ public class UserController {
     }
 
     @PostMapping("/profile/createParking")
-    public ModelAndView createParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
+    public String createParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         UserModel currentUserModel = userRepository.findByEmail(auth.getName());
@@ -180,30 +180,87 @@ public class UserController {
                 information.add(new MessageDTO("Parking created successfuly", ""));
                 model.addAttribute("information", information);
                 model.addAttribute("user", userService.UserToDTO(currentUserModel));
-                return new ModelAndView("createParkingSpot", model);
+                //TODO : implement add parking spot
+//                return new ModelAndView("createParkingSpot", model);
+                return "redirect:/profile";
             } else {
                 errors.add(new MessageDTO("Parking already exists", "You can have only one parking"));
                 model.addAttribute("errors", errors);
             }
         } catch(Exception exc) {
-            errors.add(new MessageDTO("Error happend", exc.getMessage()));
-            model.addAttribute("errors", errors);
-            model.addAttribute("user", userService.UserToDTO(currentUserModel));
-            return new ModelAndView("userpage", model);
+//            errors.add(new MessageDTO("Error happend", exc.getMessage()));
+//            model.addAttribute("errors", errors);
+//            model.addAttribute("user", userService.UserToDTO(currentUserModel));
+            return "redirect:/profile";
         }
-        model.addAttribute("user", userService.UserToDTO(currentUserModel));
-        return new ModelAndView("userpage", model);
+//        model.addAttribute("user", userService.UserToDTO(currentUserModel));
+        return "redirect:/profile";
     }
 
 
     @GetMapping("/profile/createParking")
     public String createParkingForm(Model model, Authentication auth) {
         UserModel currentUser = userRepository.findByEmail(auth.getName());
-        if (currentUser.isOwner()) {
+        if (currentUser.isOwner() && !parkingRepository.existsById(currentUser.getId())) {
             model.addAttribute("parking", new CreateParkingDTO());
             return "createParking";
         } else {
            return "redirect:/profile";
         }
+    }
+
+    @GetMapping("/profile/editParking")
+    public String editParkingForm(Model model, Authentication auth) {
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        Parking parking = parkingRepository.findById(currentUser.getId()).orElse(null);
+        if (currentUser.isOwner() && parking != null) {
+            model.addAttribute("parking", new CreateParkingDTO(parking));
+            model.addAttribute("spotPage", List.of());
+            return "editparking";
+        } else {
+            return "redirect:/profile";
+        }
+    }
+
+    @PostMapping("/profile/editParking")
+    public String editParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        UserModel currentUserModel = userRepository.findByEmail(auth.getName());
+        try {
+            Integer id = userRepository.findByEmail(auth.getName()).getId();
+            if (parkingRepository.existsById(id)) {
+                Parking newParking = parkingRepository.getById(id);
+                if(parking.getParkingName() != null) {
+                    newParking.setParkingName(parking.getParkingName());
+                }
+                if(parking.getHourlyPrice() != null) {
+                    newParking.setHourlyPrice(parking.getHourlyPrice());
+                }
+                // TODO : image file handling
+//                newParking.setParkingPhoto(parking.getParkingPhoto());
+                if(parking.getDescription() != null) {
+                    newParking.setDescription(parking.getDescription());
+                }
+                // TODO add x and y coordinates in newParking
+                parkingRepository.save(newParking);
+                information.add(new MessageDTO("Parking edited successfuly", ""));
+                model.addAttribute("information", information);
+                model.addAttribute("user", userService.UserToDTO(currentUserModel));
+                //TODO : implement add parking spot
+//                return new ModelAndView("createParkingSpot", model);
+                model.addAttribute("parking", new CreateParkingDTO(newParking));
+                return "editParking";
+            } else {
+                return "redirect:/createParking";
+            }
+        } catch(Exception exc) {
+//            errors.add(new MessageDTO("Error happend", exc.getMessage()));
+//            model.addAttribute("errors", errors);
+//            model.addAttribute("user", userService.UserToDTO(currentUserModel));
+            return "redirect:/profile";
+        }
+//        model.addAttribute("user", userService.UserToDTO(currentUserModel));
+//        return "redirect:/profile";
     }
 }

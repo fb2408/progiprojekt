@@ -5,17 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db894524-48fd-4cbd-8f13-bf84a83051ac" name="Changes" comment="fix: added user model and iban constructor">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/FindParkingController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/ParkingOwner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/ParkingOwner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/CreateParkingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/CreateParkingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/ParkingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/ParkingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/adminpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/adminpage.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/createParking.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/createParking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/editparking.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/editparking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/findparking.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/findparking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userpage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userpage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -25,13 +38,21 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/controller/UserController.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/UserRepository.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/security/CustomUserDetailsService.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/MessageDTO.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/model/UserModel.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/UserDTO.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/repo/UserRepository.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/main/java/hr/fer/proinz/proggers/parkshare/dto/RegisterFormDTO.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="JpbToolWindowState">
@@ -57,6 +78,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -65,9 +87,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/fikayo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="JavaScript.Libraries" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ParkShareApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ParkShare" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="hr.fer.proinz.proggers.parkshare.ParkShareApplication" />
@@ -86,11 +120,11 @@
       <updated>1637157260117</updated>
       <workItem from="1637157282679" duration="6718000" />
       <workItem from="1637167383164" duration="772000" />
-      <workItem from="1638893545753" duration="11213000" />
-      <workItem from="1638967654743" duration="22496000" />
-      <workItem from="1639133612031" duration="1158000" />
-      <workItem from="1639414725268" duration="28000" />
-      <workItem from="1639845018307" duration="15404000" />
+      <workItem from="1639040652131" duration="2830000" />
+      <workItem from="1639256327049" duration="83000" />
+      <workItem from="1639673498785" duration="3105000" />
+      <workItem from="1639743048526" duration="212000" />
+      <workItem from="1639957242603" duration="3195000" />
     </task>
     <task id="LOCAL-00001" summary="fix: email confirmation integration">
       <created>1637160118256</created>
@@ -134,7 +168,42 @@
       <option name="project" value="LOCAL" />
       <updated>1637164109316</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix: tempFix for auth error">
+      <created>1637355128295</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1637355128295</updated>
+    </task>
+    <task id="LOCAL-00008" summary="fix: unfix and disable csrf protection instead">
+      <created>1637355972655</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1637355972655</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix: typo">
+      <created>1637356013621</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1637356013621</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix: wrong paste in security config">
+      <created>1637356391144</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1637356391144</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feature: initial map implementation (no features)">
+      <created>1639960241482</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639960241482</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,7 +214,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -159,6 +240,15 @@
     <MESSAGE value="change index navbar to be transparent" />
     <MESSAGE value="fix: change maven target version" />
     <MESSAGE value="add system properties for heroku" />
-    <option name="LAST_COMMIT_MESSAGE" value="add system properties for heroku" />
+    <MESSAGE value="fix: tempFix for auth error" />
+    <MESSAGE value="fix: unfix and disable csrf protection instead" />
+    <MESSAGE value="fix: typo" />
+    <MESSAGE value="fix: wrong paste in security config" />
+    <MESSAGE value="feature: initial map implementation (no features)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature: initial map implementation (no features)" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

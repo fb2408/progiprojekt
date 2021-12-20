@@ -1,5 +1,6 @@
 package hr.fer.proinz.proggers.parkshare.dto;
 
+import hr.fer.proinz.proggers.parkshare.model.Parking;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,15 @@ public class CreateParkingDTO {
     private String description;
     private BigDecimal pointX;
     private BigDecimal pointY;
+
+    public CreateParkingDTO(Parking parking) {
+        this.parkingName = parking.getParkingName();
+        this.parkingPhoto = parking.getParkingPhoto();
+        this.hourlyPrice = parking.getHourlyPrice();
+        this.description = parking.getDescription();
+        this.pointX = parking.getEntrancepointx();
+        this.pointY = parking.getEntrancepointy();
+    }
 
     public String getParkingName() {
         return parkingName;

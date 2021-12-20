@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
-            <a class="nav-link font-navbar" th:href="@{/map}">Find Parking</a>
+            <a class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
             <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
             <a class="nav-link font-navbar" th:href="@{/profile}">
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
@@ -43,9 +43,9 @@
         <h3 class="title" th:text="${user.getUserfirstname() +' '+ user.getLastName()}">Ime Prezime</h3>
         <p class="category" th:text="${user.getRole()}">User</p>
 
-        <button th:if="${user.isOwner() && hasParking==false }" href="#" class="btn btn-primary">Create Parking</button>
-        <button th:if="${user.isOwner() && hasParking }" href="#" class="btn btn-primary">Edit Parking</button>
-        <button th:if="${user.isClient()}" href="#" class="btn btn-primary">Surcharge</button>
+        <a th:if="${user.isOwner() && hasParking==false }" href="#" th:href="@{/profile/createParking}" class="btn btn-primary">Create Parking</a>
+        <a th:if="${user.isOwner() && hasParking }" href="#" th:href="@{/profile/editParking}" class="btn btn-primary">Edit Parking</a>
+        <a th:if="${user.isClient()}" href="#" class="btn btn-primary">Surcharge</a>
 
     </div>
 
