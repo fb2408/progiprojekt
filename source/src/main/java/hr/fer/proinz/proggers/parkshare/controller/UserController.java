@@ -45,11 +45,14 @@ public class UserController {
     ParkingRepository parkingRepository;
 
     @Autowired
-    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository) {
+    public UserController(UserService userService, UserRepository userRepository,
+                          ParkingOwnerRepository ownerRepository, ClientRepository clientRepository,
+                          ParkingRepository parkingRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
+        this.parkingRepository = parkingRepository;
     }
 
     @PostMapping("/")
@@ -145,28 +148,37 @@ public class UserController {
     }
 
     @PostMapping("/profile/createParking")
-    public String createParking(CreateParkingDTO parking, Model model, Authentication auth) {
+    public ModelAndView createParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
-        if(model.containsAttribute("currentUserID")) {
-            Integer id = (int)model.getAttribute("currentUserID");
-            if(!parkingRepository.existsById(id)) {
+        UserModel currentUserModel = userRepository.findByEmail(auth.getName());
+        try {
+            Integer id = userRepository.findByEmail(auth.getName()).getId();
+            if (!parkingRepository.existsById(id)) {
                 Parking newParking = new Parking();
                 newParking.setParkingName(parking.getParkingName());
                 newParking.setHourlyPrice(parking.getHourlyPrice());
                 newParking.setParkingPhoto(parking.getParkingPhoto());
                 newParking.setDescription(parking.getDescription());
                 newParking.setId(id);
-
+          // TODO add x and y coordinates in newParking
                 parkingRepository.save(newParking);
                 information.add(new MessageDTO("Parking created successfuly", ""));
                 model.addAttribute("information", information);
-                return "redirect: profile/createParkingSpot";
+                model.addAttribute("user", userService.UserToDTO(currentUserModel));
+                return new ModelAndView("createParkingSpot", model);
             } else {
                 errors.add(new MessageDTO("Parking already exists", "You can have only one parking"));
+                model.addAttribute("errors", errors);
             }
+        } catch(Exception exc) {
+            errors.add(new MessageDTO("Error happend", exc.getMessage()));
+            model.addAttribute("errors", errors);
+            model.addAttribute("user", userService.UserToDTO(currentUserModel));
+            return new ModelAndView("userpage", model);
         }
-        return "redirect:/profile";
+        model.addAttribute("user", userService.UserToDTO(currentUserModel));
+        return new ModelAndView("userpage", model);
     }
 
 
@@ -174,7 +186,7 @@ public class UserController {
     public String createParkingForm(Model model, Authentication auth) {
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         if (currentUser.isOwner()) {
-            model.addAttribute("currentUserID", currentUser.getId());
+            model.addAttribute("parking", new CreateParkingDTO());
             return "createParking";
         } else {
            return "redirect:/profile";
