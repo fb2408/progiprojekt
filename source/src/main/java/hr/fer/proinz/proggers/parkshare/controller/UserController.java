@@ -1,11 +1,15 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
+import hr.fer.proinz.proggers.parkshare.dto.ParkingSpotDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
+import hr.fer.proinz.proggers.parkshare.model.ParkingSpotId;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +43,15 @@ public class UserController {
     UserRepository userRepository;
     ParkingOwnerRepository ownerRepository;
     ClientRepository clientRepository;
+    ParkingSpotRepository parkingSpotRepository;
 
     @Autowired
-    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository) {
+    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository, ParkingSpotRepository parkingSpotRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
+        this.parkingSpotRepository = parkingSpotRepository;
     }
 
     @PostMapping("/")
@@ -139,4 +145,56 @@ public class UserController {
         updatedUser.setRole(userModel.getType());
         return new ModelAndView("userpage", model);
     }
+
+    @GetMapping("/profile/createParkingSpot")
+    public String showCreateParkingSpot (Model model, Authentication auth) {
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        model.addAttribute("spot", new ParkingSpotDTO());
+        if(currentUser.isOwner()) {
+            return "addParkingSpot";
+        } else {
+            return "redirect:/profile";
+        }
+    }
+
+    @PostMapping("/profile/createParking")
+    public ModelAndView createParking(ParkingSpotDTO spot, ModelMap model, Authentication auth) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        UserModel currentUserModel = userRepository.findByEmail(auth.getName());
+        try {
+                ParkingSpot newParkingSpot = new ParkingSpot();
+                newParkingSpot.setParkingSpotType(spot.getParkingSpotType());
+                newParkingSpot.setCanBeReserved(spot.getCanBeReserved());
+                newParkingSpot.setPoint1x(spot.getPoint1x());
+                newParkingSpot.setPoint1y(spot.getPoint1y());
+                newParkingSpot.setPoint2x(spot.getPoint2x());
+                newParkingSpot.setPoint2y(spot.getPoint2y());
+                newParkingSpot.setPoint3x(spot.getPoint3x());
+                newParkingSpot.setPoint3y(spot.getPoint3y());
+                newParkingSpot.setPoint4x(spot.getPoint4x());
+                newParkingSpot.setPoint4y(spot.getPoint4y());
+                newParkingSpot.setId(new ParkingSpotId());
+                // TODO add x and y coordinates in newParking
+                parkingSpotRepository.save(newParkingSpot);
+                information.add(new MessageDTO("Parking created successfuly", ""));
+                model.addAttribute("information", information);
+                model.addAttribute("user", userService.UserToDTO(currentUserModel));
+                return new ModelAndView("createParkingSpot", model);
+
+        } catch(Exception exc) {
+            errors.add(new MessageDTO("Error happend", exc.getMessage()));
+            model.addAttribute("errors", errors);
+            model.addAttribute("user", userService.UserToDTO(currentUserModel));
+            return new ModelAndView("userpage", model);
+        }
+    }
+
+
+
+
 }
