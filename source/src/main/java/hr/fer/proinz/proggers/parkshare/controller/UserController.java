@@ -1,10 +1,12 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
+import hr.fer.proinz.proggers.parkshare.dto.CreateParkingDTO;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
+import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
@@ -45,7 +47,9 @@ public class UserController {
     ParkingRepository parkingRepository;
 
     @Autowired
-    public UserController(UserService userService, UserRepository userRepository, ParkingOwnerRepository ownerRepository, ClientRepository clientRepository, ParkingRepository parkingRepository) {
+    public UserController(UserService userService, UserRepository userRepository,
+                          ParkingOwnerRepository ownerRepository, ClientRepository clientRepository,
+                          ParkingRepository parkingRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
@@ -155,5 +159,51 @@ public class UserController {
         System.out.println(updatedUser);
         updatedUser.setRole(userModel.getType());
         return new ModelAndView("userpage", model);
+    }
+
+    @PostMapping("/profile/createParking")
+    public ModelAndView createParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        UserModel currentUserModel = userRepository.findByEmail(auth.getName());
+        try {
+            Integer id = userRepository.findByEmail(auth.getName()).getId();
+            if (!parkingRepository.existsById(id)) {
+                Parking newParking = new Parking();
+                newParking.setParkingName(parking.getParkingName());
+                newParking.setHourlyPrice(parking.getHourlyPrice());
+                newParking.setParkingPhoto(parking.getParkingPhoto());
+                newParking.setDescription(parking.getDescription());
+                newParking.setId(id);
+          // TODO add x and y coordinates in newParking
+                parkingRepository.save(newParking);
+                information.add(new MessageDTO("Parking created successfuly", ""));
+                model.addAttribute("information", information);
+                model.addAttribute("user", userService.UserToDTO(currentUserModel));
+                return new ModelAndView("createParkingSpot", model);
+            } else {
+                errors.add(new MessageDTO("Parking already exists", "You can have only one parking"));
+                model.addAttribute("errors", errors);
+            }
+        } catch(Exception exc) {
+            errors.add(new MessageDTO("Error happend", exc.getMessage()));
+            model.addAttribute("errors", errors);
+            model.addAttribute("user", userService.UserToDTO(currentUserModel));
+            return new ModelAndView("userpage", model);
+        }
+        model.addAttribute("user", userService.UserToDTO(currentUserModel));
+        return new ModelAndView("userpage", model);
+    }
+
+
+    @GetMapping("/profile/createParking")
+    public String createParkingForm(Model model, Authentication auth) {
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        if (currentUser.isOwner()) {
+            model.addAttribute("parking", new CreateParkingDTO());
+            return "createParking";
+        } else {
+           return "redirect:/profile";
+        }
     }
 }
