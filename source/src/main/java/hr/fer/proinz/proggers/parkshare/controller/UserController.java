@@ -4,14 +4,9 @@ import hr.fer.proinz.proggers.parkshare.dto.CreateParkingDTO;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
-import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
-import hr.fer.proinz.proggers.parkshare.model.Parking;
-import hr.fer.proinz.proggers.parkshare.model.UserModel;
-import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
-import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
+import hr.fer.proinz.proggers.parkshare.repo.*;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -210,12 +205,28 @@ public class UserController {
     }
 
     @GetMapping("/profile/editParking")
-    public String editParkingForm(Model model, Authentication auth) {
+    public String editParkingForm(ModelMap model, Authentication auth,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "5") int size) {
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         Parking parking = parkingRepository.findById(currentUser.getId()).orElse(null);
         if (currentUser.isOwner() && parking != null) {
+            Page<ParkingSpot> spotPage = userService.getParkingSpotPage(currentUser.getId(), page, size);
+
+            int pageCount = spotPage.getTotalPages();
+            List<Integer> pageNumbers;
+            if (pageCount <= 9) {
+                pageNumbers = IntStream.rangeClosed(1, pageCount)
+                        .boxed().collect(Collectors.toList());
+            } else {
+                int startNumber = Math.max(1, page - 4);
+                int endNumber = Math.min(pageCount, page + 4);
+                pageNumbers = IntStream.rangeClosed(startNumber, endNumber)
+                        .boxed().collect(Collectors.toList());
+            }
+            model.addAttribute("spotPage", spotPage);
+            model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("parking", new CreateParkingDTO(parking));
-            model.addAttribute("spotPage", List.of());
             return "editparking";
         } else {
             return "redirect:/profile";
@@ -244,7 +255,7 @@ public class UserController {
                 }
                 // TODO add x and y coordinates in newParking
                 parkingRepository.save(newParking);
-                information.add(new MessageDTO("Parking edited successfuly", ""));
+                information.add(new MessageDTO("Parking edited successfully", ""));
                 model.addAttribute("information", information);
                 model.addAttribute("user", userService.UserToDTO(currentUserModel));
                 //TODO : implement add parking spot
