@@ -220,29 +220,30 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 <script th:inline="javascript">
-    var id1;
+    let id1;
+
     function showChangeForm(){
-        var changeForm = document.getElementById('changeUserInfoForm');
+        const changeForm = document.getElementById('changeUserInfoForm');
         changeForm.style.display = "block";
     }
     function cancelChange(){
-        var changeForm = document.getElementById('changeUserInfoForm');
+        const changeForm = document.getElementById('changeUserInfoForm');
         changeForm.reset();
         changeForm.style.display = "none";
     }
 
     function cancelOtherUserChange(){
-        var changeForm = document.getElementById('changeOtherUserInfo');
-        var submit = document.getElementById("submitBtn")
+        const changeForm = document.getElementById('changeOtherUserInfo');
+        const submit = document.getElementById("submitBtn");
         submit.disabled = true;
         changeForm.reset();
     }
     function setValue(){
-        var input = document.getElementById("hiddenId");
+        const input = document.getElementById("hiddenId");
         input.value = id1;
     }
     function enableSubmit(){
-        var submit = document.getElementById("submitBtn")
+        const submit = document.getElementById("submitBtn");
         submit.disabled = false;
     }
     function refreshOtherUserForm(id){
