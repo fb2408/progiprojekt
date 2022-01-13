@@ -40,14 +40,10 @@
 <form th:action="@{/profile/editParking}" th:object="${parking}" method="post" id="editParkingForm" style="padding-top: 10rem">
 
     <div style="padding-left: 20%; padding-right: 20%">
-            <div class="grid2">
                 <div>
                     <h1 class="title" th:text="${parking.getParkingName()}">Parking Južna Trešnjevka</h1>
                 </div>
-                <div style="text-align: right">
-                    <img th:src="@{/images/pictures/parking1.jpg}"  alt="parkingphoto" height="100px">
-                </div>
-            </div>
+
 
         <div class="mb-2">
             <label for="parkingName" class="form-label">ParkingName</label>
@@ -73,28 +69,39 @@
     </div>
 </form>
 
-<div style="padding-left: 20%; padding-right: 20%; padding-top: 3rem">
-    <h2>Edit Parking spots</h2>
-    <div class="editUserInfoGrids" style="padding-left: 0; padding-right: 0; padding-top: 2rem">
-        <div>
-            <div th:each="listing : ${spotPage}">
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action" aria-current="true">
-                    <p class="mb-1" th:text="'Parking spot number: ' + ${listing.getId().getParkingspotnumber()}">Some placeholder content in a paragraph.</p>
-                    <small th:text="'Type: ' +${listing.getParkingSpotType()}">And some small print.</small>
-                </a>
+<div class="grid3" style="padding-left: 20%; padding-right: 20%; padding-top: 3rem; grid-gap: 2rem">
+    <div style=" grid-column-start: 1; grid-column-end: 3">
+        <h2 style='display:inline; padding-right: 1rem'>Edit Parking spots</h2>
+        <a style="vertical-align: bottom;" th:href="@{/profile/createParkingSpot}">
+            <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
+                 th:src="@{/images/icons/plus-icon.png}" alt="add" width="30" height="30">
+        </a>
+        <div class="editUserInfoGrids" style="padding-left: 0; padding-right: 0; padding-top: 2rem">
+            <div>
+                <div th:each="listing : ${spotPage}">
+                    <a th:href="@{/profile/editParkingSpot(id=${listing.getId().getParkingspotnumber()})}" class="list-group-item list-group-item-action" aria-current="true">
+                        <p class="mb-1" th:text="'Parking spot number: ' + ${listing.getId().getParkingspotnumber()}">Some placeholder content in a paragraph.</p>
+                        <small th:text="'Type: ' +${listing.getParkingSpotType()}">And some small print.</small>
+                    </a>
+                </div>
             </div>
-        </div>
-        <nav aria-label="userEditPagination" class="mb-1 text-center">
-            <ul class="pagination justify-content-center">
-                <li th:each="number : ${pageNumbers}" class="page-item"
-                    th:classappend="${((param.page != null) && (#strings.equals(#strings.toString(number - 1), param.page[0]))) ? ' active' : ''} +
+            <nav aria-label="userEditPagination" class="mb-1 text-center">
+                <ul class="pagination justify-content-center">
+                    <li th:each="number : ${pageNumbers}" class="page-item"
+                        th:classappend="${((param.page != null) && (#strings.equals(#strings.toString(number - 1), param.page[0]))) ? ' active' : ''} +
                         ${((param.page == null) && (number == 1)) ? ' active' : ''}">
-                    <a class="page-link" th:text="${number}" th:href="@{/profile/editParking(page=${number - 1},size=${(param.size==null) ? '5' : param.size[0]})}">1</a>
-                </li>
-            </ul>
-        </nav>
+                        <a class="page-link" th:text="${number}" th:href="@{/profile/editParking(page=${number - 1},size=${(param.size==null) ? '5' : param.size[0]})}">1</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
+    <figure style="grid-column-start: 3; grid-column-end: 4; margin: auto">
+        <img th:src="@{/images/pictures/parking1.jpg}" style="width: 100%; object-fit: cover;" alt="parkingphoto" >
+    </figure>
 </div>
+
+
 <div style="padding-bottom: 10rem"></div>
 <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
     <div th:each="info: ${information}">
