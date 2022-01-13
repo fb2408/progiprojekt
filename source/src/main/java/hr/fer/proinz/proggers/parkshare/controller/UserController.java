@@ -108,7 +108,9 @@ public class UserController {
         boolean loggedIn;
         loggedIn = auth != null;
         model.addAttribute("loggedIn", loggedIn);
-        assert auth != null;
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
         UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         if(currentUser.isOwner()) {
@@ -128,6 +130,9 @@ public class UserController {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         UserModel userModel;
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
         //TODO make it pretty lmao
         try {
             userModel = userService.updateUser(updatedUser, false, userRepository.findByEmail(auth.getName()).getId());
@@ -159,6 +164,9 @@ public class UserController {
     public String createParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
         UserModel currentUserModel = userRepository.findByEmail(auth.getName());
         try {
             Integer id = userRepository.findByEmail(auth.getName()).getId();
@@ -194,6 +202,9 @@ public class UserController {
 
     @GetMapping("/profile/createParking")
     public String createParkingForm(Model model, Authentication auth) {
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         if (currentUser.isOwner() && !parkingRepository.existsById(currentUser.getId())) {
             model.addAttribute("parking", new CreateParkingDTO());
@@ -207,6 +218,9 @@ public class UserController {
     public String editParkingForm(ModelMap model, Authentication auth,
                                   @RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "5") int size) {
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         Parking parking = parkingRepository.findById(currentUser.getId()).orElse(null);
         if (currentUser.isOwner() && parking != null) {
@@ -236,6 +250,9 @@ public class UserController {
     public String editParking(CreateParkingDTO parking, ModelMap model, Authentication auth) {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
         UserModel currentUserModel = userRepository.findByEmail(auth.getName());
         try {
             Integer id = userRepository.findByEmail(auth.getName()).getId();
