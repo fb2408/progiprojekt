@@ -315,7 +315,7 @@ public class UserController {
     }
 
     @PostMapping("profile/editParkingSpot")
-    public String editParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value= "parkingSpotNumber") Integer parkingSpotNumber){
+    public String editParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value= "id") Integer parkingSpotNumber){
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         if(auth == null){
@@ -347,4 +347,20 @@ public class UserController {
         }
     }
 
+    @PostMapping("profile/deleteParkingSpot")
+    public String deleteParkingSpot (Authentication auth, @RequestParam(value= "id") Integer parkingSpotNumber) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+        Integer currentUserId = userRepository.findByEmail(auth.getName()).getId();
+        if(!parkingSpotRepository.existsById(new ParkingSpotId(currentUserId, parkingSpotNumber))) {
+            errors.add(new MessageDTO("Can't delete parking spot", "Can't find the parking spot to delete"));
+            return "redirect:/profile/editParking";
+        }
+        parkingSpotRepository.deleteById(new ParkingSpotId(currentUserId, parkingSpotNumber));
+        information.add(new MessageDTO("Success!", "Parking spot successfully deleted"));
+        return "redirect:/profile/editParking";
+    }
 }
