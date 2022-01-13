@@ -11,4 +11,8 @@ import java.util.List;
 public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Integer> {
 
     Page<ParkingSpot> findAllById_Userid(int id, Pageable pageable);
+
+    List<ParkingSpot> findAllById_Userid(int id);
+
+    boolean existsById(ParkingSpotId parkingSpotId);
 }

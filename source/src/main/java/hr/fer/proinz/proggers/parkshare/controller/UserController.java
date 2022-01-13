@@ -1,29 +1,20 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
 import hr.fer.proinz.proggers.parkshare.dto.*;
-import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
-import hr.fer.proinz.proggers.parkshare.repo.*;
 import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
 import hr.fer.proinz.proggers.parkshare.model.ParkingSpotId;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
-import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
-import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
+import hr.fer.proinz.proggers.parkshare.repo.*;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,8 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.InvalidParameterException;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -44,16 +37,18 @@ public class UserController {
     ParkingOwnerRepository ownerRepository;
     ClientRepository clientRepository;
     ParkingRepository parkingRepository;
+    ParkingSpotRepository parkingSpotRepository;
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository,
                           ParkingOwnerRepository ownerRepository, ClientRepository clientRepository,
-                          ParkingRepository parkingRepository) {
+                          ParkingRepository parkingRepository, ParkingSpotRepository parkingSpotRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
         this.parkingRepository = parkingRepository;
+        this.parkingSpotRepository = parkingSpotRepository;
     }
 
     @PostMapping("/")
@@ -284,6 +279,7 @@ public class UserController {
         if(auth == null){
             return "redirect:/loginRouter";
         }
+        System.out.println("x");
 
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         model.addAttribute("spot", new ParkingSpotDTO());
@@ -291,6 +287,39 @@ public class UserController {
             return "addParkingSpot";
         } else {
             return "redirect:/profile";
+        }
+    }
+
+    @PostMapping("/profile/createParkingSpot")
+    public String createParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value="submitSpot") String continueOrFinish) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            System.out.println("y");
+            return "redirect:/loginRouter";
+        }
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        //if(!currentUser.getId().equals(parkingSpotDTO.getId().getUserid())) return "redirect:/profile";
+//        if(parkingSpotRepository.existsById(parkingSpotDTO.getId())){
+//            errors.add(new MessageDTO("Parking spot creation failed!", "Parking spot with given number already exists!"));
+//            model.addAttribute("errors", errors);
+//            return "redirect:/profile/createParkingSpot";
+//        }
+        OptionalInt maxParkingSpotIdOptional = parkingSpotRepository.findAllById_Userid(currentUser.getId()).stream().mapToInt(parkingSpot -> parkingSpot.getId().getParkingspotnumber()).max();
+        int maxParkingSpotId;
+        if(maxParkingSpotIdOptional.isEmpty()){
+            maxParkingSpotId = 0;
+        } else {
+            maxParkingSpotId = maxParkingSpotIdOptional.getAsInt();
+        }
+        parkingSpotDTO.setId(new ParkingSpotId(currentUser.getId(), maxParkingSpotId + 1));
+        information.add(new MessageDTO("Success!", "Parking spot successfully added"));
+        model.addAttribute(information);
+        parkingSpotRepository.save(new ParkingSpot(parkingSpotDTO));
+        if(continueOrFinish.equals("continue")){
+            return "redirect:/profile/createParkingSpot";
+        } else {
+            return "redirect:/profile/editParking";
         }
     }
 

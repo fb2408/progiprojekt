@@ -33,29 +33,29 @@
 </nav>
 
 
-<form th:action="@{/profile/createParking}" th:object="${spot}" method="post" id="addParkingSpotForm" style="padding-top: 10rem">
+<form th:action="@{/profile/createParkingSpot}" th:object="${spot}" method="post" id="addParkingSpotForm" style="padding-top: 10rem">
 
     <div style="padding-left: 20%; padding-right: 20%">
         <h2>Add Parking spot</h2>
         <hr>
         <p>Select a type of parking spot:</p>
         <div>
-            <input type="radio" id="car" name="parkingspottype" value="car"
+            <input type="radio" id="car" name="parkingSpotType" value="car"
                    checked>
             <label for="car">car</label>
         </div>
         <div>
-            <input type="radio" id="bike" name="parkingspottype" value="bike">
+            <input type="radio" id="bike" name="parkingSpotType" value="bike">
             <label for="bike">bike</label>
         </div>
         <hr>
         <div>
-            <input type="checkbox" id="reservationSpot" name="canbereserved">
+            <input type="checkbox" id="reservationSpot" name="canBeReserved">
             <label for="reservationSpot" class="form-label">Valid for reservations</label>
         </div>
         <div style="text-align: center; padding-top: 3rem">
-            <button type="submit" class="btn btn-primary" onclick="location.href = '/profile/createParkingSpot'">Add and continue</button>
-            <button type="submit" class="btn btn-primary" onclick="location.href = '/profile'">Add and finish</button>
+            <button type="submit" class="btn btn-primary" name="submitSpot" value="continue">Add and continue</button>
+            <button type="submit" class="btn btn-primary" name="submitSpot" value="finish">Add and finish</button>
             <button type="button" class="btn btn-secondary"  onclick="location.href = '/profile'">Cancel</button>
         </div>
     </div>

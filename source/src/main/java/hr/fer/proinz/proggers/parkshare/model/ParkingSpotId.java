@@ -1,5 +1,7 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
@@ -9,6 +11,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ParkingSpotId implements Serializable {
     @Serial
     private static final long serialVersionUID = 7997774114776680649L;
