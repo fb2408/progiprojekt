@@ -1,9 +1,6 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
-import hr.fer.proinz.proggers.parkshare.dto.CreateParkingDTO;
-import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
-import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
-import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
+import hr.fer.proinz.proggers.parkshare.dto.*;
 import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.repo.*;
@@ -47,7 +44,6 @@ public class UserController {
     ParkingOwnerRepository ownerRepository;
     ClientRepository clientRepository;
     ParkingRepository parkingRepository;
-    ParkingSpotRepository parkingSpotRepository;
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository,
@@ -58,7 +54,6 @@ public class UserController {
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
         this.parkingRepository = parkingRepository;
-        this.parkingSpotRepository = parkingSpotRepository;
     }
 
     @PostMapping("/")
@@ -283,7 +278,6 @@ public class UserController {
 //        model.addAttribute("user", userService.UserToDTO(currentUserModel));
 //        return "redirect:/profile";
     }
-}
 
     @GetMapping("/profile/createParkingSpot")
     public String showCreateParkingSpot (Model model, Authentication auth) {
