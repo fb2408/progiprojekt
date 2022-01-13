@@ -7,6 +7,13 @@ import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.repo.*;
+import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
+import hr.fer.proinz.proggers.parkshare.model.ParkingSpotId;
+import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
+import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,6 +47,7 @@ public class UserController {
     ParkingOwnerRepository ownerRepository;
     ClientRepository clientRepository;
     ParkingRepository parkingRepository;
+    ParkingSpotRepository parkingSpotRepository;
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository,
@@ -50,6 +58,7 @@ public class UserController {
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
         this.parkingRepository = parkingRepository;
+        this.parkingSpotRepository = parkingSpotRepository;
     }
 
     @PostMapping("/")
@@ -274,4 +283,21 @@ public class UserController {
 //        model.addAttribute("user", userService.UserToDTO(currentUserModel));
 //        return "redirect:/profile";
     }
+}
+
+    @GetMapping("/profile/createParkingSpot")
+    public String showCreateParkingSpot (Model model, Authentication auth) {
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        model.addAttribute("spot", new ParkingSpotDTO());
+        if(currentUser.isOwner()) {
+            return "addParkingSpot";
+        } else {
+            return "redirect:/profile";
+        }
+    }
+
 }
