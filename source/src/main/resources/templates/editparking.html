@@ -74,7 +74,11 @@
 </form>
 
 <div style="padding-left: 20%; padding-right: 20%; padding-top: 3rem">
-    <h2>Edit Parking spots</h2>
+    <h2 style='display:inline; padding-right: 1rem'>Edit Parking spots</h2>
+    <a style="vertical-align: bottom;" th:href="@{/profile/createParkingSpot}">
+        <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
+             th:src="@{/images/icons/plus-icon.png}" alt="add" width="30" height="30">
+    </a>
     <div class="editUserInfoGrids" style="padding-left: 0; padding-right: 0; padding-top: 2rem">
         <div>
             <div th:each="listing : ${spotPage}">
