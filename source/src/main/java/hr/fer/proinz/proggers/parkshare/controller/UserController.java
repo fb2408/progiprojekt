@@ -260,9 +260,9 @@ public class UserController {
                 //TODO : implement add parking spot
 //                return new ModelAndView("createParkingSpot", model);
                 model.addAttribute("parking", new CreateParkingDTO(newParking));
-                return "editParking";
+                return "redirect:/profile/editParking";
             } else {
-                return "redirect:/createParking";
+                return "redirect:/profile/createParking";
             }
         } catch(Exception exc) {
 //            errors.add(new MessageDTO("Error happend", exc.getMessage()));
