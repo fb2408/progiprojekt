@@ -108,9 +108,7 @@ public class UserController {
         boolean loggedIn;
         loggedIn = auth != null;
         model.addAttribute("loggedIn", loggedIn);
-        if(auth == null){
-            return "redirect:/loginRouter";
-        }
+        assert auth != null;
         UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
         if(currentUser.isOwner()) {
@@ -130,9 +128,6 @@ public class UserController {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         UserModel userModel;
-        if(auth == null){
-            return "redirect:/loginRouter";
-        }
         //TODO make it pretty lmao
         try {
             userModel = userService.updateUser(updatedUser, false, userRepository.findByEmail(auth.getName()).getId());
