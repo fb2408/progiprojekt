@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Integer> {
@@ -16,5 +17,8 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Intege
 
     boolean existsById(ParkingSpotId parkingSpotId);
 
+    ParkingSpot findById(ParkingSpotId parkingSpotId);
+
+    @Transactional
     Long deleteById(ParkingSpotId id);
 }

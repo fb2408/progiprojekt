@@ -33,29 +33,37 @@
 </nav>
 
 
-<form th:action="@{/profile/editParkingSpot(id=${parkingSpotDTO.getId().getParkingspotnumber()})}" method="post" id="addParkingSpotForm" style="padding-top: 10rem">
+<form th:action="@{/profile/editParkingSpot(id=${spot.getId().getParkingspotnumber()})}" method="post" id="addParkingSpotForm" style="padding-top: 10rem">
 
     <div style="padding-left: 20%; padding-right: 20%">
         <h2>Edit Parking spot</h2>
         <hr>
         <p>Select a type of parking spot:</p>
         <div>
-            <input type="radio" id="car" name="parkingspottype" value="car"  th:checked="${model.spot}>
+            <input type="radio" id="car" name="parkingspottype" value="car"  th:checked="${spot.getParkingSpotType().equals('car')}">
             <label for="car" >car</label>
         </div>
         <div>
-            <input type="radio" id="bike" name="parkingspottype" value="bike" th:checked="${model.spot}>
+            <input type="radio" id="bike" name="parkingspottype" value="bike" th:checked="${spot.getParkingSpotType().equals('bike')}">
             <label for="bike">bike</label>
         </div>
         <hr>
         <div>
-            <input type="checkbox" id="reservationSpot" name="canbereserved" th:checked="${model.spot}>
+            <input type="checkbox" id="reservationSpot" name="canbereserved" th:checked="${spot.isCanBeReserved()}">
             <label for="reservationSpot" class="form-label">Valid for reservations</label>
         </div>
+        <input type="hidden" id="x1" th:value="${spot.getPoint1x()}">
+        <input type="hidden" id="y1" th:value="${spot.getPoint1y()}">
+        <input type="hidden" id="x2" th:value="${spot.getPoint2x()}">
+        <input type="hidden" id="y2" th:value="${spot.getPoint2y()}">
+        <input type="hidden" id="x3" th:value="${spot.getPoint3x()}">
+        <input type="hidden" id="y3" th:value="${spot.getPoint3y()}">
+        <input type="hidden" id="x4" th:value="${spot.getPoint4x()}">
+        <input type="hidden" id="y4" th:value="${spot.getPoint4y()}">
         <div style="text-align: center; padding-top: 3rem">
             <button type="submit" class="btn btn-primary" name="saveSpot" value="change">Save changes</button>
             <button type="button" class="btn btn-secondary"  onclick="location.href = '/profile/editParking'">Cancel</button>
-            <button type="submit" style="background-color: darkred; color: #bbbbbb" class="btn btn-primary" name="deleteSpot" value="delete">Delete</button>
+            <button type="submit" style="background-color: darkred; color: white; border-color: darkred" class="btn btn-primary" th:formaction="@{/profile/deleteParkingSpot(id=${spot.getId().getParkingspotnumber()})}">Delete</button>
 
         </div>
     </div>

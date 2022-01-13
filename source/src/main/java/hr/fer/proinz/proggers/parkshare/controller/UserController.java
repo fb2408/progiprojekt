@@ -315,18 +315,18 @@ public class UserController {
     }
 
     @PostMapping("profile/editParkingSpot")
-    public String editParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value= "id") Integer parkingSpotNumber){
+    public String editParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value= "id") Integer parkingSpotId){
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         if(auth == null){
             return "redirect:/loginRouter";
         }
         Integer currentUserId = userRepository.findByEmail(auth.getName()).getId();
-        if(!parkingSpotRepository.existsById(new ParkingSpotId(currentUserId, parkingSpotNumber))) {
+        if(!parkingSpotRepository.existsById(new ParkingSpotId(currentUserId, parkingSpotId))) {
             errors.add(new MessageDTO("Can't edit parking spot", "Can't find the parking spot to edit"));
             return "redirect:/profile/editParking";
         }
-        parkingSpotDTO.setId(new ParkingSpotId(currentUserId, parkingSpotNumber));
+        parkingSpotDTO.setId(new ParkingSpotId(currentUserId, parkingSpotId));
         information.add(new MessageDTO("Success!", "Parking spot successfully edited"));
         model.addAttribute(information);
         parkingSpotRepository.save(new ParkingSpot(parkingSpotDTO));
@@ -334,12 +334,13 @@ public class UserController {
     }
 
     @GetMapping("/profile/editParkingSpot")
-    public String editParkingSpot (Model model, Authentication auth) {
+    public String editParkingSpot (Model model, Authentication auth, @RequestParam(value= "id") Integer parkingSpotId) {
         if(auth == null){
             return "redirect:/loginRouter";
         }
         UserModel currentUser = userRepository.findByEmail(auth.getName());
-        model.addAttribute("spot", new ParkingSpotDTO());
+        ParkingSpotDTO ps = new ParkingSpotDTO(parkingSpotRepository.findById(new ParkingSpotId(currentUser.getId(), parkingSpotId)));
+        model.addAttribute("spot", ps);
         if(currentUser.isOwner()) {
             return "editParkingSpot";
         } else {
