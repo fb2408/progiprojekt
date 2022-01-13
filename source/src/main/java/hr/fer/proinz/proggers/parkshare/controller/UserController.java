@@ -260,9 +260,9 @@ public class UserController {
                 //TODO : implement add parking spot
 //                return new ModelAndView("createParkingSpot", model);
                 model.addAttribute("parking", new CreateParkingDTO(newParking));
-                return "editParking";
+                return "redirect:/profile/editParking";
             } else {
-                return "redirect:/createParking";
+                return "redirect:/profile/createParking";
             }
         } catch(Exception exc) {
 //            errors.add(new MessageDTO("Error happend", exc.getMessage()));
@@ -279,8 +279,6 @@ public class UserController {
         if(auth == null){
             return "redirect:/loginRouter";
         }
-        System.out.println("x");
-
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         model.addAttribute("spot", new ParkingSpotDTO());
         if(currentUser.isOwner()) {
@@ -295,16 +293,9 @@ public class UserController {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         if(auth == null){
-            System.out.println("y");
             return "redirect:/loginRouter";
         }
         UserModel currentUser = userRepository.findByEmail(auth.getName());
-        //if(!currentUser.getId().equals(parkingSpotDTO.getId().getUserid())) return "redirect:/profile";
-//        if(parkingSpotRepository.existsById(parkingSpotDTO.getId())){
-//            errors.add(new MessageDTO("Parking spot creation failed!", "Parking spot with given number already exists!"));
-//            model.addAttribute("errors", errors);
-//            return "redirect:/profile/createParkingSpot";
-//        }
         OptionalInt maxParkingSpotIdOptional = parkingSpotRepository.findAllById_Userid(currentUser.getId()).stream().mapToInt(parkingSpot -> parkingSpot.getId().getParkingspotnumber()).max();
         int maxParkingSpotId;
         if(maxParkingSpotIdOptional.isEmpty()){
@@ -323,4 +314,53 @@ public class UserController {
         }
     }
 
+    @PostMapping("profile/editParkingSpot")
+    public String editParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value= "id") Integer parkingSpotNumber){
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+        Integer currentUserId = userRepository.findByEmail(auth.getName()).getId();
+        if(!parkingSpotRepository.existsById(new ParkingSpotId(currentUserId, parkingSpotNumber))) {
+            errors.add(new MessageDTO("Can't edit parking spot", "Can't find the parking spot to edit"));
+            return "redirect:/profile/editParking";
+        }
+        parkingSpotDTO.setId(new ParkingSpotId(currentUserId, parkingSpotNumber));
+        information.add(new MessageDTO("Success!", "Parking spot successfully edited"));
+        model.addAttribute(information);
+        parkingSpotRepository.save(new ParkingSpot(parkingSpotDTO));
+        return "redirect:/profile/editParking";
+    }
+
+    @GetMapping("/profile/editParkingSpot")
+    public String editParkingSpot (Model model, Authentication auth) {
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+        UserModel currentUser = userRepository.findByEmail(auth.getName());
+        model.addAttribute("spot", new ParkingSpotDTO());
+        if(currentUser.isOwner()) {
+            return "editParkingSpot";
+        } else {
+            return "redirect:/profile";
+        }
+    }
+
+    @PostMapping("profile/deleteParkingSpot")
+    public String deleteParkingSpot (Authentication auth, @RequestParam(value= "id") Integer parkingSpotNumber) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+        Integer currentUserId = userRepository.findByEmail(auth.getName()).getId();
+        if(!parkingSpotRepository.existsById(new ParkingSpotId(currentUserId, parkingSpotNumber))) {
+            errors.add(new MessageDTO("Can't delete parking spot", "Can't find the parking spot to delete"));
+            return "redirect:/profile/editParking";
+        }
+        parkingSpotRepository.deleteById(new ParkingSpotId(currentUserId, parkingSpotNumber));
+        information.add(new MessageDTO("Success!", "Parking spot successfully deleted"));
+        return "redirect:/profile/editParking";
+    }
 }

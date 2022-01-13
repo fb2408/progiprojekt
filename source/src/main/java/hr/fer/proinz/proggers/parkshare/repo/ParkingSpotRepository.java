@@ -15,4 +15,6 @@ public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Intege
     List<ParkingSpot> findAllById_Userid(int id);
 
     boolean existsById(ParkingSpotId parkingSpotId);
+
+    Long deleteById(ParkingSpotId id);
 }
