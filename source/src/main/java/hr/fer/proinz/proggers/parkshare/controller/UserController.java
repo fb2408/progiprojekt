@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -380,10 +381,14 @@ public class UserController {
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         if(auth == null){
-            return new ModelAndView("register", model);
+            return new ModelAndView("register");
         }
         try {
             int id = userRepository.findByEmail(auth.getName()).getId();
+            UserModel currentUser = userRepository.findByEmail(auth.getName());
+            model.addAttribute("user", userService.UserToDTO(currentUser));
+            model.addAttribute("loggedIn", true);
+
             Client currentClient = clientRepository.findById(id);
             currentClient.setWalletBalance(currentClient.getWalletBalance().add(amount));
             clientRepository.save(currentClient);
@@ -394,6 +399,8 @@ public class UserController {
         }
         information.add(new MessageDTO("Charging successful!", "Your wallet ballance has been changed."));
         model.addAttribute("information", information);
-        return new ModelAndView("redirect:/profile", model);
+        System.out.println(model.getAttribute("information"));
+        return new ModelAndView("userpage", model);
     }
+
 }
