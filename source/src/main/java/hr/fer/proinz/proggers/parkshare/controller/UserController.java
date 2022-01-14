@@ -386,30 +386,19 @@ public class UserController {
     }
 
     @PostMapping("/profile/ChargeAccount")
-    public ModelAndView ChargeAccount (Authentication auth, @RequestParam("amount") BigDecimal amount, ModelMap model) {
-        ArrayList<MessageDTO> errors = new ArrayList<>();
-        ArrayList<MessageDTO> information = new ArrayList<>();
+    public String ChargeAccount (Authentication auth, @RequestParam("amount") BigDecimal amount) {
         if(auth == null){
-            return new ModelAndView("register");
+            return "redirect:/loginRouter";
         }
         try {
             int id = userRepository.findByEmail(auth.getName()).getId();
-            UserModel currentUser = userRepository.findByEmail(auth.getName());
-            model.addAttribute("user", userService.UserToDTO(currentUser));
-            model.addAttribute("loggedIn", true);
-
             Client currentClient = clientRepository.findById(id);
             currentClient.setWalletBalance(currentClient.getWalletBalance().add(amount));
             clientRepository.save(currentClient);
         } catch (Exception exc) {
-            errors.add(new MessageDTO("Charging failed!", exc.getMessage()));
-            model.addAttribute("errors", errors);
-            return new ModelAndView("userpage", model);
+            return "redirect:/profile";
         }
-        information.add(new MessageDTO("Charging successful!", "Your wallet ballance has been changed."));
-        model.addAttribute("information", information);
-        System.out.println(model.getAttribute("information"));
-        return new ModelAndView("userpage", model);
+        return "redirect:/profile";
     }
 
 }
