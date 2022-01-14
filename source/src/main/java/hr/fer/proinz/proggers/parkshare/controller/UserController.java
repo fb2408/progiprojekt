@@ -1,10 +1,7 @@
 package hr.fer.proinz.proggers.parkshare.controller;
 
 import hr.fer.proinz.proggers.parkshare.dto.*;
-import hr.fer.proinz.proggers.parkshare.model.Parking;
-import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
-import hr.fer.proinz.proggers.parkshare.model.ParkingSpotId;
-import hr.fer.proinz.proggers.parkshare.model.UserModel;
+import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.repo.*;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -327,7 +325,7 @@ public class UserController {
     }
 
     @PostMapping("profile/editParkingSpot")
-    public String editParkingSpot (ParkingSpotDTO parkingSpotDTO, Authentication auth, ModelMap model, @RequestParam(value= "id") Integer parkingSpotId){
+    public String editParkingSpot (ParkingSpotDTO spot, Authentication auth, ModelMap model, @RequestParam(value= "parkingSpotId") Integer parkingSpotId){
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         if(auth == null){
@@ -338,10 +336,10 @@ public class UserController {
             errors.add(new MessageDTO("Can't edit parking spot", "Can't find the parking spot to edit"));
             return "redirect:/profile/editParking";
         }
-        parkingSpotDTO.setId(new ParkingSpotId(currentUserId, parkingSpotId));
+        spot.setId(new ParkingSpotId(currentUserId, parkingSpotId));
         information.add(new MessageDTO("Success!", "Parking spot successfully edited"));
         model.addAttribute(information);
-        parkingSpotRepository.save(new ParkingSpot(parkingSpotDTO));
+        parkingSpotRepository.save(new ParkingSpot(spot));
         return "redirect:/profile/editParking";
     }
 
@@ -375,5 +373,27 @@ public class UserController {
         parkingSpotRepository.deleteById(new ParkingSpotId(currentUserId, parkingSpotNumber));
         information.add(new MessageDTO("Success!", "Parking spot successfully deleted"));
         return "redirect:/profile/editParking";
+    }
+
+    @PostMapping("/profile/ChargeAccount")
+    public ModelAndView ChargeAccount (Authentication auth, @RequestParam("amount") BigDecimal amount, ModelMap model) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return new ModelAndView("register", model);
+        }
+        try {
+            int id = userRepository.findByEmail(auth.getName()).getId();
+            Client currentClient = clientRepository.findById(id);
+            currentClient.setWalletBalance(currentClient.getWalletBalance().add(amount));
+            clientRepository.save(currentClient);
+        } catch (Exception exc) {
+            errors.add(new MessageDTO("Charging failed!", exc.getMessage()));
+            model.addAttribute("errors", errors);
+            return new ModelAndView("userpage", model);
+        }
+        information.add(new MessageDTO("Charging successful!", "Your wallet ballance has been changed."));
+        model.addAttribute("information", information);
+        return new ModelAndView("redirect:/profile", model);
     }
 }

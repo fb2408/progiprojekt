@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
+<nav style="z-index: 999" class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
     <div>
         <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
@@ -45,7 +45,7 @@
 
         <a th:if="${user.isOwner() && hasParking==false }" href="#" th:href="@{/profile/createParking}" class="btn btn-primary">Create Parking</a>
         <a th:if="${user.isOwner() && hasParking }" href="#" th:href="@{/profile/editParking}" class="btn btn-primary">Edit Parking</a>
-        <a th:if="${user.isClient()}" href="#" class="btn btn-primary">Surcharge</a>
+        <button th:if="${user.isClient()}" onclick="showpopup()" class="btn btn-primary">Surcharge</button>
 
     </div>
 
@@ -117,6 +117,69 @@
 
     </div>
 </form>
+
+<div id="overlay">
+</div>
+
+<div id="popup">
+    <form th:action="@{/profile/ChargeAccount}" method="post" id="chargeAmount">
+        <h3 style="text-align: center; padding-bottom: 3rem">Charge your account</h3><br>
+        <div class="grid3" style="padding: 0; grid-gap: 2rem">
+            <div style="grid-column-start: 1; grid-column-end: 2">
+                <label for="amount">Amount (HRK):</label>
+                <input style="display: block; width: 100%" type="number" id="amount" name="amount" step="0.50"  value='20.00' placeholder='0.00' min="20" size="15" placeholder="xx.xx">
+            </div>
+            <div style="grid-column-start: 2; grid-column-end: 4">
+                <label for="name">Name Surname:</label>
+                <input style="display: block; width: 100%" type="text" id="name" name="name" placeholder="Name Surname">
+            </div>
+            <div style="grid-column-start: 1; grid-column-end: 3">
+                <label for="cc-number">Credit Card Number:</label>
+                <input style="display: block; width: 100%" id="cc-number" name="credit-number" class="cc-number" type="tel" pattern="\d*" maxlength="16" minlength="16" placeholder="xxxx xxxx xxxx xxxx">
+            </div>
+            <div style="grid-column-start: 3; grid-column-end: 4">
+                <label for="cc-number">Control number:</label>
+                <input style="display: block; width: 100%" id="ccv" name="ccv" class="ccv" type="tel" pattern="\d*" maxlength="3" minlength="3" placeholder="xxx">
+            </div>
+            <div style="grid-column-start: 1; grid-column-end: 2">
+                <label for="expireMM" style="width: 100%">Expiration date:</label>
+                <select name='expireMM' id='expireMM'>
+                    <option value=''>Month</option>
+                    <option value='01'>January</option>
+                    <option value='02'>February</option>
+                    <option value='03'>March</option>
+                    <option value='04'>April</option>
+                    <option value='05'>May</option>
+                    <option value='06'>June</option>
+                    <option value='07'>July</option>
+                    <option value='08'>August</option>
+                    <option value='09'>September</option>
+                    <option value='10'>October</option>
+                    <option value='11'>November</option>
+                    <option value='12'>December</option>
+                </select>
+                <select name='expireYY' id='expireYY'>
+                    <option value=''>Year</option>
+                    <option value='22'>2022</option>
+                    <option value='23'>2023</option>
+                    <option value='24'>2024</option>
+                    <option value='24'>2025</option>
+                    <option value='24'>2026</option>
+                </select>
+            </div>
+            <div style="grid-column-start: 2; grid-column-end: 3; margin: auto">
+                <img th:src="@{/images/icons/credit_cards.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="credit cards" width="240" >
+            </div>
+        </div>
+        <div style="margin: auto; text-align: center; position: absolute; bottom: 3rem; left: 50%; transform: translate(-50%) " >
+            <button type="submit" class="btn btn-primary">Surcharge Account</button>
+            <button type="button" class="btn btn-secondary"  onclick="cancelCharge()">Cancel</button>
+        </div>
+    </form>
+
+
+</div>
+
 <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
     <div th:each="info: ${information}">
         <div th:inline="text" class="alert alert-info alert-dismissible fade show" role="alert">
@@ -144,5 +207,19 @@
         changeForm.reset();
         changeForm.style.display = "none";
     }
+    function showpopup(){
+        var changeForm = document.getElementById('overlay');
+        changeForm.style.display = "block";
+        changeForm = document.getElementById('popup');
+        changeForm.style.display = "block";
+    }
+    function cancelCharge(){
+        var changeForm = document.getElementById('overlay');
+        changeForm.style.display = "none";
+        changeForm = document.getElementById('popup');
+        changeForm.style.display = "none";
+    }
+
+
 </script>
 </html>
