@@ -122,12 +122,12 @@
 </div>
 
 <div id="popup">
-    <form>
+    <form th:action="@{/profile/ChargeAccount}" method="post" id="chargeAmount">
         <h3 style="text-align: center; padding-bottom: 3rem">Charge your account</h3><br>
         <div class="grid3" style="padding: 0; grid-gap: 2rem">
             <div style="grid-column-start: 1; grid-column-end: 2">
                 <label for="amount">Amount (HRK):</label>
-                <input style="display: block; width: 100%" type="number" id="amount" name="amount" step="0.50" min="20" size="15" placeholder="xx.xx">
+                <input style="display: block; width: 100%" type="number" id="amount" name="amount" step="0.50"  value='20.00' placeholder='0.00' min="20" size="15" placeholder="xx.xx">
             </div>
             <div style="grid-column-start: 2; grid-column-end: 4">
                 <label for="name">Name Surname:</label>
