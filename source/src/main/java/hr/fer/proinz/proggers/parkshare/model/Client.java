@@ -1,10 +1,15 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Table(name = "client")
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Client {
     @Id
     @Column(name = "userid", nullable = false)

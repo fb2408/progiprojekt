@@ -1,5 +1,7 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
@@ -10,6 +12,8 @@ import java.time.Instant;
 import java.util.Objects;
 
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientReservationId implements Serializable {
     @Serial
     private static final long serialVersionUID = -7348700271768085899L;
@@ -17,9 +21,6 @@ public class ClientReservationId implements Serializable {
     private Integer clientuserid;
     @Column(name = "timeofstart", nullable = false)
     private Instant timeofstart;
-
-    public ClientReservationId() {
-    }
 
     public Instant getTimeofstart() {
         return timeofstart;
