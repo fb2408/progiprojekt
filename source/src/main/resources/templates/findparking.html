@@ -6,6 +6,15 @@
     <title>ParkShare</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/leaflet.css}" />
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/leaflet.js}"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://kit.fontawesome.com/f97165b3d6.js" crossorigin="anonymous"></script>
@@ -49,19 +58,30 @@
 </nav>
 <div id="map" class="position-absolute" style="z-index: 0;width: 100vw; height: 100vh;">
 </div>
+<div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
+    <div th:each="info: ${information}">
+        <div th:inline="text" class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong th:text="${(info != null) ? info.msg : 'No error!'}">Not logged in!</strong>
+            [[(${info} != null) ? ${info.desc} : ' Everything is fine :)']]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <div th:each="error: ${errors}">
+        <div th:inline="text" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong th:text="${(error != null) ? error.msg : 'No error!'}">Not logged in!</strong>
+            [[(${error} != null) ? ${error.desc} : ' Everything is fine :)']]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 
-<script
-        src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-<script th:src="@{/js/leaflet.js}"></script>
-<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
 <script th:inline="javascript">
-    let userLocation = L.latlng();
+    let userLocation = L.latLng([45.801, 15.971]);
     let geoError = false;
+    var type = 'driving';
+    var duration = 1;
+    var loggedIn = /*[[${loggedIn}]]*/ false;
 
     function getPosition(position) {
         userLocation.lat = position.coords.latitude;
@@ -71,6 +91,7 @@
     function noPosition (error) {
         userLocation.lat = 45.801;
         userLocation.lng = 15.971;
+        geoError = true;
     }
 
     if (navigator.geolocation) {
@@ -80,6 +101,9 @@
         userLocation.lat = 45.801;
         userLocation.lng = 15.971;
     }
+
+    console.log('test');
+
     var map = L.map('map', {zoomControl:false}).setView([userLocation.lat, userLocation.lng], 15);
     new L.Control.Zoom({position: 'bottomright'}).addTo(map);
 
@@ -92,6 +116,15 @@
         accessToken: 'pk.eyJ1IjoibWJhcmJpciIsImEiOiJja3hkeHB3aXIwd21tMzBtbXp1azVvd2xnIn0.wyoaoW90XWXlBgLK1NJaTA'
     }).addTo(map);
 
+    function car(){
+        type = 'driving';
+    }
+    function bike(){
+        type = 'bike';
+    }
+    function durationChange(){
+        duration = document.getElementById("duration").value;
+    }
     var command = L.control({position: 'bottomleft'});
 
     command.onAdd = function (map) {
@@ -101,20 +134,20 @@
 <div class="container text-black row bg-white border-3 rounded" style="margin-left: 3px; padding-top: 10px;">
     <div class="col justify-content-center align-content-center">
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked onchange="car()">
             <label class="form-check-label fas fa-car" for="flexRadioDefault1">
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onchange="bike()">
             <label class="form-check-label fas fa-bicycle" for="flexRadioDefault2">
             </label>
         </div>
     </div>
     <div class="col">
         <div class="form-outline">
-            <input type="number" id="typeNumber" min="0" max="24" step="1" class="form-control"/>
-            <label class="form-label" for="typeNumber"> hours</label>
+            <input type="number" id="duration" min="1" max="24" step="1" class="form-control" onchange="durationChange()"/>
+            <label class="form-label" for="duration"> hours</label>
         </div>
     </div>
 </div>`;
@@ -126,26 +159,46 @@
         defaultMarkGeocode: false})
         .on('markgeocode', function (e) {
             var latLong = e.geocode.center;
-            window.location = window.location.origin + '/test/search?x=' + latLong.lat + '&y='+latLong.lng;
+            window.location = window.location.origin + '/findParking/search?x1=' + latLong.lng + '&y1='+latLong.lat +
+            '&x2=' + userLocation.lng + '&y2=' + userLocation.lat + '&error=' + geoError + '&type=' + 'driving' + '&duration=' + '1';
         })
         .addTo(map);
 
-    var marker = L.marker([45.800360, 15.971396]).addTo(map);
-    marker.bindPopup("<b>FER</b><br>A zgrada.");
+    var allParkings = /*[[${allParkings}]]*/ [];
+    var allParkingSpots = /*[[${allParkingSpots}]]*/ [];
 
-    /*<![CDATA[*/
-        console.log(/*[[${markers}]]*/);
-        /*[# th:each="marker : ${markers}"]*/
+    var parkingSpots = {};
 
-            L.marker([ /*[[${marker.getX()}]]*/, /*[[${marker.getY()}]]*/]).addTo(map);
+    for (const parkingSpot of allParkingSpots) {
+        let parking = null;
+        for (const prk of allParkings) {
+            if (prk.id === parkingSpot.id.userid) parking = prk;
+        }
+        let spot = L.polygon([ [parkingSpot.point1y, parkingSpot.point1x], [parkingSpot.point2y, parkingSpot.point2x],
+            [parkingSpot.point3y, parkingSpot.point3x], [parkingSpot.point4y, parkingSpot.point4x]]).addTo(map);
+        parkingSpots['{' + parkingSpot.id.userid + ', ' + parkingSpot.id.parkingspotnumber + '}'] = spot;
+    }
+    let searchResult = /*[[${searchResult}]]*/ false;
+    if(!searchResult) map.locate({'setView':true});
 
-        /*[/]*/
-
-    /*]]>*/
+    // var marker = L.marker([45.800360, 15.971396]).addTo(map);
+    // marker.bindPopup("<b>FER</b><br>A zgrada.");
 </script>
 
-<script th:if="${searchResult}">
+<script th:if="${searchResult != null && searchResult}" th:inline="javascript">
+    /*<![CDATA[*/
 
+    let noRoute = /*[[${noRoute}]]*/ true;
+    let destParking = /*[[${nearestParking}]]*/ null;
+    let route = /*[[${route}]]*/ [[]];
+    for (const coord of route) {
+        coord.reverse();
+    }
+
+    line = L.polyline(route).addTo(map);
+
+    map.setView([destParking.entrancepointy, destParking.entrancepointx], 18);
+    /*]]>*/
 </script>
 
 </body>

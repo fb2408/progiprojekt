@@ -3,9 +3,11 @@ package hr.fer.proinz.proggers.parkshare.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
 import hr.fer.proinz.proggers.parkshare.model.osrm.RoutingResponse;
+import hr.fer.proinz.proggers.parkshare.model.osrm.Waypoint;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.data.geo.Point;
 import java.awt.*;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/findParking")
@@ -37,10 +41,21 @@ public class FindParkingController {
 
     @GetMapping
     public String showMap(Model model, Authentication auth) {
-        model.addAttribute("searchResult", false);
+        List<MessageDTO> errors = new ArrayList<>();
+        List<MessageDTO> information = new ArrayList<>();
+        if(model.getAttribute("noRoute") != null && (boolean)model.getAttribute("noRoute")) {
+            information.add(new MessageDTO("No route found.", ""));
+        }
+        if(model.getAttribute("noneAvailable") != null && (boolean)model.getAttribute("noneAvailable")) {
+            errors.add(new MessageDTO("No parking spots Available!", ""));
+        }
         boolean loggedIn;
         loggedIn = auth != null;
         model.addAttribute("loggedIn", loggedIn);
+        model.addAttribute("errors", errors);
+        model.addAttribute("information", information);
+        model.addAttribute("allParkingSpots", parkingSpotRepository.findAll());
+        model.addAttribute("allParkings", parkingRepository.findAll());
         return "findparking";
     }
 
@@ -52,7 +67,7 @@ public class FindParkingController {
                                Model model, RedirectAttributes redirectAttributes) {
         Point destination = new Point(x1,y1);
         Point userLocation = new Point(x2, y2);
-        model.addAttribute("searchResult", false);
+        redirectAttributes.addFlashAttribute("searchResult", false);
         WebClient webClient = WebClient.create("https://router.project-osrm.org");
         ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 //        System.out.println(webClient.get().uri("/route/v1/driving/43.2960669,17.0165161;43.25,17.01?geometries=geojson").retrieve();
@@ -61,7 +76,7 @@ public class FindParkingController {
         List<Parking> availableParkings = parkingRepository.findAvailable(Instant.now(), duration);
 
         if(availableParkings.isEmpty()) {
-            redirectAttributes.addAttribute("noneAvailable", true);
+            redirectAttributes.addFlashAttribute("noneAvailable", true);
             return "redirect:/findParking";
         }
 
@@ -80,6 +95,8 @@ public class FindParkingController {
         });
 
         Parking nearestParking = availableParkings.get(0);
+        System.out.println(nearestParking);
+        redirectAttributes.addFlashAttribute("nearestParking", nearestParking);
         List<ParkingSpot> spots = parkingSpotRepository.findAvailabeById(Instant.now(), duration, nearestParking.getId());
         spots.sort((x,y) -> {
             double p1x = (x.getPoint1x().doubleValue() + x.getPoint2x().doubleValue() + x.getPoint3x().doubleValue()
@@ -95,20 +112,34 @@ public class FindParkingController {
             return p2Dist.compareTo(p1Dist);
         });
 
+        if(error) {
+            redirectAttributes.addFlashAttribute("noUserLocation", true);
+            redirectAttributes.addFlashAttribute("searchResult", true);
+            return "redirect:/findParking";
+        }
+
         RoutingResponse response;
         try {
-            response = objectMapper.readValue(webClient.get().uri("/route/v1/" + type + "/" + ""
-                            + "," + "" + "?geometries=geojson").retrieve()
+            response = objectMapper.readValue(webClient.get().uri("/route/v1/" + type + "/" + userLocation.getX()
+
+                            + "," + userLocation.getY() + ";" + nearestParking.getEntrancepointx() + "," + nearestParking.getEntrancepointy()
+//                            + "," + userLocation.getY() + ";" + destination.getX() + "," + destination.getY()
+                            + "?geometries=geojson").retrieve()
                     .bodyToMono(String.class).block(), RoutingResponse.class);
         } catch (JsonProcessingException e) {
-            redirectAttributes.addAttribute("routeError", true);
+            redirectAttributes.addFlashAttribute("noRoute", true);
             return "redirect:/findParking";
+        }
+
+        if(response != null && response.getCode().equalsIgnoreCase("Ok") && !response.getRoutes().isEmpty()){
+            redirectAttributes.addFlashAttribute("route", response.getRoutes().get(0).getGeometry().getCoordinates());
+        } else {
+            redirectAttributes.addFlashAttribute("noRoute", true);
         }
 
 
 
-        model.addAttribute("searchResult", true);
-        return "redirect://";
-//        return "redirect://findParking";
+        redirectAttributes.addFlashAttribute("searchResult", true);
+        return "redirect:/findParking";
     }
 }
