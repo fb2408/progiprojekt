@@ -145,8 +145,7 @@
 }
 
 #requests{
-    padding : 5rem;
-    padding-top: 2rem;
+    padding: 2rem 5rem 5rem;
 }
 
 #hidingeditblock{
@@ -165,7 +164,9 @@
     z-index: 9500;
 }
 #popup{
-    height: 60%;
+    height: auto;
+    width: auto;
+    width: 50%;
     padding : 2rem;
     text-align: left;
     margin: auto;
