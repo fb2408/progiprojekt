@@ -34,7 +34,7 @@
 
 
 <form th:action="@{/profile/editParkingSpot(parkingSpotId=${spot.getId().getParkingspotnumber()})}" th:object="${spot}" th:method="post" id="addParkingSpotForm" style="padding-top: 10rem">
-    <div style="padding-left: 20%; padding-right: 20%">
+    <div style="padding-left: 10%; padding-right: 10%">
        <!-- <input type="hidden" name="id" th:value="${spot.getId()}" th:field="*{id}"> -->
         <h2>Edit Parking spot</h2>
         <hr>
@@ -60,6 +60,11 @@
         <input name="y3" type="hidden" id="y3" th:value="${spot.getPoint3y()}" th:field="*{point3y}">
         <input name="x4" type="hidden" id="x4" th:value="${spot.getPoint4x()}" th:field="*{point4x}">
         <input name="y4" type="hidden" id="y4" th:value="${spot.getPoint4y()}" th:field="*{point4y}">
+
+        <div class="mapa" id="mapa">
+
+        </div>
+
         <div style="text-align: center; padding-top: 3rem">
             <button type="submit" class="btn btn-primary" name="saveSpot" value="change">Save changes</button>
             <button type="button" class="btn btn-secondary"  onclick="location.href = '/profile/editParking'">Cancel</button>

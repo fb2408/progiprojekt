@@ -39,28 +39,38 @@
 
 <form th:action="@{/profile/editParking}" th:object="${parking}" method="post" id="editParkingForm" style="padding-top: 10rem">
 
-    <div style="padding-left: 20%; padding-right: 20%">
+    <div style="padding-left: 10%; padding-right: 10%">
                 <div>
                     <h1 class="title" th:text="${parking.getParkingName()}">Parking Južna Trešnjevka</h1>
                 </div>
 
+        <div class="grid3" style="grid-gap: 2rem; padding: 0; padding-top: 2rem">
+            <div style="grid-column-start: 1; grid-column-end: 2; margin-top: auto; margin-bottom: auto">
+                <div class="mb-2">
+                    <label for="parkingName" class="form-label">ParkingName</label>
+                    <input type="text" class="form-control form-control-sm" id="parkingName" th:field="*{parkingName}">
+                </div>
+                <div class="mb-2">
+                    <label for="parkingPhoto" class="form-label">Parking Photo</label>
+                    <input type="file" class="form-control form-control-sm" id="parkingPhoto" th:field="*{parkingPhoto}">
+                </div>
+                <div class="mb-2">
+                    <label for="hourPrice" class="form-label">Hourly Rate</label>
+                    <input type="number" class="form-control form-control-sm" id="hourPrice" th:field="*{hourlyPrice}">
+                </div>
+                <div class="mb-2">
+                    <label for="parkingDescription" class="form-label">Parking description</label>
+                    <textarea rows="3" class="form-control form-control-sm" id="parkingDescription" th:field="*{description}"></textarea>
+                </div>
+            </div>
+            <div style="grid-column-start: 2; grid-column-end: 4;">
+                <div class="mapa" id="mapa">
 
-        <div class="mb-2">
-            <label for="parkingName" class="form-label">ParkingName</label>
-            <input type="text" class="form-control form-control-sm" id="parkingName" th:field="*{parkingName}">
+                </div>
+            </div>
         </div>
-        <div class="mb-2">
-            <label for="parkingPhoto" class="form-label">Parking Photo</label>
-            <input type="file" class="form-control form-control-sm" id="parkingPhoto" th:field="*{parkingPhoto}">
-        </div>
-        <div class="mb-2">
-            <label for="hourPrice" class="form-label">Hourly Rate</label>
-            <input type="number" class="form-control form-control-sm" id="hourPrice" th:field="*{hourlyPrice}">
-        </div>
-        <div class="mb-2">
-            <label for="parkingDescription" class="form-label">Parking description</label>
-            <textarea rows="3" class="form-control form-control-sm" id="parkingDescription" th:field="*{description}"></textarea>
-        </div>
+
+
 
         <div style="text-align: center; padding-top: 3rem">
             <button type="submit" class="btn btn-primary">Submit changes</button>
@@ -69,7 +79,7 @@
     </div>
 </form>
 
-<div class="grid3" style="padding-left: 20%; padding-right: 20%; padding-top: 3rem; grid-gap: 2rem">
+<div class="grid3" style="padding-left: 10%; padding-right: 10%; padding-top: 3rem; grid-gap: 2rem">
     <div style=" grid-column-start: 1; grid-column-end: 3">
         <h2 style='display:inline; padding-right: 1rem'>Edit Parking spots</h2>
         <a style="vertical-align: bottom;" th:href="@{/profile/createParkingSpot}">
