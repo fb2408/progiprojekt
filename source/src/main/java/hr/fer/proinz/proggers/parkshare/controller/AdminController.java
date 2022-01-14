@@ -47,6 +47,7 @@ public class AdminController {
                                @RequestParam(defaultValue = "5") int size) {
         Page<UserDTO> userPage = userService.getUserPage(page, size).map(user -> userService.UserToDTO(user));
         model.addAttribute("userPage", userPage);
+        model.addAttribute("loggedIn", true);
         int pageCount = userPage.getTotalPages();
         List<Integer> pageNumbers;
         if (pageCount <= 9) {

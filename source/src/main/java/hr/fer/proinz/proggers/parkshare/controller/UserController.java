@@ -71,6 +71,7 @@ public class UserController {
             errors.add(new MessageDTO("Registration failed!",
                     "Account with given username or email already exists."));
             model.addAttribute("errors", errors);
+            model.addAttribute("loggedIn", false);
             return new ModelAndView("index", model);
         }
         model.addAttribute("registerForm", new RegisterFormDTO());
@@ -79,6 +80,7 @@ public class UserController {
                         "Please wait for an administrator to confirm your registration." :
                         "To login, please confirm your account by email."));
         model.addAttribute("information", information);
+        model.addAttribute("loggedIn", false);
         return new ModelAndView("index", model);
     }
 
@@ -99,6 +101,8 @@ public class UserController {
         if (auth != null) {
             return "redirect:/loginRouter";
         }
+        model.addAttribute("loggedIn", false);
+
         model.addAttribute("registerForm", new RegisterFormDTO());
         return "index";
     }
@@ -180,6 +184,7 @@ public class UserController {
             model.addAttribute("hasParking", hasParking);
         }
         model.addAttribute("user", userService.UserToDTO(userModel));
+        model.addAttribute("loggedIn", true);
         information.add(new MessageDTO("Success!", "Your data has been updated."));
         model.addAttribute("information", information);
         System.out.println(updatedUser);
@@ -211,7 +216,7 @@ public class UserController {
                 model.addAttribute("user", userService.UserToDTO(currentUserModel));
                 //TODO : implement add parking spot
 //                return new ModelAndView("createParkingSpot", model);
-                return "redirect:/profile";
+                return "redirect:/profile/editParking";
             } else {
                 errors.add(new MessageDTO("Parking already exists", "You can have only one parking"));
                 model.addAttribute("errors", errors);
@@ -235,6 +240,8 @@ public class UserController {
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         if (currentUser.isOwner() && !parkingRepository.existsById(currentUser.getId())) {
             model.addAttribute("parking", new CreateParkingDTO());
+            model.addAttribute("loggedIn", true);
+
             return "createParking";
         } else {
            return "redirect:/profile";
@@ -267,6 +274,7 @@ public class UserController {
             model.addAttribute("spotPage", spotPage);
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("parking", new CreateParkingDTO(parking));
+            model.addAttribute("loggedIn", true);
             return "editparking";
         } else {
             return "redirect:/profile";
@@ -304,9 +312,9 @@ public class UserController {
                 //TODO : implement add parking spot
 //                return new ModelAndView("createParkingSpot", model);
                 model.addAttribute("parking", new CreateParkingDTO(newParking));
-                return "redirect:/profile/editParking";
+                return "redirect:/profile";
             } else {
-                return "redirect:/profile/createParking";
+                return "redirect:/profile";
             }
         } catch(Exception exc) {
 //            errors.add(new MessageDTO("Error happend", exc.getMessage()));
@@ -323,6 +331,7 @@ public class UserController {
         if(auth == null){
             return "redirect:/loginRouter";
         }
+        model.addAttribute("loggedIn", true);
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         model.addAttribute("spot", new ParkingSpotDTO());
         if(currentUser.isOwner()) {
@@ -385,6 +394,7 @@ public class UserController {
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         ParkingSpotDTO ps = new ParkingSpotDTO(parkingSpotRepository.findById(new ParkingSpotId(currentUser.getId(), parkingSpotId)));
         model.addAttribute("spot", ps);
+        model.addAttribute("loggedIn", true);
         if(currentUser.isOwner()) {
             return "editParkingSpot";
         } else {

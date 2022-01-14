@@ -10,7 +10,6 @@
     <title>UserPage</title>
 </head>
 <body>
-
 <nav style="z-index: 999" class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
     <div>
         <a class="navbar-brand" th:href="@{/}">
@@ -20,10 +19,10 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
-            <a class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
+            <a th:if="${!loggedIn || user.isClient()}" class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
             <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
-            <a class="nav-link font-navbar" th:href="@{/profile}">
+            <a th:if="${!loggedIn}" class="nav-link font-navbar" th:href="@{/}">Log in</a>
+            <a th:if="${loggedIn}" class="nav-link font-navbar" th:href="@{/profile}">
                 <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
                      th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
             </a>
