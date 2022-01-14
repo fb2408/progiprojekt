@@ -129,4 +129,21 @@ public class ParkingSpot {
     public void setId(ParkingSpotId id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "id=" + id +
+                ", parkingSpotType='" + parkingSpotType + '\'' +
+                ", canBeReserved=" + canBeReserved +
+                ", point1x=" + point1x +
+                ", point1y=" + point1y +
+                ", point2x=" + point2x +
+                ", point2y=" + point2y +
+                ", point3x=" + point3x +
+                ", point3y=" + point3y +
+                ", point4x=" + point4x +
+                ", point4y=" + point4y +
+                '}';
+    }
 }

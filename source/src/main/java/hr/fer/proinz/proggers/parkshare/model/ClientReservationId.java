@@ -50,4 +50,12 @@ public class ClientReservationId implements Serializable {
         return Objects.equals(this.timeofstart, entity.timeofstart) &&
                 Objects.equals(this.clientuserid, entity.clientuserid);
     }
+
+    @Override
+    public String toString() {
+        return "ClientReservationId{" +
+                "clientuserid=" + clientuserid +
+                ", timeofstart=" + timeofstart +
+                '}';
+    }
 }
