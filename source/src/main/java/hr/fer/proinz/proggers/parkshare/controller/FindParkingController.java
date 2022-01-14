@@ -36,6 +36,14 @@ public class FindParkingController {
         this.clientRepository = clientRepository;
     }
 
+    @GetMapping("/about")
+    public String aboutUs(Model model, Authentication auth) {
+        boolean loggedIn;
+        loggedIn = auth != null;
+        model.addAttribute("loggedIn", loggedIn);
+        return "aboutus";
+    }
+
     @GetMapping("/findParking")
     public String showMap(Model model, Authentication auth) {
         boolean loggedIn;
