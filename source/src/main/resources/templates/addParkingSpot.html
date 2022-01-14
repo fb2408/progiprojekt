@@ -35,7 +35,7 @@
 
 <form th:action="@{/profile/createParkingSpot}" th:object="${spot}" method="post" id="addParkingSpotForm" style="padding-top: 10rem">
 
-    <div style="padding-left: 20%; padding-right: 20%">
+    <div style="padding-left: 10%; padding-right: 10%">
         <h2>Add Parking spot</h2>
         <hr>
         <p>Select a type of parking spot:</p>
@@ -62,6 +62,10 @@
         <input type="hidden" id="x4">
         <input type="hidden" id="y4">
 
+        <div class="mapa" id="mapa">
+
+        </div>
+
         <div style="text-align: center; padding-top: 3rem">
             <button type="submit" class="btn btn-primary" name="submitSpot" value="continue">Add and continue</button>
             <button type="submit" class="btn btn-primary" name="submitSpot" value="finish">Add and finish</button>
@@ -71,6 +75,6 @@
 </form>
 
 
-<div style="padding-bottom: 10rem"></div>
+<div style="padding-bottom: 4rem"></div>
 </body>
 </html>
