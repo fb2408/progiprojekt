@@ -3,20 +3,29 @@
 		
 		\section{Korištene tehnologije i alati}
 		
-			\textbf{\textit{dio 2. revizije}}
-			
-			 \textit{Detaljno navesti sve tehnologije i alate koji su primijenjeni pri izradi dokumentacije i aplikacije. Ukratko ih opisati, te navesti njihovo značenje i mjesto primjene. Za svaki navedeni alat i tehnologiju je potrebno \textbf{navesti internet poveznicu} gdje se mogu preuzeti ili više saznati o njima}.
-			
-			
+		Za komunikaciju medu clanovima tima smo koristili discord\footnote{\url{https://discord.com/download}}i whatsapp\footnote{\url{https://www.whatsapp.com/download}}.
+		Za izradu Uml dijagrama korisitli smo Astah\footnote{\url{https://astah.net/products/astah-professional/}}.
+		Za upravljanje izvornim kodom koristili smo Git\footnote{\url{https://git-scm.com/downloads}}, a udaljeni repozitorij nalazio se na GitLabu\footnote{\url{https://about.gitlab.com/install/}}.
+		
+		Razvojno okruzenje nam je bio Intellij\footnote{\url{https://www.jetbrains.com/idea/download}}. 
+		IntelliJ IDEA je integrirano razvojno okruženje (IDE) napisano u Javi za razvoj računalnog softvera. 
+		Razvio ga je JetBrains (prije poznat kao IntelliJ), a dostupan je besplatno preko licence za studente za koju smo se prijavili sa FER-ovim mailom.
+		
+		Web aplikaciju smo napisali u Javi\footnote{\url{https://www.java.com/download/ie_manual.jsp}} koristeci Spring Boot\footnote{\url{https://spring.io/projects/spring-boot}} framework za izradu backenda, a thymeleaf\footnote{\url{https://www.thymeleaf.org/}}, html, css i javascript\footnote{\url{https://www.javascript.com/}} za izradu frontenda.
+		
+		Spring Boot je open-source framework koji održava tvrtka pod nazivom Pivotal. Pruža Java programerima platformu za početak rada s aplikacijom koja se može automatski konfigurirati.
+		
+		Thymeleaf je Java teamplate engine koji omogucuje rad sa HTML, XML, JavaScript i CSS datotekama.
 			\eject 
 		
 	
 		\section{Ispitivanje programskog rješenja}
 			
-			\textbf{\textit{dio 2. revizije}}\\
 			
-			 \textit{U ovom poglavlju je potrebno opisati provedbu ispitivanja implementiranih funkcionalnosti na razini komponenti i na razini cijelog sustava s prikazom odabranih ispitnih slučajeva. Studenti trebaju ispitati temeljnu funkcionalnost i rubne uvjete.}
-	
+			 Testove smo izvodili na strukturirani nacin pomocu selenium testova.
+			  Ispitivanje se radilo po obrascima uporabe kako bi se provjerila osnovna funkcionalnost sustava, ali i nasumicnim kretanjima po 
+			  aplikaciji kako bi se pronasle neocekivane greske  ili nepredvidena ponasanja.
+			  
 			
 			\subsection{Ispitivanje komponenti}
 			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
@@ -38,21 +47,56 @@
 		
 		
 		\section{Dijagram razmještaja}
+		
+		Dijagram razmjestaja je strukturni statički UML dijagram koji opisuje topologiju sustava i usredotočen je na odnos sklopovskih i programskih dijelova.
+		Imamo dijagram razmještaja, specifikacijski dijagram razmještaja, dijagram razmještaja instanci, implementacijski dijagram i dijagram mrežne arhitekture.
 			
-			\textbf{\textit{dio 2. revizije}}
-			
-			 \textit{Potrebno je umetnuti \textbf{specifikacijski} dijagram razmještaja i opisati ga. Moguće je umjesto specifikacijskog dijagrama razmještaja umetnuti dijagram razmještaja instanci, pod uvjetom da taj dijagram bolje opisuje neki važniji dio sustava.}
-			
+			\begin{figure}[H]
+				
+				\includegraphics[width=\textwidth]{slike/Deployment Diagram0.jpg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+				\centering
+				\caption{Dijagram razmjestaja}
+				\label{fig:dijagramraz}
+			\end{figure}
 			\eject 
 		
 		\section{Upute za puštanje u pogon}
 		
-			\textbf{\textit{dio 2. revizije}}\\
+		Pustanje aplikacije u pogon odradeno je koristenjem alata Heroku. Posluziteljski i klijentski dio podignuti su zasebno. Za dizanje posluziteljskog dijela pratili smo upute na stranici \footnote{\url{ https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku}}.
+		U projektu radimo s PostgreSql bazom podataka koja je podrzana na Heroku platformi. Integrira se u projekt dodavanjem Heroku Postgres Add-Onsa te se dobiju podatci za povezivanje s tom bazom koji se upisuju u application.properties u projektu.
 		
-			 \textit{U ovom poglavlju potrebno je dati upute za puštanje u pogon (engl. deployment) ostvarene aplikacije. Na primjer, za web aplikacije, opisati postupak kojim se od izvornog kôda dolazi do potpuno postavljene baze podataka i poslužitelja koji odgovara na upite korisnika. Za mobilnu aplikaciju, postupak kojim se aplikacija izgradi, te postavi na neku od trgovina. Za stolnu (engl. desktop) aplikaciju, postupak kojim se aplikacija instalira na računalo. Ukoliko mobilne i stolne aplikacije komuniciraju s poslužiteljem i/ili bazom podataka, opisati i postupak njihovog postavljanja. Pri izradi uputa preporučuje se \textbf{naglasiti korake instalacije uporabom natuknica} te koristiti što je više moguće \textbf{slike ekrana} (engl. screenshots) kako bi upute bile jasne i jednostavne za slijediti.}
+		\begin{figure}[H]
 			
-			
-			 \textit{Dovršenu aplikaciju potrebno je pokrenuti na javno dostupnom poslužitelju. Studentima se preporuča korištenje neke od sljedećih besplatnih usluga: \href{https://aws.amazon.com/}{Amazon AWS}, \href{https://azure.microsoft.com/en-us/}{Microsoft Azure} ili \href{https://www.heroku.com/}{Heroku}. Mobilne aplikacije trebaju biti objavljene na F-Droid, Google Play ili Amazon App trgovini.}
-			
-			
+			\includegraphics[width=\textwidth]{slike/prva.jpg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+			\centering
+			\caption{Add-Ons}
+			\label{fig:addons}
+		\end{figure}
+	
+	Prvo treba skinuti Heroku CLI(Command Line Interface) preko kojeg se koristi naredba za prijavu na Heroku. 
+	Nakon toga treba pripremiti repozitorij za dizanje na Heroku koristenjem git naredbi.
+	
+		\begin{figure}[H]
+		
+		\includegraphics[width=\textwidth]{slike/druga.jpg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+		\centering
+		\caption{Heroku CLI}
+		\label{fig:cli}
+	\end{figure}
+Zatim treba kreirati udaljeni Heroku repozitorij i konacno podignuti nas kod na taj repozitorij sto je prikazano na slikama 5.4 i 5.5
+	\begin{figure}[H]
+	
+	\includegraphics[width=\textwidth]{slike/treca.jpg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\centering
+	\caption{Stvaranje Heroku repozitorija}
+	\label{fig:tre}
+\end{figure}
+\begin{figure}[H]
+	
+	\includegraphics[width=\textwidth]{slike/cetvrta.jpg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\centering
+	\caption{Deplojanje posluziteljskog koda na Heroku}
+	\label{fig:cli}
+\end{figure}
+		
 			\eject 
