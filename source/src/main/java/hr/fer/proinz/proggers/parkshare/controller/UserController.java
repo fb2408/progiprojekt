@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.security.InvalidParameterException;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,17 +36,19 @@ public class UserController {
     ClientRepository clientRepository;
     ParkingRepository parkingRepository;
     ParkingSpotRepository parkingSpotRepository;
+    private final ParkingSpotOccupancyRepository parkingSpotOccupancyRepository;
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository,
                           ParkingOwnerRepository ownerRepository, ClientRepository clientRepository,
-                          ParkingRepository parkingRepository, ParkingSpotRepository parkingSpotRepository) {
+                          ParkingRepository parkingRepository, ParkingSpotRepository parkingSpotRepository, ParkingSpotOccupancyRepository parkingSpotOccupancyRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
         this.clientRepository = clientRepository;
         this.parkingRepository = parkingRepository;
         this.parkingSpotRepository = parkingSpotRepository;
+        this.parkingSpotOccupancyRepository = parkingSpotOccupancyRepository;
     }
 
     @PostMapping("/")
@@ -103,7 +104,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String showUserDetails(Model model, Authentication auth) {
+    public String showUserDetails(ModelMap model, Authentication auth) {
         boolean loggedIn;
         loggedIn = auth != null;
         model.addAttribute("loggedIn", loggedIn);
@@ -117,6 +118,29 @@ public class UserController {
                 hasParking = true;
             }
             model.addAttribute("hasParking", hasParking);
+            List<StatisticsDTO> statistics= new ArrayList<>();
+            List<ParkingSpotOccupancy> parkingSpots = parkingSpotOccupancyRepository.getAllById_Userid(currentUser.getId());
+            int totalSpots = 0, mon = 0, tues = 0, wed = 0, thur = 0, fri = 0, sat = 0, sun = 0;
+            for(var ps : parkingSpots) {
+                totalSpots++;
+                switch (ps.getId().getDatefrom().atZone(ZoneId.of("UTC")).getDayOfWeek()) {
+                    case MONDAY -> mon++;
+                    case TUESDAY -> tues++;
+                    case WEDNESDAY -> wed++;
+                    case THURSDAY -> thur++;
+                    case FRIDAY -> fri++;
+                    case SATURDAY -> sat++;
+                    case SUNDAY -> sun++;
+                }
+            }
+            statistics.add(new StatisticsDTO("Monday", 1.*mon/totalSpots));
+            statistics.add(new StatisticsDTO("Tuesday", 1.*tues/totalSpots));
+            statistics.add(new StatisticsDTO("Wednesday", 1.*wed/totalSpots));
+            statistics.add(new StatisticsDTO("Thursday", 1.*thur/totalSpots));
+            statistics.add(new StatisticsDTO("Friday", 1.*fri/totalSpots));
+            statistics.add(new StatisticsDTO("Saturday", 1.*sat/totalSpots));
+            statistics.add(new StatisticsDTO("Sunday", 1.*sun/totalSpots));
+            model.addAttribute("statistics", statistics);
         }
         return "userpage";
     }
