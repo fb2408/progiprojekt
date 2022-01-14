@@ -145,7 +145,16 @@ public class UserController {
             model.addAttribute("user", userService.UserToDTO(currentUserModel));
             return new ModelAndView("userpage", model);
         }
-
+        UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
+        model.addAttribute("loggedIn", true);
+        if(currentUser.isOwner()) {
+            boolean hasParking = false;
+            Optional<Parking> ownerParking = parkingRepository.findById(currentUser.getId());
+            if(ownerParking.isPresent()) {
+                hasParking = true;
+            }
+            model.addAttribute("hasParking", hasParking);
+        }
         model.addAttribute("user", userService.UserToDTO(userModel));
         information.add(new MessageDTO("Success!", "Your data has been updated."));
         model.addAttribute("information", information);
