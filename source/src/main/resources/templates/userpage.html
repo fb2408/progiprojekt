@@ -51,7 +51,7 @@
 
     <div class="content mygrid amounts">
         <div class="social-description">
-            <h2>0 HRK</h2>
+            <h2 th:text="${user.getWalletBalance() + ' HRK'}"></h2>
             <p>Balance</p>
         </div>
         <div class="social-description">
@@ -127,7 +127,7 @@
         <div class="grid3" style="padding: 0; grid-gap: 2rem">
             <div style="grid-column-start: 1; grid-column-end: 2">
                 <label for="amount">Amount (HRK):</label>
-                <input style="display: block; width: 100%" type="number" id="amount" name="amount" step="0.50"  value='20.00' placeholder='0.00' min="20" size="15" placeholder="xx.xx">
+                <input style="display: block; width: 100%" type="number" id="amount" name="amount" step="0.50"  value='20.00' min="20" size="15" placeholder="xx.xx">
             </div>
             <div style="grid-column-start: 2; grid-column-end: 4">
                 <label for="name">Name Surname:</label>
