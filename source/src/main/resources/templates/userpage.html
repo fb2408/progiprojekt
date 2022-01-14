@@ -51,7 +51,7 @@
 
     <div class="content mygrid amounts">
         <div class="social-description">
-            <h2 th:text="${user.getWalletBalance() + ' HRK'}"></h2>
+            <h2 th:text="${(user.getWalletBalance()==null) ? '0 HRK' : user.getWalletBalance() + ' HRK'}"></h2>
             <p>Balance</p>
         </div>
         <div class="social-description">
