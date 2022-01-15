@@ -73,24 +73,24 @@
                     <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                         <form th:action="@{/}" th:object="${registerForm}" method="post">
                             <div class="mb-2">
-                                <label for="registerUsername" class="form-label">Username</label>
+                                <label for="registerUsername" class="form-label" th:required="true">Username</label>
                                 <input th:field="*{username}" type="text" class="form-control form-control-sm" id="registerUsername">
                             </div>
                             <div class="mb-2">
-                                <label for="registerEmail" class="form-label">Email address</label>
+                                <label for="registerEmail" class="form-label" th:required="true">Email address</label>
                                 <input th:field="*{userMail}" type="email" class="form-control form-control-sm" id="registerEmail">
                             </div>
                             <div class="mb-2">
                                 <label for="registerName" class="form-label">First Name</label>
-                                <input th:field="*{userFirstName}" type="text" class="form-control form-control-sm" id="registerName">
+                                <input th:field="*{userFirstName}" type="text" th:required="true" class="form-control form-control-sm" id="registerName">
                             </div>
                             <div class="mb-2">
                                 <label for="registerSurname" class="form-label">Last Name</label>
-                                <input th:field="*{userSurname}" type="text" class="form-control form-control-sm" id="registerSurname">
+                                <input th:field="*{userSurname}" th:required="true" type="text" class="form-control form-control-sm" id="registerSurname">
                             </div>
                             <div class="mb-2">
                                 <label for="registerPassword" class="form-label">Password</label>
-                                <input th:field="*{password} "type="password" class="form-control form-control-sm" id="registerPassword">
+                                <input th:field="*{password} " type="password" th:required="true" class="form-control form-control-sm" id="registerPassword">
                             </div>
                             <!--                            <div class="mb-2">-->
                             <!--                                <label for="registerProfilePicture" class="form-label">Upload a profile picture(optional)</label>-->
