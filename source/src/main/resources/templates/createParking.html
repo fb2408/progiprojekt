@@ -66,7 +66,7 @@
         </div>
 
         <div style="text-align: center; padding-top: 3rem">
-            <button type="submit" class="btn btn-primary">Submit changes</button>
+            <button id="submit" type="submit" class="btn btn-primary">Submit changes</button>
             <a type="button" class="btn btn-secondary" th:href="@{/profile}">Cancel</a>
         </div>
     </div>
@@ -80,6 +80,7 @@
         crossorigin="anonymous"></script>
 <script th:src="@{/js/leaflet.js}"></script>
 <script>
+    document.getElementById('submit1').disabled = true;
     var map = L.map('map').setView([45.801, 15.971], 18);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -92,6 +93,7 @@
 
     var marker = null;
     map.on('click', function (e) {
+        document.getElementById('submit1').disabled = false;
         if(marker) map.removeLayer(marker);
         let latlng = e.latlng;
         marker = L.marker(latlng).addTo(map);
