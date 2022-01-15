@@ -1,5 +1,7 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Column;

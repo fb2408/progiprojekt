@@ -6,15 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
+import hr.fer.proinz.proggers.parkshare.model.ParkingSpotId;
 import hr.fer.proinz.proggers.parkshare.model.osrm.RoutingResponse;
 import hr.fer.proinz.proggers.parkshare.model.osrm.Waypoint;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -57,6 +60,33 @@ public class FindParkingController {
         model.addAttribute("allParkingSpots", parkingSpotRepository.findAll());
         model.addAttribute("allParkings", parkingRepository.findAll());
         return "findparking";
+    }
+
+    @GetMapping("/parkingSpot/{ownerId}/{spotNumber}")
+    public String parkingSpot(Model model, Authentication auth,
+                              @PathVariable int ownerId, @PathVariable int spotNumber) {
+        boolean loggedIn;
+        loggedIn = auth != null;
+        model.addAttribute("loggedIn", loggedIn);
+        Parking parking = null;;
+        ParkingSpot parkingSpot = null;
+
+        List<Parking> allParkings = parkingRepository.findAll();
+        List<ParkingSpot> allParkingSpots = parkingSpotRepository.findAll();
+
+        for(int i = 0; i < allParkings.size(); i++) {
+            if(allParkings.get(i).getId() == ownerId) parking = allParkings.get(i);
+        }
+
+        for(int i = 0; i < allParkingSpots.size(); i++) {
+            if(allParkingSpots.get(i).getId().getParkingspotnumber() == spotNumber &&
+            allParkingSpots.get(i).getId().getUserid() == ownerId) parkingSpot = allParkingSpots.get(i);
+        }
+        System.out.println(parking);
+
+        model.addAttribute("parking", parking);
+        model.addAttribute("parkingSpot", parkingSpot);
+        return "parkingspot";
     }
 
     @GetMapping("/search")
@@ -118,12 +148,14 @@ public class FindParkingController {
             return "redirect:/findParking";
         }
 
+        System.out.println(nearestParking);
+
         RoutingResponse response;
         try {
             response = objectMapper.readValue(webClient.get().uri("/route/v1/" + type + "/" + userLocation.getX()
 
-                            + "," + userLocation.getY() + ";" + nearestParking.getEntrancepointx() + "," + nearestParking.getEntrancepointy()
-//                            + "," + userLocation.getY() + ";" + destination.getX() + "," + destination.getY()
+//                            + "," + userLocation.getY() + ";" + nearestParking.getEntrancepointx() + "," + nearestParking.getEntrancepointy()
+                            + "," + userLocation.getY() + ";" + destination.getX() + "," + destination.getY()
                             + "?geometries=geojson").retrieve()
                     .bodyToMono(String.class).block(), RoutingResponse.class);
         } catch (JsonProcessingException e) {
