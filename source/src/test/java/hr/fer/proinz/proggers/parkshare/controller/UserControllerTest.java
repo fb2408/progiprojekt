@@ -22,12 +22,7 @@ import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.Parking;
 import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
-import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotOccupancyRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
-import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
+import hr.fer.proinz.proggers.parkshare.repo.*;
 import hr.fer.proinz.proggers.parkshare.service.EmailService;
 import hr.fer.proinz.proggers.parkshare.service.UserService;
 
@@ -41,7 +36,6 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -88,6 +82,9 @@ class UserControllerTest {
     private UserRepository userRepository;
 
     @MockBean
+    private ClientReservationRepository clientReservationRepository;
+
+    @MockBean
     private UserService userService;
 
     @Test
@@ -112,7 +109,7 @@ class UserControllerTest {
                 new UserService(clientRepository, emailService, userRepository1, parkingSpotRepository, parkingOwnerRepository,
                         new BCryptPasswordEncoder()),
                 userRepository, mock(ParkingOwnerRepository.class), mock(ClientRepository.class), mock(ParkingRepository.class),
-                mock(ParkingSpotRepository.class), mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotRepository.class), mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         ModelMap modelMap = new ModelMap();
         assertEquals("userpage",
                 userController.showUserDetails(modelMap, new TestingAuthenticationToken("Principal", "Credentials")));
@@ -167,7 +164,7 @@ class UserControllerTest {
         when(parkingSpotOccupancyRepository.getAllById_Userid((Integer) any())).thenReturn(new ArrayList<>());
         UserController userController = new UserController(userService, userRepository, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), parkingRepository, mock(ParkingSpotRepository.class),
-                parkingSpotOccupancyRepository);
+                parkingSpotOccupancyRepository, clientReservationRepository);
         ModelMap modelMap = new ModelMap();
         assertEquals("userpage",
                 userController.showUserDetails(modelMap, new TestingAuthenticationToken("Principal", "Credentials")));
@@ -247,7 +244,7 @@ class UserControllerTest {
         when(userRepository1.findByEmail((String) any())).thenReturn(userModel1);
         UserController userController = new UserController(userService, userRepository1, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), mock(ParkingRepository.class), mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO updatedUser = new UserDTO();
         ModelMap model = new ModelMap();
         ModelAndView actualEditUserDetailsResult = userController.editUserDetails(updatedUser, model,
@@ -311,7 +308,7 @@ class UserControllerTest {
         when(userRepository1.findByEmail((String) any())).thenReturn(userModel1);
         UserController userController = new UserController(userService, userRepository1, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), mock(ParkingRepository.class), mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO updatedUser = new UserDTO();
         ModelMap model = new ModelMap();
         ModelAndView actualEditUserDetailsResult = userController.editUserDetails(updatedUser, model,
@@ -385,7 +382,7 @@ class UserControllerTest {
         when(userRepository1.findByEmail((String) any())).thenReturn(userModel2);
         UserController userController = new UserController(userService, userRepository1, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), mock(ParkingRepository.class), mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO updatedUser = new UserDTO();
         ModelMap model = new ModelMap();
         ModelAndView actualEditUserDetailsResult = userController.editUserDetails(updatedUser, model,
@@ -441,7 +438,7 @@ class UserControllerTest {
         when(userRepository.findByEmail((String) any())).thenReturn(userModel1);
         UserController userController = new UserController(userService, userRepository, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), mock(ParkingRepository.class), mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO updatedUser = new UserDTO();
         ModelMap model = new ModelMap();
         assertThrows(ResponseStatusException.class, () -> userController.editUserDetails(updatedUser, model,
@@ -480,7 +477,7 @@ class UserControllerTest {
         when(userRepository.findByEmail((String) any())).thenReturn(userModel1);
         UserController userController = new UserController(userService, userRepository, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), mock(ParkingRepository.class), mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO userDTO = new UserDTO();
         ModelMap model = new ModelMap();
         ModelAndView actualEditUserDetailsResult = userController.editUserDetails(userDTO, model,
@@ -542,7 +539,7 @@ class UserControllerTest {
         when(parkingRepository.findById((Integer) any())).thenReturn(Optional.of(parking));
         UserController userController = new UserController(userService, userRepository, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), parkingRepository, mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO userDTO1 = new UserDTO();
         ModelMap model = new ModelMap();
         ModelAndView actualEditUserDetailsResult = userController.editUserDetails(userDTO1, model,
@@ -597,7 +594,7 @@ class UserControllerTest {
         when(parkingRepository.findById((Integer) any())).thenThrow(new ResponseStatusException(HttpStatus.CONTINUE));
         UserController userController = new UserController(userService, userRepository, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), parkingRepository, mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO updatedUser = new UserDTO();
         ModelMap model = new ModelMap();
         assertThrows(ResponseStatusException.class, () -> userController.editUserDetails(updatedUser, model,
@@ -652,7 +649,7 @@ class UserControllerTest {
         when(parkingRepository.findById((Integer) any())).thenReturn(Optional.of(parking));
         UserController userController = new UserController(userService, userRepository, mock(ParkingOwnerRepository.class),
                 mock(ClientRepository.class), parkingRepository, mock(ParkingSpotRepository.class),
-                mock(ParkingSpotOccupancyRepository.class));
+                mock(ParkingSpotOccupancyRepository.class), clientReservationRepository);
         UserDTO updatedUser = new UserDTO();
         ModelMap model = new ModelMap();
         assertThrows(ResponseStatusException.class, () -> userController.editUserDetails(updatedUser, model,

@@ -9,4 +9,5 @@ public interface ClientReservationRepository extends JpaRepository<ClientReserva
 
     List<ClientReservation> findAllByOwnerUserIdAndParkingSpotNumber(Integer id, Integer parkingSpotNumber);
     List<ClientReservation> findAllByOwnerUserId(Integer id);
+    List<ClientReservation> findAllById_Clientuserid(Integer userId);
 }

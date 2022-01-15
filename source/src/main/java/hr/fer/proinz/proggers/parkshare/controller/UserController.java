@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.security.InvalidParameterException;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,12 @@ public class UserController {
     ParkingRepository parkingRepository;
     ParkingSpotRepository parkingSpotRepository;
     private final ParkingSpotOccupancyRepository parkingSpotOccupancyRepository;
+    private final ClientReservationRepository clientReservationRepository;
 
     @Autowired
     public UserController(UserService userService, UserRepository userRepository,
                           ParkingOwnerRepository ownerRepository, ClientRepository clientRepository,
-                          ParkingRepository parkingRepository, ParkingSpotRepository parkingSpotRepository, ParkingSpotOccupancyRepository parkingSpotOccupancyRepository) {
+                          ParkingRepository parkingRepository, ParkingSpotRepository parkingSpotRepository, ParkingSpotOccupancyRepository parkingSpotOccupancyRepository, ClientReservationRepository clientReservationRepository) {
         this.userService = userService;
         this.userRepository = userRepository;
         this.ownerRepository = ownerRepository;
@@ -49,6 +51,7 @@ public class UserController {
         this.parkingRepository = parkingRepository;
         this.parkingSpotRepository = parkingSpotRepository;
         this.parkingSpotOccupancyRepository = parkingSpotOccupancyRepository;
+        this.clientReservationRepository = clientReservationRepository;
     }
 
     @PostMapping("/")
@@ -115,6 +118,19 @@ public class UserController {
         assert auth != null;
         UserDTO currentUser = userService.UserToDTO(userRepository.findByEmail(auth.getName()));
         model.addAttribute("user", currentUser);
+
+        if (!currentUser.isOwner()) {
+            ArrayList<ClientReservation> clientReservations = (ArrayList<ClientReservation>) clientReservationRepository.findAllById_Clientuserid(currentUser.getId());
+            clientReservations = (ArrayList<ClientReservation>) clientReservations.stream().
+                    filter(c -> c.getId().
+                            getTimeofstart().
+                            isBefore(Instant.now()) && c.getId().
+                            getTimeofstart().
+                            plusSeconds(3600L * c.getDuration()).
+                            isAfter(Instant.now())).
+                    collect(Collectors.toList());
+            model.addAttribute("clientReservations", clientReservations);
+        }
         if(currentUser.isOwner()) {
             boolean hasParking = false;
             Optional<Parking> ownerParking = parkingRepository.findById(currentUser.getId());
