@@ -95,6 +95,10 @@ public class FindParkingController {
                                @RequestParam String type, @RequestParam int duration,
                                @RequestParam boolean error,
                                Model model, RedirectAttributes redirectAttributes) {
+        if(error) {
+            redirectAttributes.addFlashAttribute("noUserLocation", true);
+        }
+
         Point destination = new Point(x1,y1);
         Point userLocation = new Point(x2, y2);
         redirectAttributes.addFlashAttribute("searchResult", false);
@@ -143,7 +147,6 @@ public class FindParkingController {
         });
 
         if(error) {
-            redirectAttributes.addFlashAttribute("noUserLocation", true);
             redirectAttributes.addFlashAttribute("searchResult", true);
             return "redirect:/findParking";
         }
@@ -154,8 +157,8 @@ public class FindParkingController {
         try {
             response = objectMapper.readValue(webClient.get().uri("/route/v1/" + type + "/" + userLocation.getX()
 
-//                            + "," + userLocation.getY() + ";" + nearestParking.getEntrancepointx() + "," + nearestParking.getEntrancepointy()
-                            + "," + userLocation.getY() + ";" + destination.getX() + "," + destination.getY()
+                            + "," + userLocation.getY() + ";" + nearestParking.getEntrancepointx() + "," + nearestParking.getEntrancepointy()
+//                            + "," + userLocation.getY() + ";" + destination.getX() + "," + destination.getY()
                             + "?geometries=geojson").retrieve()
                     .bodyToMono(String.class).block(), RoutingResponse.class);
         } catch (JsonProcessingException e) {

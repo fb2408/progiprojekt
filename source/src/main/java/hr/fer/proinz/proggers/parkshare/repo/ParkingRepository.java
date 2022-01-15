@@ -13,10 +13,10 @@ public interface ParkingRepository extends JpaRepository<Parking, Integer> {
     @Query(value = """
             SELECT * FROM
             parking p
-            WHERE exists(
+            WHERE not exists(
                 SELECT * FROM clientreservation cr
                 WHERE cr.owneruserid = p.userid AND
-                 NOT (cr.timeofstart < cast(?1 AS timestamp) + CAST(CONCAT(?2, ' hours') AS interval)
+                 (cr.timeofstart < cast(?1 AS timestamp) + CAST(CONCAT(?2, ' hours') AS interval)
                     AND CAST(?1 AS timestamp) < cr.timeofstart + CAST(CONCAT(cr.duration, ' hours') AS interval))
             )
             """, nativeQuery = true)
