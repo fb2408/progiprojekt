@@ -30,18 +30,6 @@ class LoginControllerTest {
     }
 
     @Test
-    void testRedirectToLandingPage2() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/loginRouter", null);
-        MockMvcBuilders.standaloneSetup(this.loginController)
-                .build()
-                .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isFound())
-                .andExpect(MockMvcResultMatchers.model().size(0))
-                .andExpect(MockMvcResultMatchers.view().name("redirect:/"))
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/"));
-    }
-
-    @Test
     void testRedirectToLandingPage3() throws Exception {
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/loginRouter");
         getResult.principal(new UserPrincipal("principal"));
