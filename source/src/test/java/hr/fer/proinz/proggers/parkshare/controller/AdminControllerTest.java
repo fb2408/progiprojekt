@@ -63,7 +63,13 @@ class AdminControllerTest {
     private AdminController adminController;
 
     @MockBean
+    private ParkingOwnerRepository parkingOwnerRepository;
+
+    @MockBean
     private UserService userService;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     void testEditAdminUserDetails() {

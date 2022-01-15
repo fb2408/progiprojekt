@@ -26,8 +26,20 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ExtendWith(SpringExtension.class)
 class FindParkingControllerTest {
 
+    @MockBean
+    private ClientRepository clientRepository;
+
+    @MockBean
+    private ClientReservationRepository clientReservationRepository;
+
     @Autowired
     private FindParkingController findParkingController;
+
+    @MockBean
+    private ParkingRepository parkingRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     void testAboutUs() throws Exception {
