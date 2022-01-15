@@ -7,7 +7,8 @@
 		Za izradu Uml dijagrama korisitli smo Astah\footnote{\url{https://astah.net/products/astah-professional/}}.
 		Za upravljanje izvornim kodom koristili smo Git\footnote{\url{https://git-scm.com/downloads}}, a udaljeni repozitorij nalazio se na GitLabu\footnote{\url{https://about.gitlab.com/install/}}.
 		
-		Razvojno okruzenje nam je bio Intellij\footnote{\url{https://www.jetbrains.com/idea/download}}. 
+		Razvojno okruzenje nam je bio Intellij\footnote{\url{https://www.jetbrains.com/idea/download}}.
+		Diffblue Cover\footnote{\url{https://www.diffblue.com/products/}} koji generira testove za ispitivanje koda po komponentama. 
 		IntelliJ IDEA je integrirano razvojno okruženje (IDE) napisano u Javi za razvoj računalnog softvera. 
 		Razvio ga je JetBrains (prije poznat kao IntelliJ), a dostupan je besplatno preko licence za studente za koju smo se prijavili sa FER-ovim mailom.
 		
@@ -24,12 +25,24 @@
 			
 			 Testove smo izvodili na strukturirani nacin pomocu selenium testova.
 			  Ispitivanje se radilo po obrascima uporabe kako bi se provjerila osnovna funkcionalnost sustava, ali i nasumicnim kretanjima po 
-			  aplikaciji kako bi se pronasle neocekivane greske  ili nepredvidena ponasanja.
-			  
+			  aplikaciji kako bi se pronasle neocekivane greske  ili nepredvidena ponasanja.			  
 			
 			\subsection{Ispitivanje komponenti}
-			\textit{Potrebno je provesti ispitivanje jedinica (engl. unit testing) nad razredima koji implementiraju temeljne funkcionalnosti. Razraditi \textbf{minimalno 6 ispitnih slučajeva} u kojima će se ispitati redovni slučajevi, rubni uvjeti te izazivanje pogreške (engl. exception throwing). Poželjno je stvoriti i ispitni slučaj koji koristi funkcionalnosti koje nisu implementirane. Potrebno je priložiti izvorni kôd svih ispitnih slučajeva te prikaz rezultata izvođenja ispita u razvojnom okruženju (prolaz/pad ispita). }
+			Ispitivanje komponenti smo radili uz pomoc plugina za IntelliJ Diffblue Cover koji generira testove za ispitivanje koda po komponentama.
+			\begin{figure}[H]
+				
+				\includegraphics[width=0.5\textwidth]{slike/testovi1.jpeg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+				\centering
+				\caption{Testovi 1}
+				\label{fig:testovi1}
+			\end{figure}
+		\begin{figure}[H]
 			
+			\includegraphics[width=0.5\textwidth]{slike/testovi2.jpeg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+			\centering
+			\caption{Testovi 2}
+			\label{fig:testovi2}
+		\end{figure}
 			
 			
 			\subsection{Ispitivanje sustava}
