@@ -16,6 +16,7 @@ public class LoginController {
      */
     @GetMapping("/loginRouter")
     public String redirectToLandingPage(HttpServletRequest req) {
+        if(req.getUserPrincipal() == null) return "redirect:/";
         if (req.isUserInRole("ROLE_ADMIN")) {
             return "redirect:/admin";
         } else if (req.isUserInRole("ROLE_CLIENT")) {

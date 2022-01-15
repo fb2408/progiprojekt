@@ -10,44 +10,33 @@
     <link rel="stylesheet" th:href="@{/css/Control.Geocoder.css}" />
     <script src="https://kit.fontawesome.com/f97165b3d6.js" crossorigin="anonymous"></script>
 </head>
-<body class="text-white" style="height: 100vh;">
-<nav class="navbar navbar-expand-lg bg-darkblue" style="height: 10%; z-index: 1" id="navbar-items">
-    <div>
-        <a class="navbar-brand" th:href="@{/}">
-            <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
-                 width="270"  class="d-inline-block align-text-top">
-        </a>
-    </div>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-<!--            <form th:action="@{/findParking}" method="post">-->
-<!--                <div class="row g-3 align-items-center">-->
-<!--                    <div class="col-auto">-->
-<!--                        <label for="location" class="col-form-label">Find parking near destination: </label>-->
-<!--                    </div>-->
-<!--                    <div class="col-auto">-->
-<!--                        <input type="text" id="location" class="form-control" aria-describedby="passwordHelpInline">-->
-<!--                    </div>-->
-<!--                    <div class="col-auto">-->
-<!--                        <button type="submit" class="btn btn-primary" >Search!</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </form>-->
-            <a class="nav-link active font-navbar" aria-current="page" href="#">Home</a>
-            <a class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
-            <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
-            <a class="nav-link font-navbar" th:href="@{/profile}">
-                <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
-                     th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
-            </a>
-            <a th:if="${loggedIn}" class="nav-link font-navbar" th:href="@{/logout}">
-                <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
-                     th:src="@{/images/icons/logout_icon.png}" alt="user" width="30" height="30">
+<body class="text-white">
+
+<div id="map" class="position-absolute" style="z-index: 0;width: 100vw;height: 100vh;">
+    <nav style="z-index: 999" class="navbar navbar-expand-lg bg-darkblue" id="navbar-items">
+        <div>
+            <a class="navbar-brand" th:href="@{/}">
+                <img th:src="@{/images/logo/logo_tip2.png}" src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg" alt="ParkShare logo"
+                     width="240"  class="d-inline-block align-text-top">
             </a>
         </div>
-    </div>
-</nav>
-<div id="map" class="position-absolute" style="z-index: 0;width: 100vw; height: 100vh;">
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
+                <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
+                <a th:if="${!loggedIn}" class="nav-link font-navbar" th:href="@{/}">Log in</a>
+                <a th:if="${loggedIn}" class="nav-link font-navbar" th:href="@{/profile}">
+                    <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
+                         th:src="@{/images/icons/person_icon.png}" alt="user" width="30" height="30">
+                </a>
+                <a th:if="${loggedIn}" class="nav-link font-navbar" th:href="@{/logout}">
+                    <img src="https://cdn.wallpapersafari.com/34/82/YRzXPk.jpeg"
+                         th:src="@{/images/icons/logout_icon.png}" alt="user" width="30" height="30">
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
 </div>
 <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
     <div th:each="info: ${information}">
@@ -75,7 +64,6 @@
         crossorigin="anonymous"></script>
 <script th:src="@{/js/leaflet.js}"></script>
 <script th:src="@{/js/Control.Geocoder.js}"></script>
-
 <script th:inline="javascript">
     /*<![CDATA[*/
 
@@ -160,7 +148,7 @@
         .on('markgeocode', function (e) {
             var latLong = e.geocode.center;
             window.location = window.location.origin + '/findParking/search?x1=' + latLong.lng + '&y1='+latLong.lat +
-            '&x2=' + userLocation.lng + '&y2=' + userLocation.lat + '&error=' + geoError + '&type=' + 'driving' + '&duration=' + '1';
+                '&x2=' + userLocation.lng + '&y2=' + userLocation.lat + '&error=' + geoError + '&type=' + 'driving' + '&duration=' + '1';
         })
         .addTo(map);
 
@@ -178,36 +166,36 @@
             [parkingSpot.point3y, parkingSpot.point3x], [parkingSpot.point4y, parkingSpot.point4x]]).addTo(map);
         parkingSpots['{' + parkingSpot.id.userid + ', ' + parkingSpot.id.parkingspotnumber + '}'] = spot;
         spot.on('click', () => window.location = window.location.origin + '/findParking/parkingSpot/' + parking.id + '/' + parkingSpot.id.parkingspotnumber);
-        // const div = document.createElement("div")
+// const div = document.createElement("div")
 //         spot.bindPopup(`
 // <div class="container" style="height: 400px;">
-//     <div class="col-3">
-//         <h5 class="mb-1 h-25">` + parking.parkingName + `</h5>
-//         <p class="mb-1 h-25">` + parking.description + `</p>
-//         <small>` + parking.hourlyPrice + ` HRK/h</small>
-//         <div class="d-flex h-25 justify-content-between" style="width: 150px;">
-//             <input style="width: 100px;" type="datetime-local" id="calendar` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
-//             <input type="checkbox" id="recurring` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
-//             <input type="number" min="1" step="1" max="24" id="duration` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
-//         </div>
-//         <div class="d-flex w-100 h-25 justify-content-between">
-//             <button id="button1_` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `" type="button" class="btn btn-secondary">Reserve</button>
-//             <button id="button2_` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `" type="button" class="btn btn-primary">Reserve and Pay</button>
-//         </div>
-//     </div>
-// </div>
+        //     <div class="col-3">
+        //         <h5 class="mb-1 h-25">` + parking.parkingName + `</h5>
+        //         <p class="mb-1 h-25">` + parking.description + `</p>
+        //         <small>` + parking.hourlyPrice + ` HRK/h</small>
+        //         <div class="d-flex h-25 justify-content-between" style="width: 150px;">
+        //             <input style="width: 100px;" type="datetime-local" id="calendar` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
+        //             <input type="checkbox" id="recurring` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
+        //             <input type="number" min="1" step="1" max="24" id="duration` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
+        //         </div>
+        //         <div class="d-flex w-100 h-25 justify-content-between">
+        //             <button id="button1_` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `" type="button" class="btn btn-secondary">Reserve</button>
+        //             <button id="button2_` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `" type="button" class="btn btn-primary">Reserve and Pay</button>
+        //         </div>
+        //     </div>
+        // </div>
 //         `);
 //         console.log('button2_' + parking.id + '_' + parkingSpot.id.parkingspotnumber);
-        // document.getElementById('button2_' + parking.id + '_' + parkingSpot.id.parkingspotnumber)
-        //     .onclick = function(){
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open('POST',
-        //         window.location.origin + '/findParking?ownerUserId=' + parking.id + '&parkingSpotNumber=' + parkingSpot.id.parkingspotnumber +
-        //         '&timeOfStart=' + document.getElementById('calendar' + parking.id + '_' + parkingSpot.id.parkingspotnumber).value +
-        //         '&duration=' + document.getElementById('duration' + parking.id + '_' + parkingSpot.id.parkingspotnumber).value +
-        //         '&recurring=' + document.getElementById('recurring' + parking.id + '_' + parkingSpot.id.parkingspotnumber).checked, true);
-        //     xhr.send();
-        // };
+// document.getElementById('button2_' + parking.id + '_' + parkingSpot.id.parkingspotnumber)
+//     .onclick = function(){
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('POST',
+//         window.location.origin + '/findParking?ownerUserId=' + parking.id + '&parkingSpotNumber=' + parkingSpot.id.parkingspotnumber +
+//         '&timeOfStart=' + document.getElementById('calendar' + parking.id + '_' + parkingSpot.id.parkingspotnumber).value +
+//         '&duration=' + document.getElementById('duration' + parking.id + '_' + parkingSpot.id.parkingspotnumber).value +
+//         '&recurring=' + document.getElementById('recurring' + parking.id + '_' + parkingSpot.id.parkingspotnumber).checked, true);
+//     xhr.send();
+// };
     }
 
     function sendPost(id, number, paynow, time, recurring){

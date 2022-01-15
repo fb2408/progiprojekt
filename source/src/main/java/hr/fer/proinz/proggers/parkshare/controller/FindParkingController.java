@@ -4,45 +4,53 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
-import hr.fer.proinz.proggers.parkshare.model.Parking;
-import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
-import hr.fer.proinz.proggers.parkshare.model.ParkingSpotId;
+import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.model.osrm.RoutingResponse;
-import hr.fer.proinz.proggers.parkshare.model.osrm.Waypoint;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingRepository;
-import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
-import org.hibernate.Hibernate;
+import hr.fer.proinz.proggers.parkshare.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Point;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.springframework.data.geo.Point;
-import java.awt.*;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/findParking")
 public class FindParkingController {
-    ParkingRepository parkingRepository;
-    ParkingSpotRepository parkingSpotRepository;
+    private final UserRepository userRepository;
+    private final ClientReservationRepository clientReservationRepository;
+    private final ParkingRepository parkingRepository;
+    private final ClientRepository clientRepository;
+    private final ParkingSpotRepository parkingSpotRepository;
 
     @Autowired
-    public FindParkingController(ParkingRepository parkingRepository,ParkingSpotRepository parkingSpotRepository) {
+    public FindParkingController(UserRepository userRepository, ClientReservationRepository clientReservationRepository, ParkingRepository parkingRepository, ClientRepository clientRepository, ParkingSpotRepository parkingSpotRepository) {
+        this.userRepository = userRepository;
+        this.clientReservationRepository = clientReservationRepository;
         this.parkingRepository = parkingRepository;
+        this.clientRepository = clientRepository;
         this.parkingSpotRepository = parkingSpotRepository;
     }
 
-    @GetMapping
+    @GetMapping("/about")
+    public String aboutUs(Model model, Authentication auth) {
+        boolean loggedIn;
+        loggedIn = auth != null;
+        model.addAttribute("loggedIn", loggedIn);
+        return "aboutus";
+    }
+
+    @GetMapping("/findParking")
     public String showMap(Model model, Authentication auth) {
         List<MessageDTO> errors = new ArrayList<>();
         List<MessageDTO> information = new ArrayList<>();
@@ -80,7 +88,7 @@ public class FindParkingController {
 
         for(int i = 0; i < allParkingSpots.size(); i++) {
             if(allParkingSpots.get(i).getId().getParkingspotnumber() == spotNumber &&
-            allParkingSpots.get(i).getId().getUserid() == ownerId) parkingSpot = allParkingSpots.get(i);
+                    allParkingSpots.get(i).getId().getUserid() == ownerId) parkingSpot = allParkingSpots.get(i);
         }
         System.out.println(parking);
 
@@ -176,5 +184,49 @@ public class FindParkingController {
 
         redirectAttributes.addFlashAttribute("searchResult", true);
         return "redirect:/findParking";
+    }
+
+    @PostMapping("/findParking")
+    public String reserveSpot(Model model, Authentication auth, @RequestParam int ownerUserId, @RequestParam int parkingSpotNumber,
+                              @RequestParam Instant timeOfStart, @RequestParam int duration, @RequestParam boolean recurring, @RequestParam boolean payNow) {
+        ArrayList<MessageDTO> errors = new ArrayList<>();
+        ArrayList<MessageDTO> information = new ArrayList<>();
+        if(auth == null){
+            return "redirect:/loginRouter";
+        }
+        Integer currentUserModelId = userRepository.findByEmail(auth.getName()).getId();
+        List<ClientReservation> clientReservations = clientReservationRepository.findAllByOwnerUserIdAndParkingSpotNumber(currentUserModelId, parkingSpotNumber);
+        Instant timeOfEnd = timeOfStart.plusSeconds(3600L * duration);
+        for(ClientReservation cr : clientReservations) {
+            Instant otherStartTime = cr.getId().getTimeofstart();
+            Instant otherEndTime = otherStartTime.plusSeconds(3600L * cr.getDuration());
+            if(timeOfStart.isBefore(otherEndTime) && otherStartTime.isBefore(timeOfEnd)) {
+                errors.add(new MessageDTO("Can't reserve that parking spot", "The parking spot is already reserved"));
+                model.addAttribute("errors", errors);
+                return "findparking";
+            }
+        }
+        Optional<Parking> parkingOptional = parkingRepository.findById(ownerUserId);
+        Optional<Client> clientOptional = clientRepository.findById(currentUserModelId);
+        if(parkingOptional.isEmpty() || clientOptional.isEmpty()) {
+            errors.add(new MessageDTO("Server error occurred", "We've had an internal server error, please try again"));
+            model.addAttribute("errors", errors);
+            return "findparking";
+        }
+
+        Parking parking = parkingOptional.get();
+        Client client = clientOptional.get();
+        double price = duration * parking.getHourlyPrice().doubleValue();
+        double clientBalance = client.getWalletBalance().doubleValue();
+        if(clientBalance < price) {
+            errors.add(new MessageDTO("Insufficient funds!", String.format("You have %,.2fHRK available and the price is %,.2fHRK", clientBalance, price)));
+            model.addAttribute("errors", errors);
+            return "findparking";
+        }
+        clientRepository.save(new Client(client.getId(), BigDecimal.valueOf(clientBalance - price)));
+        clientReservationRepository.save(new ClientReservation(new ClientReservationId(currentUserModelId, timeOfStart), duration, recurring, parkingSpotNumber, ownerUserId));
+        information.add(new MessageDTO("Success!", "Parking reservation successful"));
+        model.addAttribute("information", information);
+        return "findparking";
     }
 }

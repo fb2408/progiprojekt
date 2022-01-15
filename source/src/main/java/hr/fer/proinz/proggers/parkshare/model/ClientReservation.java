@@ -1,5 +1,8 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 
@@ -7,6 +10,8 @@ import javax.persistence.*;
         @Index(name = "clientreservation_owneruserid_parkingspotnumber_timeofstart_key", columnList = "owneruserid, parkingspotnumber, timeofstart", unique = true)
 })
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientReservation {
     @EmbeddedId
     private ClientReservationId id;

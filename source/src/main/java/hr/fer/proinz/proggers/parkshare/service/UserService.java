@@ -4,9 +4,11 @@ import hr.fer.proinz.proggers.parkshare.dto.RegisterFormDTO;
 import hr.fer.proinz.proggers.parkshare.dto.UserDTO;
 import hr.fer.proinz.proggers.parkshare.model.Client;
 import hr.fer.proinz.proggers.parkshare.model.ParkingOwner;
+import hr.fer.proinz.proggers.parkshare.model.ParkingSpot;
 import hr.fer.proinz.proggers.parkshare.model.UserModel;
 import hr.fer.proinz.proggers.parkshare.repo.ClientRepository;
 import hr.fer.proinz.proggers.parkshare.repo.ParkingOwnerRepository;
+import hr.fer.proinz.proggers.parkshare.repo.ParkingSpotRepository;
 import hr.fer.proinz.proggers.parkshare.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,15 +33,17 @@ public class UserService {
     private final ClientRepository clientRepository;
     private final EmailService emailService;
     private final UserRepository userRepository;
+    private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingOwnerRepository parkingOwnerRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Autowired
-    public UserService(ClientRepository clientRepository, EmailService emailService, UserRepository userRepository, ParkingOwnerRepository parkingOwnerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(ClientRepository clientRepository, EmailService emailService, UserRepository userRepository, ParkingSpotRepository parkingSpotRepository, ParkingOwnerRepository parkingOwnerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.clientRepository = clientRepository;
         this.emailService = emailService;
         this.userRepository = userRepository;
+        this.parkingSpotRepository = parkingSpotRepository;
         this.parkingOwnerRepository = parkingOwnerRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -132,6 +136,9 @@ public class UserService {
         return userRepository.findByTypeNotLike("admin", PageRequest.of(pageNumber, pageSize,
                 Sort.by(Sort.Direction.ASC, "confirmed").and(Sort.by(Sort.Direction.DESC, "type")))
         );
+    }
+    public Page<ParkingSpot> getParkingSpotPage(int id, int pageNumber, int pageSize) {
+        return parkingSpotRepository.findAllById_Userid(id, PageRequest.of(pageNumber, pageSize));
     }
 
     public List<UserModel> getAllUnconfirmedOwners() {

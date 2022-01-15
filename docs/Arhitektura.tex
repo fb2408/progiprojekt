@@ -204,12 +204,12 @@ Za našu web aplikaciju koristit ćemo relacijsku bazu podataka. Relacijska mode
 
 Na slikama 4.3, 4.4 i 4.5 su prikazani razredi koji pripadaju backend dijelu MVC
 arhitekture. Razredi prikazani na slici 4.3 nasljeđuju Controller razred. Metode
-implementirane u tim razredima manipuliraju s DTO (Data transfer object), a oni
-su dohvaćeni pomoću metoda implementiranih u Model razredima. Metode implementirane u Controller razredima vraćaju objekt tipa String kojim se framework povezuje sa frontendom. Zbog lakše organizacije, razredi su podijeljeni logički po pravu pristupa metodama određenih aktora. Iz naziva i tipova atributa u razredima moze se zaključiti vrsta ovisnosti među različitim razredima.
+implementirane u tim razredima manipuliraju s DTO (Data transfer object).
+Metode implementirane u Controller razredima vraćaju objekt tipa String kojim se framework povezuje sa frontendom. Zbog lakše organizacije, razredi su podijeljeni logički po pravu pristupa metodama određenih aktora. Iz naziva i tipova atributa u razredima moze se zaključiti vrsta ovisnosti među različitim razredima.
 
 \begin{figure}[H]
 	
-	\includegraphics[width=\textwidth]{slike/controller.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\includegraphics[width=\textwidth]{slike/controller.jpeg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
 	\centering
 	\caption{Dijagram razreda - dio Controllers}
 	\label{fig:controllers}
@@ -219,15 +219,14 @@ Model razredi preslikavaju strukturu baze podataka u aplikaciji. Razred User pre
 
 \begin{figure}[H]
 	
-	\includegraphics[width=\textwidth]{slike/dto.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+l	\includegraphics[width=\textwidth]{slike/ClassDiagramDTO.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
 	\centering
 	\caption{Dijagram razreda - dio Data transfer objects}
 	\label{fig:dto}
 \end{figure}
 
 \begin{figure}[H]
-	
-	\includegraphics[width=\textwidth]{slike/model.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+		\includegraphics[width=\textwidth]{slike/ClassDiagramModel.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
 	\centering
 	\caption{Dijagram razreda - dio Models}
 	\label{fig:models}
@@ -235,33 +234,57 @@ Model razredi preslikavaju strukturu baze podataka u aplikaciji. Razred User pre
 
 \eject
 
-\textbf{\textit{dio 2. revizije}}\\			
 
-\textit{Prilikom druge predaje projekta dijagram razreda i opisi moraju odgovarati stvarnom stanju implementacije}
-
-
-
-\eject
 
 \section{Dijagram stanja}
 
+Dijagrami stanja pokazuju različita stanja entiteta. 
+Također mogu pokazati kako entitet reagira na različite događaje mijenjajući se iz jednog stanja u drugo. 
+Dijagram stanja je UML dijagram koji se koristi za modeliranje dinamičke prirode sustava.
+Obično se koristi za opisivanje ponašanja objekta ovisno o stanju. 
+Dijagrami stanja obično se primjenjuju na objekte, ali se mogu primijeniti na bilo koji element koji ima ponašanje prema drugim entitetima kao što su: akteri, slučajevi upotrebe, metode, sustavi podsustava i itd. i obično se koriste zajedno s dijagramima interakcije (obično dijagrami sekvenci).
 
-\textbf{\textit{dio 2. revizije}}\\
-
-\textit{Potrebno je priložiti dijagram stanja i opisati ga. Dovoljan je jedan dijagram stanja koji prikazuje \textbf{značajan dio funkcionalnosti} sustava. Na primjer, stanja korisničkog sučelja i tijek korištenja neke ključne funkcionalnosti jesu značajan dio sustava, a registracija i prijava nisu. }
-
+U nasem dijagramu stanja prikazujemo kako se mijenjaju stranice za voditelja parkinga.
+\begin{figure}[H]
+	
+	\includegraphics[width=\textwidth]{slike/Dijagram stanja - Owner.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\centering
+	\caption{Dijagram stanja}
+	\label{fig:dijastan}
+\end{figure}
 
 \eject 
 
 \section{Dijagram aktivnosti}
 
-\textbf{\textit{dio 2. revizije}}\\
+Dijagram aktivnosti je UML dijagram ponašanja. Predstavlja kako se svaka aktivnost odvija jedan za drugim. Aktivnost je neka vrsta operacije sustava. 
+Nadalje, dijagrami aktivnosti pomažu poslovnim i razvojnim timovima organizacije da razumiju procese i ponašanje sustava.
 
-\textit{Potrebno je priložiti dijagram aktivnosti s pripadajućim opisom. Dijagram aktivnosti treba prikazivati značajan dio sustava.}
+Na nasem dijagramu aktivnosti prikazan je proces kreiranja parkiralista i dodavanja parkiralisnih mjesta u samo parkiraliste.
+
+\begin{figure}[H]
+	
+	\includegraphics[width=0.85\textwidth]{slike/Dijagram aktivnosti - Dodavanje parkinga.jpg} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+	\centering
+	\caption{Dijagram aktivnosti}
+	\label{fig:dijaktiv}
+\end{figure}
 
 \eject
 \section{Dijagram komponenti}
 
-\textbf{\textit{dio 2. revizije}}\\
-
-\textit{Potrebno je priložiti dijagram komponenti s pripadajućim opisom. Dijagram komponenti treba prikazivati strukturu cijele aplikacije.}
+Dijagram komponenti koristi se za prikaz velikog objektno orijentiranog sustava, kako bi se njima lakše upravljalo. 
+On vizualizira odnose kao i organizaciju između komponenti prisutnih u sustavu.
+Pomaže u formiranju izvršnog sustava. Komponenta je jedna jedinica sustava, koja je zamjenjiva i izvršna.
+ Detalji implementacije komponente su skriveni i potrebno je sučelje za izvršavanje funkcije. 
+ To je poput crne kutije čije je ponašanje objašnjeno predviđenim i potrebnim sučeljima.
+ Router je komponenta koja na upit s url odreduje koja datoteka ce se posluziti na sucelje. 
+ Preko sucelja za dohvat ModelAndView posluzuju se podatci sa backenda koji su preko spring JPA-a sa suceljem za dohvat N-torki dohvaceni iz baze podataka.
+ \begin{figure}[H]
+ 	
+ 	\includegraphics[width=0.9\textwidth]{slike/DijagramKomponenti.png} %veličina slike u odnosu na originalnu datoteku i pozicija slike
+ 	\centering
+ 	\caption{Dijagram komponenti}
+ 	\label{fig:dijakomp}
+ \end{figure}
+ 

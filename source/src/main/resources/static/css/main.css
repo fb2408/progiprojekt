@@ -145,11 +145,41 @@
 }
 
 #requests{
-    padding : 5rem;
-    padding-top: 2rem;
+    padding: 2rem 5rem 5rem;
 }
 
 #hidingeditblock{
     padding-top: 3rem;
     background-color: #cfe2ff;
+}
+#overlay{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 50%;
+    display: none;
+    z-index: 9500;
+}
+#popup{
+    height: auto;
+    width: auto;
+    width: 50%;
+    padding : 2rem;
+    text-align: left;
+    margin: auto;
+    position: fixed;
+    display: none;
+    background-color: white;
+    z-index: 9999;
+    border-radius: 25px;
+    opacity: 100%;
+    top: 20%;
+    left: 25%;
+}
+#map{
+    border: solid #011d4a;
+    height: 25rem;
 }

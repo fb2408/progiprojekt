@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ParkingSpotId implements Serializable {
     @Serial
     private static final long serialVersionUID = 7997774114776680649L;

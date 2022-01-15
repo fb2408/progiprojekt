@@ -1,5 +1,8 @@
 package hr.fer.proinz.proggers.parkshare.model;
 
+import hr.fer.proinz.proggers.parkshare.dto.ParkingSpotDTO;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -8,6 +11,7 @@ import java.math.BigDecimal;
 
 @Table(name = "parkingspot")
 @Entity
+@NoArgsConstructor
 public class ParkingSpot {
     @EmbeddedId
     private ParkingSpotId id;
@@ -41,6 +45,20 @@ public class ParkingSpot {
 
     @Column(name = "point4y", precision = 131089)
     private BigDecimal point4y;
+
+    public ParkingSpot(ParkingSpotDTO parkingSpotDTO) {
+        this.id = parkingSpotDTO.getId();
+        this.parkingSpotType = parkingSpotDTO.getParkingSpotType();
+        this.canBeReserved = parkingSpotDTO.isCanBeReserved();
+        this.point1x = parkingSpotDTO.getPoint1x();
+        this.point1y = parkingSpotDTO.getPoint1y();
+        this.point2x = parkingSpotDTO.getPoint2x();
+        this.point2y = parkingSpotDTO.getPoint2y();
+        this.point3x = parkingSpotDTO.getPoint3x();
+        this.point3y = parkingSpotDTO.getPoint3y();
+        this.point4x = parkingSpotDTO.getPoint4x();
+        this.point4y = parkingSpotDTO.getPoint4y();
+    }
 
     public BigDecimal getPoint4y() {
         return point4y;
