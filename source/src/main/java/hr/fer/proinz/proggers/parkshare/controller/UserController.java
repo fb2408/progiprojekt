@@ -209,7 +209,8 @@ public class UserController {
                 newParking.setParkingPhoto(parking.getParkingPhoto());
                 newParking.setDescription(parking.getDescription());
                 newParking.setId(id);
-          // TODO add x and y coordinates in newParking
+                newParking.setEntrancepointx(parking.getPointX());
+                newParking.setEntrancepointy(parking.getPointY());
                 parkingRepository.save(newParking);
                 information.add(new MessageDTO("Parking created successfuly", ""));
                 model.addAttribute("information", information);

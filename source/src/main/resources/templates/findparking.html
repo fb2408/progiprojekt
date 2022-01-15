@@ -20,19 +20,6 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <form th:action="@{/findParking}" method="post">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                            <label for="location" class="col-form-label">Find parking near destination: </label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" id="location" class="form-control" aria-describedby="passwordHelpInline">
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary" >Search!</button>
-                        </div>
-                    </div>
-                </form>
                 <a class="nav-link font-navbar" th:href="@{/findParking}">Find Parking</a>
                 <a class="nav-link font-navbar" th:href="@{/about}">About us</a>
                 <a th:if="${!loggedIn}" class="nav-link font-navbar" th:href="@{/}">Log in</a>
