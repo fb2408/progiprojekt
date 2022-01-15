@@ -8,4 +8,5 @@ import java.util.List;
 public interface ParkingSpotOccupancyRepository extends JpaRepository<ParkingSpotOccupancy, Integer> {
 
     List<ParkingSpotOccupancy> getAllById_Userid(Integer id);
+    List<ParkingSpotOccupancy> getAllById_UseridAndId_Parkingspotnumber(Integer id, Integer spotNumber);
 }

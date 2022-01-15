@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>ParkShare</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/leaflet.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <title>UserPage</title>
 
@@ -57,22 +58,22 @@
             <input type="checkbox" id="reservationSpot" name="canBeReserved">
             <label for="reservationSpot" class="form-label">Valid for reservations</label>
         </div>
-        <input type="hidden" id="x1">
-        <input type="hidden" id="y1">
-        <input type="hidden" id="x2">
-        <input type="hidden" id="y2">
-        <input type="hidden" id="x3">
-        <input type="hidden" id="y3">
-        <input type="hidden" id="x4">
-        <input type="hidden" id="y4">
+        <input type="hidden" id="point1x" name="point1x">
+        <input type="hidden" id="point1y" name="point1y">
+        <input type="hidden" id="point2x" name="point2x">
+        <input type="hidden" id="point2y" name="point2y">
+        <input type="hidden" id="point3x" name="point3x">
+        <input type="hidden" id="point3y" name="point3y">
+        <input type="hidden" id="point4x" name="point4x">
+        <input type="hidden" id="point4y" name="point4y">
 
-        <div class="mapa" id="mapa">
+        <div class="map" id="map">
 
         </div>
 
         <div style="text-align: center; padding-top: 3rem">
-            <button type="submit" class="btn btn-primary" name="submitSpot" value="continue">Add and continue</button>
-            <button type="submit" class="btn btn-primary" name="submitSpot" value="finish">Add and finish</button>
+            <button id="submit1" type="submit" class="btn btn-primary" name="submitSpot" value="continue">Add and continue</button>
+            <button id="submit2" type="submit" class="btn btn-primary" name="submitSpot" value="finish">Add and finish</button>
             <button type="button" class="btn btn-secondary"  onclick="location.href = '/profile/editParking'">Cancel</button>
         </div>
     </div>
@@ -80,5 +81,59 @@
 
 
 <div style="padding-bottom: 4rem"></div>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/leaflet.js}"></script>
+<script th:inline="javascript">
+    document.getElementById('submit1').disabled = true;
+    document.getElementById('submit2').disabled = true;
+
+    var map = L.map('map').setView([45.801, 15.971], 18);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 20,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibWJhcmJpciIsImEiOiJja3hkeHB3aXIwd21tMzBtbXp1azVvd2xnIn0.wyoaoW90XWXlBgLK1NJaTA'
+    }).addTo(map);
+
+    var spot = L.polygon([], {
+        color: '#ff2200'
+    }).addTo(map);
+    var latlngs = [];
+
+    map.on('click', function (e) {
+        let latlng = e.latlng;
+        if(latlngs.length === 4) {
+            document.getElementById('submit1').disabled = true;
+            document.getElementById('submit2').disabled = true;
+            latlngs = [];
+        }
+        latlngs.push(latlng);
+        if(latlngs.length === 4) {
+            document.getElementById('submit1').disabled = false;
+            document.getElementById('submit2').disabled = false;
+        }
+        spot.setLatLngs(latlngs);
+        for (let i = 1; i<= latlngs.length; i++) {
+            document.getElementById('point'+ i + 'x').value = latlngs[i-1].lng;
+            document.getElementById('point'+ i + 'y').value = latlngs[i-1].lat;
+        }
+    })
+
+    let allParkingSpots  = /*[[${allParkingSpots}]]*/ [];
+    for(const parkingSpot of allParkingSpots) {
+        L.polygon([ [parkingSpot.point1y, parkingSpot.point1x], [parkingSpot.point2y, parkingSpot.point2x],
+            [parkingSpot.point3y, parkingSpot.point3x], [parkingSpot.point4y, parkingSpot.point4x]]).addTo(map);
+    }
+
+</script>
 </body>
 </html>

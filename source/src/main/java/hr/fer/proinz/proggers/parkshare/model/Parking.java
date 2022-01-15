@@ -75,7 +75,20 @@ public class Parking {
         this.id = id;
     }
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parking", optional = false)
+    @Override
+    public String toString() {
+        return "Parking{" +
+                "id=" + id +
+                ", parkingName='" + parkingName + '\'' +
+                ", parkingPhoto='" + parkingPhoto + '\'' +
+                ", hourlyPrice=" + hourlyPrice +
+                ", description='" + description + '\'' +
+                ", entrancepointx=" + entrancepointx +
+                ", entrancepointy=" + entrancepointy +
+                '}';
+    }
+
+    //    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "parking", optional = false)
 //    private ParkingOwner parkingOwner;
 //
 //    public ParkingOwner getParkingOwner() {

@@ -50,4 +50,12 @@ public class ParkingSpotId implements Serializable {
         return Objects.equals(this.parkingspotnumber, entity.parkingspotnumber) &&
                 Objects.equals(this.userid, entity.userid);
     }
+
+    @Override
+    public String toString() {
+        return "ParkingSpotId{" +
+                "userid=" + userid +
+                ", parkingspotnumber=" + parkingspotnumber +
+                '}';
+    }
 }
