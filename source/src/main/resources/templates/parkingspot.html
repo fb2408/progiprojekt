@@ -45,26 +45,32 @@
     </div>
 </nav>
 
-<div class="container m-auto align-content-center justify-content-center text-center border-5">
+<div style="padding-left: 30%; padding-right: 30%; padding-top: 10rem">
+
+    <h5 class="mb-1" th:text="${parking.getParkingName()}"></h5>
+    <p class="mb-1" th:text="${parking.getDescription()}"></p>
+    <small th:text="${parking.getHourlyPrice()} + ' HRK/h'"></small>
+
     <form method="post">
-    <div class="col-3">
-        <h5 class="mb-1" th:text="${parking.getParkingName()}"></h5>
-        <p class="mb-1" th:text="${parking.getDescription()}"></p>
-        <small th:text="${parking.getHourlyPrice()} + ' HRK/h'"></small>
-        <div>
+        <div class="mb-2">
             <label for="timeOfStart">Time of start</label>
             <input type="datetime-local" id="timeOfStart" name="timeOfStart">
+        </div>
+        <div class="mb-2">
             <label for="recurring">Recurring?: </label>
             <input type="checkbox" id="recurring" name="recurring">
+        </div>
+        <div class="mb-2">
             <label for="duration">Hours?: </label>
             <input type="number" min="1" step="1" max="24" value="1" id="duration" name="duration">
         </div>
-        <div class="d-flex w-100 h-25 justify-content-between">
+
+        <div style="text-align: center; padding-top: 3rem">
             <button type="button" class="btn btn-secondary" onclick="sendPost(false)">Reserve</button>
             <button type="button" class="btn btn-primary" onclick="sendPost(true)">Reserve and Pay</button>
         </div>
-    </div>
     </form>
+
 </div>
 
 <script
