@@ -45,25 +45,33 @@
     </div>
 </nav>
 
-<div style="margin:auto; width: 500px; padding-top: 10rem">
+<div class="text-black" style="margin:auto; width: 500px; padding-top: 10rem">
 
-    <h5 class="mb-1" th:text="${parking.getParkingName()}"></h5>
+    <h3 class="mb-1">Reserve your parking spot here!<br></h3>
+
+    <h5 class="mb-1" th:text="${'Parking name: ' + parking.getParkingName()}"></h5>
     <p class="mb-1" th:text="${parking.getDescription()}"></p>
-    <small th:text="${parking.getHourlyPrice()} + ' HRK/h'"></small>
+    <p class="mb-1" th:text="${'Type: ' + parkingSpot.getParkingSpotType()}"></p>
+    <small th:text="${'Price: ' + parking.getHourlyPrice()} + ' HRK/h'"></small>
 
-    <form method="post">
+    <form th:action="@{/findParking}" method="post" id="form" th:object="${reservation}">
         <div class="mb-2">
             <label for="timeOfStart">Time of start</label>
-            <input type="datetime-local" id="timeOfStart" name="timeOfStart">
+            <input th:field="*{timeOfStart}" type="datetime-local" id="timeOfStart" name="timeOfStart">
         </div>
         <div class="mb-2">
             <label for="recurring">Recurring?: </label>
-            <input type="checkbox" id="recurring" name="recurring">
+            <input th:field="*{recurring}" type="checkbox" id="recurring" name="recurring">
         </div>
         <div class="mb-2">
             <label for="duration">Hours?: </label>
             <input type="number" min="1" step="1" max="24" value="1" id="duration" name="duration">
         </div>
+        <input type="hidden" th:value="${parking.getId()}"
+               id="ownerUserId" name="ownerUserId">
+        <input type="hidden" th:value="${parkingSpot.getId().getParkingspotnumber()}"
+               id="parkingSpotNumber" name="parkingSpotNumber">
+        <input th:field="*{payNow}" type="hidden" id="payNow" name="payNow">
 
         <div style="text-align: center; padding-top: 3rem">
             <button type="button" class="btn btn-secondary" onclick="sendPost(false)">Reserve</button>
@@ -83,18 +91,15 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
 
-    var parking = /*[[${parking}]]*/ null;
-    var parkingSpot = /*[[${parkingSpot}]]*/ null;
-    var dateInput = document.getElementById("timeOfStart");
-    var checkbox = document.getElementById("recurring");
-    var duration = document.getElementById("duration");
+    window.addEventListener('load', () => {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('timeOfStart').value = now.toISOString().slice(0, -1);
+    });
 
     function sendPost(buyNow) {
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", window.location.origin + '/findParking?ownerUserId=' + parking.id
-            + '&parkingSpotNumber=' + parkingSpot.id.parkingspotnumber + '&timeOfStart=' + dateInput.value
-            + '&duration=' + duration.value + '&recurring=' + checkbox.checked, buyNow);
-        xhr.send();
+        document.getElementById("payNow").value = buyNow;
+        document.getElementById("form").submit();
     }
 
     /*]]>*/

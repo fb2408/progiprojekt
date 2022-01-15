@@ -97,7 +97,7 @@
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
+        maxZoom: 20,
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
@@ -165,37 +165,9 @@
         let spot = L.polygon([ [parkingSpot.point1y, parkingSpot.point1x], [parkingSpot.point2y, parkingSpot.point2x],
             [parkingSpot.point3y, parkingSpot.point3x], [parkingSpot.point4y, parkingSpot.point4x]]).addTo(map);
         parkingSpots['{' + parkingSpot.id.userid + ', ' + parkingSpot.id.parkingspotnumber + '}'] = spot;
-        spot.on('click', () => window.location = window.location.origin + '/findParking/parkingSpot/' + parking.id + '/' + parkingSpot.id.parkingspotnumber);
-// const div = document.createElement("div")
-//         spot.bindPopup(`
-// <div class="container" style="height: 400px;">
-        //     <div class="col-3">
-        //         <h5 class="mb-1 h-25">` + parking.parkingName + `</h5>
-        //         <p class="mb-1 h-25">` + parking.description + `</p>
-        //         <small>` + parking.hourlyPrice + ` HRK/h</small>
-        //         <div class="d-flex h-25 justify-content-between" style="width: 150px;">
-        //             <input style="width: 100px;" type="datetime-local" id="calendar` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
-        //             <input type="checkbox" id="recurring` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
-        //             <input type="number" min="1" step="1" max="24" id="duration` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `">
-        //         </div>
-        //         <div class="d-flex w-100 h-25 justify-content-between">
-        //             <button id="button1_` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `" type="button" class="btn btn-secondary">Reserve</button>
-        //             <button id="button2_` + parking.id + "_" + parkingSpot.id.parkingspotnumber + `" type="button" class="btn btn-primary">Reserve and Pay</button>
-        //         </div>
-        //     </div>
-        // </div>
-//         `);
-//         console.log('button2_' + parking.id + '_' + parkingSpot.id.parkingspotnumber);
-// document.getElementById('button2_' + parking.id + '_' + parkingSpot.id.parkingspotnumber)
-//     .onclick = function(){
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('POST',
-//         window.location.origin + '/findParking?ownerUserId=' + parking.id + '&parkingSpotNumber=' + parkingSpot.id.parkingspotnumber +
-//         '&timeOfStart=' + document.getElementById('calendar' + parking.id + '_' + parkingSpot.id.parkingspotnumber).value +
-//         '&duration=' + document.getElementById('duration' + parking.id + '_' + parkingSpot.id.parkingspotnumber).value +
-//         '&recurring=' + document.getElementById('recurring' + parking.id + '_' + parkingSpot.id.parkingspotnumber).checked, true);
-//     xhr.send();
-// };
+        if(loggedIn) {
+            spot.on('click', () => window.location = window.location.origin + '/parkingSpot/' + parking.id + '/' + parkingSpot.id.parkingspotnumber);
+        }
     }
 
     function sendPost(id, number, paynow, time, recurring){

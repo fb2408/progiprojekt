@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hr.fer.proinz.proggers.parkshare.dto.MessageDTO;
+import hr.fer.proinz.proggers.parkshare.dto.ReservationDTO;
 import hr.fer.proinz.proggers.parkshare.model.*;
 import hr.fer.proinz.proggers.parkshare.model.osrm.RoutingResponse;
 import hr.fer.proinz.proggers.parkshare.repo.*;
@@ -12,10 +13,7 @@ import org.springframework.data.geo.Point;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +21,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -52,8 +51,9 @@ public class FindParkingController {
 
     @GetMapping("/findParking")
     public String showMap(Model model, Authentication auth) {
-        List<MessageDTO> errors = new ArrayList<>();
-        List<MessageDTO> information = new ArrayList<>();
+        List<MessageDTO> errors = (model.getAttribute("errors") == null) ? new ArrayList<>() : (List<MessageDTO>) model.getAttribute("errors");
+        List<MessageDTO> information = (model.getAttribute("information") == null) ? new ArrayList<>() :
+                (List<MessageDTO>) model.getAttribute("information");
         if(model.getAttribute("noRoute") != null && (boolean)model.getAttribute("noRoute")) {
             information.add(new MessageDTO("No route found.", ""));
         }
@@ -90,14 +90,14 @@ public class FindParkingController {
             if(allParkingSpots.get(i).getId().getParkingspotnumber() == spotNumber &&
                     allParkingSpots.get(i).getId().getUserid() == ownerId) parkingSpot = allParkingSpots.get(i);
         }
-        System.out.println(parking);
 
         model.addAttribute("parking", parking);
         model.addAttribute("parkingSpot", parkingSpot);
+        model.addAttribute("reservation", new ReservationDTO());
         return "parkingspot";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/findParking/search")
     public String searchResult(@RequestParam double x1, @RequestParam double y1,
                                @RequestParam double x2, @RequestParam double y2,
                                @RequestParam String type, @RequestParam int duration,
@@ -115,7 +115,27 @@ public class FindParkingController {
 //        System.out.println(webClient.get().uri("/route/v1/driving/43.2960669,17.0165161;43.25,17.01?geometries=geojson").retrieve();
 //                .bodyToMono(String.class).block());
 
-        List<Parking> availableParkings = parkingRepository.findAvailable(Instant.now(), duration);
+        List<Parking> allParkings = parkingRepository.findAll();
+        List<Parking> availableParkings = new ArrayList<>();
+        for (Parking parking : allParkings) {
+            List<ParkingSpot> parkingSpots = parkingSpotRepository.findAllById_Userid(parking.getId());
+            boolean available = false;
+            for (ParkingSpot spot : parkingSpots) {
+                List<ClientReservation> clientReservations = clientReservationRepository.findAllByOwnerUserIdAndParkingSpotNumber(parking.getId(), spot.getId().getParkingspotnumber());
+                Instant timeOfEnd = Instant.now().plusSeconds(3600L * duration);
+                Instant startTime = Instant.now();
+                for(ClientReservation cr : clientReservations) {
+                    Instant otherStartTime = cr.getId().getTimeofstart();
+                    Instant otherEndTime = otherStartTime.plusSeconds(3600L * cr.getDuration());
+                    if(!(startTime.isBefore(otherEndTime) && otherStartTime.isBefore(timeOfEnd)) &&
+                            spot.getParkingSpotType().equals(Objects.equals(type, "driving") ? "car" : "bike") &&
+                                    spot.getCanBeReserved()) {
+                        available = true;
+                    }
+                }
+                if(available) availableParkings.add(parking);
+            }
+        }
 
         if(availableParkings.isEmpty()) {
             redirectAttributes.addFlashAttribute("noneAvailable", true);
@@ -137,10 +157,28 @@ public class FindParkingController {
         });
 
         Parking nearestParking = availableParkings.get(0);
-        System.out.println(nearestParking);
         redirectAttributes.addFlashAttribute("nearestParking", nearestParking);
-        List<ParkingSpot> spots = parkingSpotRepository.findAvailabeById(Instant.now(), duration, nearestParking.getId());
-        spots.sort((x,y) -> {
+        List<ParkingSpot> spots = parkingSpotRepository.findAllById_Userid(nearestParking.getId());
+        List<ParkingSpot> parkingSpots = new ArrayList<>();
+
+        for (ParkingSpot spot : spots) {
+            boolean available = false;
+            List<ClientReservation> clientReservations = clientReservationRepository.findAllByOwnerUserIdAndParkingSpotNumber(spot.getId().getUserid(), spot.getId().getParkingspotnumber());
+            Instant timeOfEnd = Instant.now().plusSeconds(3600L * duration);
+            Instant startTime = Instant.now();
+            for(ClientReservation cr : clientReservations) {
+                Instant otherStartTime = cr.getId().getTimeofstart();
+                Instant otherEndTime = otherStartTime.plusSeconds(3600L * cr.getDuration());
+                if(!(startTime.isBefore(otherEndTime) && otherStartTime.isBefore(timeOfEnd)) &&
+                        spot.getParkingSpotType().equals(Objects.equals(type, "driving") ? "car" : "bike") &&
+                        spot.getCanBeReserved()) {
+                    available = true;
+                }
+            }
+            if(available) parkingSpots.add(spot);
+        }
+
+        parkingSpots.sort((x,y) -> {
             double p1x = (x.getPoint1x().doubleValue() + x.getPoint2x().doubleValue() + x.getPoint3x().doubleValue()
                     + x.getPoint3x().doubleValue() + x.getPoint4x().doubleValue())/4;
             double p1y = (x.getPoint1y().doubleValue() + x.getPoint2y().doubleValue() + x.getPoint3y().doubleValue()
@@ -154,12 +192,16 @@ public class FindParkingController {
             return p2Dist.compareTo(p1Dist);
         });
 
+        if(parkingSpots.isEmpty()) {
+            redirectAttributes.addFlashAttribute("noneAvailable", true);
+            return "redirect:/findParking";
+        }
+        ParkingSpot nearestSpot = parkingSpots.get(0);
+
         if(error) {
             redirectAttributes.addFlashAttribute("searchResult", true);
             return "redirect:/findParking";
         }
-
-        System.out.println(nearestParking);
 
         RoutingResponse response;
         try {
@@ -187,8 +229,13 @@ public class FindParkingController {
     }
 
     @PostMapping("/findParking")
-    public String reserveSpot(Model model, Authentication auth, @RequestParam int ownerUserId, @RequestParam int parkingSpotNumber,
-                              @RequestParam Instant timeOfStart, @RequestParam int duration, @RequestParam boolean recurring, @RequestParam boolean payNow) {
+    public String reserveSpot(RedirectAttributes redirectAttributes, Model model, Authentication auth, ReservationDTO reservationDTO) {
+        int parkingSpotNumber = reservationDTO.getParkingSpotNumber();
+        int ownerUserId = reservationDTO.getOwnerUserId();
+        boolean payNow = reservationDTO.isPayNow();
+        boolean recurring = reservationDTO.isRecurring();
+        int duration = reservationDTO.getDuration();
+        Instant startTime = Instant.parse(reservationDTO.getTimeOfStart() + "Z");
         ArrayList<MessageDTO> errors = new ArrayList<>();
         ArrayList<MessageDTO> information = new ArrayList<>();
         if(auth == null){
@@ -196,22 +243,22 @@ public class FindParkingController {
         }
         Integer currentUserModelId = userRepository.findByEmail(auth.getName()).getId();
         List<ClientReservation> clientReservations = clientReservationRepository.findAllByOwnerUserIdAndParkingSpotNumber(currentUserModelId, parkingSpotNumber);
-        Instant timeOfEnd = timeOfStart.plusSeconds(3600L * duration);
+        Instant timeOfEnd = startTime.plusSeconds(3600L * duration);
         for(ClientReservation cr : clientReservations) {
             Instant otherStartTime = cr.getId().getTimeofstart();
             Instant otherEndTime = otherStartTime.plusSeconds(3600L * cr.getDuration());
-            if(timeOfStart.isBefore(otherEndTime) && otherStartTime.isBefore(timeOfEnd)) {
+            if(startTime.isBefore(otherEndTime) && otherStartTime.isBefore(timeOfEnd)) {
                 errors.add(new MessageDTO("Can't reserve that parking spot", "The parking spot is already reserved"));
-                model.addAttribute("errors", errors);
-                return "findparking";
+                redirectAttributes.addFlashAttribute("errors", errors);
+                return "redirect:/findParking";
             }
         }
         Optional<Parking> parkingOptional = parkingRepository.findById(ownerUserId);
         Optional<Client> clientOptional = clientRepository.findById(currentUserModelId);
         if(parkingOptional.isEmpty() || clientOptional.isEmpty()) {
             errors.add(new MessageDTO("Server error occurred", "We've had an internal server error, please try again"));
-            model.addAttribute("errors", errors);
-            return "findparking";
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/findParking";
         }
 
         Parking parking = parkingOptional.get();
@@ -220,13 +267,13 @@ public class FindParkingController {
         double clientBalance = client.getWalletBalance().doubleValue();
         if(clientBalance < price) {
             errors.add(new MessageDTO("Insufficient funds!", String.format("You have %,.2fHRK available and the price is %,.2fHRK", clientBalance, price)));
-            model.addAttribute("errors", errors);
-            return "findparking";
+            redirectAttributes.addFlashAttribute("errors", errors);
+            return "redirect:/findParking";
         }
-        clientRepository.save(new Client(client.getId(), BigDecimal.valueOf(clientBalance - price)));
-        clientReservationRepository.save(new ClientReservation(new ClientReservationId(currentUserModelId, timeOfStart), duration, recurring, parkingSpotNumber, ownerUserId));
+        clientRepository.save(new Client(client.getId(), BigDecimal.valueOf(clientBalance - price * (payNow ? 1 : 0))));
+        clientReservationRepository.save(new ClientReservation(new ClientReservationId(currentUserModelId, startTime), duration, recurring, parkingSpotNumber, ownerUserId));
         information.add(new MessageDTO("Success!", "Parking reservation successful"));
-        model.addAttribute("information", information);
-        return "findparking";
+        redirectAttributes.addFlashAttribute("information", information);
+        return "redirect:/findParking";
     }
 }

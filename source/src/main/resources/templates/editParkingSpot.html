@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>ParkShare</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/leaflet.css}" />
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <title>UserPage</title>
 
@@ -56,21 +57,21 @@
             <input type="checkbox" id="reservationSpot" th:field="*{canBeReserved}" name="canbereserved"  th:checked="${spot.isCanBeReserved()}">
             <label for="reservationSpot" class="form-label">Valid for reservations</label>
         </div>
-        <input name="x1" type="hidden" id="x1" th:value="${spot.getPoint1x()}" th:field="*{point1x}">
-        <input name="y1" type="hidden" id="y1" th:value="${spot.getPoint1y()}" th:field="*{point1y}">
-        <input name="x2" type="hidden" id="x2" th:value="${spot.getPoint2x()}" th:field="*{point2x}">
-        <input name="y2" type="hidden" id="y2" th:value="${spot.getPoint2y()}" th:field="*{point2y}">
-        <input name="x3" type="hidden" id="x3" th:value="${spot.getPoint3x()}" th:field="*{point3x}">
-        <input name="y3" type="hidden" id="y3" th:value="${spot.getPoint3y()}" th:field="*{point3y}">
-        <input name="x4" type="hidden" id="x4" th:value="${spot.getPoint4x()}" th:field="*{point4x}">
-        <input name="y4" type="hidden" id="y4" th:value="${spot.getPoint4y()}" th:field="*{point4y}">
+        <input name="point1x" type="hidden" id="point1x" th:value="${spot.getPoint1x()}" th:field="*{point1x}">
+        <input name="point1y" type="hidden" id="point1y" th:value="${spot.getPoint1y()}" th:field="*{point1y}">
+        <input name="point2x" type="hidden" id="point2x" th:value="${spot.getPoint2x()}" th:field="*{point2x}">
+        <input name="point2y" type="hidden" id="point2y" th:value="${spot.getPoint2y()}" th:field="*{point2y}">
+        <input name="point3x" type="hidden" id="point3x" th:value="${spot.getPoint3x()}" th:field="*{point3x}">
+        <input name="point3y" type="hidden" id="point3y" th:value="${spot.getPoint3y()}" th:field="*{point3y}">
+        <input name="point4x" type="hidden" id="point4x" th:value="${spot.getPoint4x()}" th:field="*{point4x}">
+        <input name="point4y" type="hidden" id="point4y" th:value="${spot.getPoint4y()}" th:field="*{point4y}">
 
-        <div class="mapa" id="mapa">
+        <div class="map" id="map">
 
         </div>
 
         <div style="text-align: center; padding-top: 3rem">
-            <button type="submit" class="btn btn-primary" name="saveSpot" value="change">Save changes</button>
+            <button id="submit1" type="submit" class="btn btn-primary" name="saveSpot" value="change">Save changes</button>
             <button type="button" class="btn btn-secondary"  onclick="location.href = '/profile/editParking'">Cancel</button>
             <button type="submit" style="background-color: darkred; color: white; border-color: darkred" class="btn btn-primary" th:formaction="@{/profile/deleteParkingSpot(id=${spot.getId().getParkingspotnumber()})}">Delete</button>
 
@@ -80,5 +81,67 @@
 
 
 <div style="padding-bottom: 10rem"></div>
+
+<script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/leaflet.js}"></script>
+<script th:inline="javascript">
+    var spot = /*[[${spot}]]*/ null;
+    var latlngs = [];
+    if(spot.point1x && spot.point1y) {
+        latlngs.push(L.latLng(spot.point1y, spot.point1x));
+    }
+    if(spot.point2x && spot.point2y) {
+        latlngs.push(L.latLng(spot.point2y, spot.point2x));
+    }
+    if(spot.point3x && spot.point3y) {
+        latlngs.push(L.latLng(spot.point3y, spot.point3x));
+    }
+    if(spot.point3x && spot.point4y) {
+        latlngs.push(L.latLng(spot.point4y, spot.point4x));
+    }
+    document.getElementById('submit1').disabled = latlngs.length !== 4;
+
+    var map = L.map('map').setView([45.801, 15.971], 18);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 20,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoibWJhcmJpciIsImEiOiJja3hkeHB3aXIwd21tMzBtbXp1azVvd2xnIn0.wyoaoW90XWXlBgLK1NJaTA'
+    }).addTo(map);
+
+    var spot = L.polygon(latlngs).addTo(map);
+
+    map.on('click', function (e) {
+        let latlng = e.latlng;
+        if(latlngs.length === 4) {
+            document.getElementById('submit1').disabled = true;
+            latlngs = [];
+        }
+        latlngs.push(latlng);
+        if(latlngs.length === 4) {
+            document.getElementById('submit1').disabled = false;
+        }
+        spot.setLatLngs(latlngs);
+        for (let i = 1; i<= latlngs.length; i++) {
+            document.getElementById('point'+ i + 'x').value = latlngs[i-1].lng;
+            document.getElementById('point'+ i + 'y').value = latlngs[i-1].lat;
+        }
+    })
+
+    let allParkingSpots  = /*[[${allParkingSpots}]]*/ [];
+    for(const parkingSpot of allParkingSpots) {
+        L.polygon([ [parkingSpot.point1y, parkingSpot.point1x], [parkingSpot.point2y, parkingSpot.point2x],
+            [parkingSpot.point3y, parkingSpot.point3x], [parkingSpot.point4y, parkingSpot.point4x]]).addTo(map);
+    }
+
+</script>
 </body>
 </html>
