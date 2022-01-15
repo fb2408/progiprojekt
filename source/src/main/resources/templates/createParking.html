@@ -94,7 +94,7 @@
 
     var marker = null;
     map.on('click', function (e) {
-        document.getElementById('submit1').disabled = false;
+        document.getElementById('submit').disabled = false;
         if(marker) map.removeLayer(marker);
         let latlng = e.latlng;
         marker = L.marker(latlng).addTo(map);
