@@ -204,7 +204,10 @@
         </div>
     </form>
 
+</div>
 
+<div style="margin:auto; width: 750px;height: 500px; padding-top: 10rem">
+    <canvas id="myChart"></canvas>
 </div>
 
 <div class="position-absolute bottom-0 start-0 container-sm w-50" style="z-index: 999">
@@ -224,6 +227,7 @@
     </div>
 </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
 <script th:inline="javascript">
     function showChangeForm() {
         var changeForm = document.getElementById('changeUserInfoForm');
@@ -250,6 +254,27 @@
         changeForm.style.display = "none";
     }
 
+    let dataSet = /*[[${statistics}]]*/ []
+
+    const data = {
+        datasets: [{
+            label: 'Parking spot occupancy by day',
+            backgroundColor: 'rgb(255,0,0)',
+            borderColor: 'rgb(255,0,0)',
+            data: dataSet
+        }]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {}
+    };
+
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
 
 </script>
 </html>

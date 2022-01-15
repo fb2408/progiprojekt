@@ -7,11 +7,14 @@ import hr.fer.proinz.proggers.parkshare.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -292,6 +295,7 @@ public class UserController {
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("parking", new CreateParkingDTO(parking));
             model.addAttribute("loggedIn", true);
+            model.addAttribute("allParkingSpots", parkingSpotRepository.findAllById_Userid(currentUser.getId()));
             return "editparking";
         } else {
             return "redirect:/profile";
@@ -321,7 +325,8 @@ public class UserController {
                 if(parking.getDescription() != null) {
                     newParking.setDescription(parking.getDescription());
                 }
-                // TODO add x and y coordinates in newParking
+                newParking.setEntrancepointx(parking.getPointX());
+                newParking.setEntrancepointy(parking.getPointY());
                 parkingRepository.save(newParking);
                 information.add(new MessageDTO("Parking edited successfully", ""));
                 model.addAttribute("information", information);
@@ -351,6 +356,7 @@ public class UserController {
         model.addAttribute("loggedIn", true);
         UserModel currentUser = userRepository.findByEmail(auth.getName());
         model.addAttribute("spot", new ParkingSpotDTO());
+        model.addAttribute("allParkingSpots", parkingSpotRepository.findAllById_Userid(currentUser.getId()));
         if(currentUser.isOwner()) {
             return "addParkingSpot";
         } else {
@@ -412,6 +418,7 @@ public class UserController {
         ParkingSpotDTO ps = new ParkingSpotDTO(parkingSpotRepository.findById(new ParkingSpotId(currentUser.getId(), parkingSpotId)));
         model.addAttribute("spot", ps);
         model.addAttribute("loggedIn", true);
+        model.addAttribute("allParkingSpots", parkingSpotRepository.findAllById_Userid(currentUser.getId()));
         if(currentUser.isOwner()) {
             return "editParkingSpot";
         } else {
@@ -450,6 +457,18 @@ public class UserController {
             return "redirect:/profile";
         }
         return "redirect:/profile";
+    }
+
+    @PostMapping("/sensor/{ownerId}/{spotId}")
+    public ResponseEntity<String> spotOccupied(@PathVariable int ownerId, @PathVariable int spotId, @RequestParam boolean occupied) {
+        List<ParkingSpotOccupancy> occupancies = parkingSpotOccupancyRepository.getAllById_UseridAndId_Parkingspotnumber(ownerId, spotId);
+        occupancies.stream().filter(occupancy -> occupancy.getDateTo() == null).forEach(occupancy -> occupancy.setDateTo(Instant.now()));
+        ParkingSpotOccupancy newOccupancy = new ParkingSpotOccupancy();
+        newOccupancy.setDateTo(null);
+        newOccupancy.setOccupancy(occupied);
+        newOccupancy.setId(new ParkingSpotOccupancyId(ownerId, spotId, Instant.now()));
+        parkingSpotOccupancyRepository.save(newOccupancy);
+        return new ResponseEntity<>("Ok.", HttpStatus.OK);
     }
 
 }

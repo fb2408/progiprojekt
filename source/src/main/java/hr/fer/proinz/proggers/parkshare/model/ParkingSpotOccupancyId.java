@@ -20,6 +20,12 @@ public class ParkingSpotOccupancyId implements Serializable {
     @Column(name = "datefrom", nullable = false)
     private Instant datefrom;
 
+    public ParkingSpotOccupancyId(Integer userid, Integer parkingspotnumber, Instant datefrom) {
+        this.userid = userid;
+        this.parkingspotnumber = parkingspotnumber;
+        this.datefrom = datefrom;
+    }
+
     public ParkingSpotOccupancyId() {
     }
 
