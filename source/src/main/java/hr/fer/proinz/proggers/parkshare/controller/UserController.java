@@ -127,8 +127,6 @@ public class UserController {
             clientReservations = (ArrayList<ClientReservation>) clientReservations.stream().
                     filter(c -> c.getId().
                             getTimeofstart().
-                            isBefore(Instant.now()) && c.getId().
-                            getTimeofstart().
                             plusSeconds(3600L * c.getDuration()).
                             isAfter(Instant.now())).
                     collect(Collectors.toList());
