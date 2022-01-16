@@ -116,9 +116,11 @@ public class FindParkingController {
 //                .bodyToMono(String.class).block());
 
         List<Parking> allParkings = parkingRepository.findAll();
+        System.out.println(allParkings);
         List<Parking> availableParkings = new ArrayList<>();
         for (Parking parking : allParkings) {
             List<ParkingSpot> parkingSpots = parkingSpotRepository.findAllById_Userid(parking.getId());
+            System.out.println(parkingSpots);
             boolean available = false;
             for (ParkingSpot spot : parkingSpots) {
                 List<ClientReservation> clientReservations = clientReservationRepository.findAllByOwnerUserIdAndParkingSpotNumber(parking.getId(), spot.getId().getParkingspotnumber());
@@ -130,6 +132,7 @@ public class FindParkingController {
                     if(!(startTime.isBefore(otherEndTime) && otherStartTime.isBefore(timeOfEnd)) &&
                             spot.getParkingSpotType().equals(Objects.equals(type, "driving") ? "car" : "bike") &&
                                     spot.getCanBeReserved()) {
+                        System.out.println("true");
                         available = true;
                     }
                 }
@@ -141,6 +144,8 @@ public class FindParkingController {
             redirectAttributes.addFlashAttribute("noneAvailable", true);
             return "redirect:/findParking";
         }
+
+        System.out.println("prosaif1");
 
 //        if(allParkings.isEmpty()) {
 //            return ""
